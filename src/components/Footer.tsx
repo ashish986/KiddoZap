@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Heart, Mail, Lock, FileText, Info, Smartphone } from 'lucide-react';
+import { ShieldCheck, Heart, Mail, Lock, FileText, Info, Download } from 'lucide-react';
 import { Language } from '../types';
 import { LegalPageTab } from './LegalPagesModal';
 import { KiddoZapLogo } from './KiddoZapLogo';
@@ -126,10 +126,10 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenLegal, onOpenInstall
                   sounds.playPop();
                   onOpenInstall();
                 }}
-                className="hover:text-amber-700 hover:underline transition-colors flex items-center gap-1.5 text-orange-800 font-bold"
+                className="hover:text-amber-700 hover:underline transition-colors flex items-center gap-1.5 text-amber-900 font-bold"
               >
-                <Smartphone className="w-3 h-3 text-orange-600" />
-                <span>{lang === 'hi' ? 'एंड्रॉयड ऐप (APK) बनाएं' : 'Android App Setup'}</span>
+                <Download className="w-3.5 h-3.5 text-orange-600" />
+                <span>{lang === 'hi' ? 'KiddoZap ऐप इंस्टॉल करें' : 'Install KiddoZap App'}</span>
               </button>
             </li>
             <li className="pt-2 text-[11px] text-slate-500">

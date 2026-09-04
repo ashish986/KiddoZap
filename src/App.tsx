@@ -21,6 +21,7 @@ import {
   GraduationCap,
   Layers,
   Menu,
+  Download,
 } from 'lucide-react';
 import { GAMES, BADGES, GRADE_TABS } from './data/games';
 import { GameId, GradeLevel, Language, PlayerProfile } from './types';
@@ -39,7 +40,6 @@ import { TowerStack } from './components/TowerStack';
 import { TapDunkShots } from './components/TapDunkShots';
 import { HelixJump } from './components/HelixJump';
 import { DriftBoss } from './components/DriftBoss';
-import { ComposeCodeViewer } from './components/ComposeCodeViewer';
 import { TrophyRoom } from './components/TrophyRoom';
 import { ProfileModal } from './components/ProfileModal';
 import { AndroidInstallModal } from './components/AndroidInstallModal';
@@ -78,7 +78,7 @@ const DEFAULT_PROFILE: PlayerProfile = {
 };
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<GameId | 'hub' | 'compose' | 'trophy'>('hub');
+  const [currentView, setCurrentView] = useState<GameId | 'hub' | 'trophy'>('hub');
   const [lang, setLang] = useState<Language>(() => {
     try {
       const savedLang = localStorage.getItem('kiddozap_lang');
@@ -332,36 +332,18 @@ export default function App() {
               </span>
             </button>
 
-            {/* Jetpack Compose Kotlin Code Button */}
-            <button
-              id="view-compose-btn"
-              onClick={() => {
-                sounds.playPop();
-                setCurrentView('compose');
-              }}
-              className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs ${
-                currentView === 'compose'
-                  ? 'bg-indigo-600 text-white border-indigo-700'
-                  : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
-              }`}
-              title="Jetpack Compose Kotlin Source"
-            >
-              <Smartphone className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Compose</span>
-            </button>
-
-            {/* Android App & Publish Button (Tablet/Desktop) */}
+            {/* 1-Tap App Install Button for End Users */}
             <button
               id="header-install-app-btn"
               onClick={() => {
                 sounds.playPop(1.1);
                 setIsInstallModalOpen(true);
               }}
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300"
-              title={lang === 'hi' ? 'एंड्रॉयड ऐप व पब्लिश' : 'Android App & Publish'}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all border active:scale-95 shadow-2xs bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white border-orange-400"
+              title={lang === 'hi' ? 'सीधे ऐप इंस्टॉल करें' : 'Install KiddoZap App'}
             >
-              <Smartphone className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Android App</span>
+              <Download className="w-3.5 h-3.5 text-yellow-200 animate-bounce" />
+              <span>{lang === 'hi' ? 'ऐप इंस्टॉल करें' : 'Install App'}</span>
             </button>
 
             {/* Mobile Drawer Menu Button (Small Screens) */}
@@ -760,11 +742,6 @@ export default function App() {
           />
         )}
 
-        {/* Android Jetpack Compose Kotlin Code Hub */}
-        {currentView === 'compose' && (
-          <ComposeCodeViewer lang={lang} onBack={() => setCurrentView('hub')} />
-        )}
-
         {/* Trophy & Badges Hall */}
         {currentView === 'trophy' && (
           <TrophyRoom
@@ -786,12 +763,11 @@ export default function App() {
         }}
       />
 
-      {/* Android Install & Web Publish Modal */}
+      {/* Direct App Install Modal */}
       <AndroidInstallModal
         isOpen={isInstallModalOpen}
         onClose={() => setIsInstallModalOpen(false)}
         lang={lang}
-        onOpenComposeCode={() => setCurrentView('compose')}
       />
 
       {/* AdSense Mandatory Legal Pages Modal */}
@@ -815,7 +791,6 @@ export default function App() {
         onGoHome={() => setCurrentView('hub')}
         onOpenTrophies={() => setCurrentView('trophy')}
         onOpenInstall={() => setIsInstallModalOpen(true)}
-        onOpenCompose={() => setCurrentView('compose')}
       />
 
       {/* Google AdSense Compliant Footer */}
