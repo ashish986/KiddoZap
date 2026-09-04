@@ -23,8 +23,8 @@ import {
   Menu,
   Download,
 } from 'lucide-react';
-import { GAMES, BADGES, GRADE_TABS } from './data/games';
-import { GameId, GradeLevel, Language, PlayerProfile } from './types';
+import { GAMES, BADGES, GRADE_TABS, CATEGORY_GROUPS } from './data/games';
+import { GameId, GradeLevel, Language, PlayerProfile, GameCategoryGroup } from './types';
 import { sounds } from './utils/audio';
 import { MemoryGame } from './components/MemoryGame';
 import { MathQuest } from './components/MathQuest';
@@ -40,6 +40,10 @@ import { TowerStack } from './components/TowerStack';
 import { TapDunkShots } from './components/TapDunkShots';
 import { HelixJump } from './components/HelixJump';
 import { DriftBoss } from './components/DriftBoss';
+import { TicTacToeGame } from './components/TicTacToeGame';
+import { SudokuGame } from './components/SudokuGame';
+import { FlappyHero } from './components/FlappyHero';
+import { FruitSliceGame } from './components/FruitSliceGame';
 import { TrophyRoom } from './components/TrophyRoom';
 import { ProfileModal } from './components/ProfileModal';
 import { AndroidInstallModal } from './components/AndroidInstallModal';
@@ -74,6 +78,10 @@ const DEFAULT_PROFILE: PlayerProfile = {
     basketHighScore: 0,
     helixHighScore: 0,
     driftHighScore: 0,
+    flappyHighScore: 0,
+    fruitsliceHighScore: 0,
+    tictactoeWins: 0,
+    sudokuCompleted: 0,
   },
 };
 
@@ -94,6 +102,7 @@ export default function App() {
   const [activeLegalTab, setActiveLegalTab] = useState<LegalPageTab>('about');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [selectedGrade, setSelectedGrade] = useState<'all' | GradeLevel>('all');
+  const [selectedCategory, setSelectedCategory] = useState<GameCategoryGroup>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const [profile, setProfile] = useState<PlayerProfile>(() => {
@@ -221,8 +230,11 @@ export default function App() {
     });
   };
 
-  // Filter games by Grade/Class and Search
+  // Filter games by Grade/Class, Category, and Search
   const filteredGames = GAMES.filter((g) => {
+    if (selectedCategory !== 'all' && g.categoryGroup !== selectedCategory) {
+      return false;
+    }
     if (selectedGrade !== 'all') {
       if (!g.gradeLevels.includes(selectedGrade)) return false;
     }
@@ -388,36 +400,47 @@ export default function App() {
 
                 <div className="flex flex-wrap items-center gap-2.5 mt-4">
                   <button
+                    id="hero-play-tictactoe-btn"
+                    onClick={() => {
+                      sounds.playPop(1.2);
+                      setCurrentView('tictactoe');
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-amber-50 text-amber-900 rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                  >
+                    <span>🧠 {lang === 'hi' ? 'टिक-टैक-टो (Mind)' : 'Tic Tac Toe (Mind)'}</span>
+                  </button>
+
+                  <button
+                    id="hero-play-flappy-btn"
+                    onClick={() => {
+                      sounds.playPop(1.2);
+                      setCurrentView('flappy');
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                  >
+                    <span>🐦 {lang === 'hi' ? 'फ्लैपी बर्ड (Fun)' : 'Flappy Hero (Fun)'}</span>
+                  </button>
+
+                  <button
+                    id="hero-play-fruitslice-btn"
+                    onClick={() => {
+                      sounds.playPop(1.2);
+                      setCurrentView('fruitslice');
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                  >
+                    <span>🍉 {lang === 'hi' ? 'फ्रूट स्लाइस (Action)' : 'Fruit Slice'}</span>
+                  </button>
+
+                  <button
                     id="hero-play-runner-btn"
                     onClick={() => {
                       sounds.playPop(1.2);
                       setCurrentView('runner');
                     }}
-                    className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-amber-50 text-amber-900 rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
                   >
-                    <span>🏃‍♂️ {lang === 'hi' ? 'RunGame खेलें' : 'Play Run Dash'}</span>
-                  </button>
-
-                  <button
-                    id="hero-play-knife-btn"
-                    onClick={() => {
-                      sounds.playPop(1.2);
-                      setCurrentView('knife');
-                    }}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
-                  >
-                    <span>🎯 {lang === 'hi' ? 'नाइफ हिट' : 'Knife Hit'}</span>
-                  </button>
-
-                  <button
-                    id="hero-play-golf-btn"
-                    onClick={() => {
-                      sounds.playPop(1.2);
-                      setCurrentView('golf');
-                    }}
-                    className="flex items-center gap-2 px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
-                  >
-                    <span>⛳ {lang === 'hi' ? 'मिनी गोल्फ' : 'Mini Golf'}</span>
+                    <span>🏃‍♂️ {lang === 'hi' ? 'RunGame' : 'Run Dash'}</span>
                   </button>
                 </div>
               </div>
@@ -428,6 +451,58 @@ export default function App() {
                   <div className="absolute -inset-4 rounded-full bg-yellow-300/30 blur-xl animate-pulse" />
                   <KiddoZapLogo size={180} variant="badge" className="w-32 h-32 sm:w-44 sm:h-44" />
                 </div>
+              </div>
+            </div>
+
+            {/* Category Filter Bar (Mind, Fun, Learning, Sports - inspired by KidsGame & SafeKidGames) */}
+            <div className="bg-white rounded-3xl p-3 sm:p-4 border-2 border-amber-200/80 shadow-xs mb-3">
+              <div className="flex items-center justify-between gap-2 mb-2 px-1">
+                <div className="flex items-center gap-1.5 text-slate-800 font-black text-xs">
+                  <Flame className="w-4 h-4 text-orange-500" />
+                  <span>
+                    {lang === 'hi'
+                      ? 'गेम कैटेगरी चुनें (Mind & Fun Games):'
+                      : 'Game Categories (Mind, Fun & Brain):'}
+                  </span>
+                </div>
+                <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
+                  {CATEGORY_GROUPS.find((c) => c.id === selectedCategory)?.[lang === 'hi' ? 'labelHi' : 'labelEn']}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+                {CATEGORY_GROUPS.map((cat) => {
+                  const isSelected = selectedCategory === cat.id;
+                  const count =
+                    cat.id === 'all'
+                      ? GAMES.length
+                      : GAMES.filter((g) => g.categoryGroup === cat.id).length;
+                  return (
+                    <button
+                      key={cat.id}
+                      id={`category-btn-${cat.id}`}
+                      onClick={() => {
+                        sounds.playPop(1.1);
+                        setSelectedCategory(cat.id as GameCategoryGroup);
+                      }}
+                      className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl transition-all whitespace-nowrap border text-xs ${
+                        isSelected
+                          ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white border-orange-600 shadow-xs scale-102 font-black'
+                          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 font-bold'
+                      }`}
+                    >
+                      <span className="text-base">{cat.icon}</span>
+                      <span>{lang === 'hi' ? cat.labelHi : cat.labelEn}</span>
+                      <span
+                        className={`px-1.5 py-0.5 rounded-full text-[10px] font-black ${
+                          isSelected ? 'bg-white/25 text-white' : 'bg-slate-200 text-slate-600'
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -477,9 +552,13 @@ export default function App() {
               <div className="text-xs font-black text-slate-700 flex items-center gap-1.5">
                 <Layers className="w-4 h-4 text-amber-600" />
                 <span>
-                  {selectedGrade === 'all'
-                    ? lang === 'hi' ? 'सभी 11 मनोरंजक व दिमागी खेल' : 'All 11 Kids & Mind Games'
-                    : lang === 'hi' ? `चुनी गई कक्षा के लिए खेल (${filteredGames.length})` : `Games for Selected Grade (${filteredGames.length})`}
+                  {selectedGrade === 'all' && selectedCategory === 'all'
+                    ? lang === 'hi'
+                      ? `सभी ${filteredGames.length} मनोरंजक व दिमागी खेल`
+                      : `All ${filteredGames.length} Kids & Mind Games`
+                    : lang === 'hi'
+                    ? `फ़िल्टर किए गए खेल (${filteredGames.length})`
+                    : `Filtered Games (${filteredGames.length})`}
                 </span>
               </div>
 
@@ -558,6 +637,58 @@ export default function App() {
             {/* Google AdSense Compliant Family Safe Banner */}
             <AdBanner />
           </div>
+        )}
+
+        {/* Mind & Strategy Game 1: Tic Tac Toe Brain */}
+        {currentView === 'tictactoe' && (
+          <TicTacToeGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, wins) => {
+              addStarsAndStats(stars, {
+                tictactoeWins: (profile.gameStats.tictactoeWins || 0) + wins,
+              });
+            }}
+          />
+        )}
+
+        {/* Mind & Strategy Game 2: Kiddo Sudoku 4x4 */}
+        {currentView === 'sudoku' && (
+          <SudokuGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, puzzles) => {
+              addStarsAndStats(stars, {
+                sudokuCompleted: (profile.gameStats.sudokuCompleted || 0) + puzzles,
+              });
+            }}
+          />
+        )}
+
+        {/* Fun & Action Game 1: Flappy Hero Bird */}
+        {currentView === 'flappy' && (
+          <FlappyHero
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                flappyHighScore: Math.max(profile.gameStats.flappyHighScore || 0, score),
+              });
+            }}
+          />
+        )}
+
+        {/* Fun & Action Game 2: Fruit Slice Frenzy */}
+        {currentView === 'fruitslice' && (
+          <FruitSliceGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                fruitsliceHighScore: Math.max(profile.gameStats.fruitsliceHighScore || 0, score),
+              });
+            }}
+          />
         )}
 
         {/* 1. Kiddo Run Dash (RunGame) */}

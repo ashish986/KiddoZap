@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Menu,
@@ -9,7 +9,6 @@ import {
   FileText,
   Mail,
   ShieldCheck,
-  ChevronDown,
   Trophy,
   Smartphone,
   Download,
@@ -42,25 +41,12 @@ export const TopUtilityNav: React.FC<TopNavProps> = ({
   onGoHome,
   onOpenInstall,
 }) => {
-  const [isLegalDropdownOpen, setIsLegalDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsLegalDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   return (
-    <div className="w-full bg-slate-900 text-slate-300 text-xs border-b border-slate-800 py-1.5 px-3 sm:px-6 select-none z-50 overflow-hidden">
-      <div className="max-w-6xl mx-auto flex items-center justify-between gap-2 overflow-hidden">
+    <div className="w-full bg-slate-900 text-slate-300 text-xs border-b border-slate-800 py-1.5 px-3 sm:px-6 select-none relative z-50">
+      <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
         
-        {/* Left Side: Horizontal Menu Links (Clean, No Scrollbar) */}
-        <nav className="flex items-center gap-1 sm:gap-2 font-medium overflow-hidden shrink min-w-0">
+        {/* Left Side: Horizontal Menu Links */}
+        <nav className="flex items-center gap-1 sm:gap-2 font-medium shrink min-w-0">
           <button
             onClick={() => {
               sounds.playPop();
@@ -87,101 +73,18 @@ export const TopUtilityNav: React.FC<TopNavProps> = ({
 
           <span className="text-slate-700 hidden sm:inline">•</span>
 
-          {/* Policy & Legal Dropdown */}
-          <div className="relative shrink-0" ref={dropdownRef}>
-            <button
-              onClick={() => {
-                sounds.playPop();
-                setIsLegalDropdownOpen(!isLegalDropdownOpen);
-              }}
-              className={`flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors whitespace-nowrap ${
-                isLegalDropdownOpen ? 'bg-white/15 text-white' : 'hover:text-white hover:bg-white/10'
-              }`}
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{lang === 'hi' ? 'पॉलिसी व सुरक्षा' : 'Policy & Legal'}</span>
-              <ChevronDown className={`w-3 h-3 transition-transform ${isLegalDropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
-
-            <AnimatePresence>
-              {isLegalDropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 4 }}
-                  className="absolute left-0 mt-1.5 w-56 bg-slate-900 border border-slate-700 text-slate-200 rounded-xl shadow-2xl py-1.5 z-50 overflow-hidden"
-                >
-                  <button
-                    onClick={() => {
-                      sounds.playPop();
-                      setIsLegalDropdownOpen(false);
-                      onOpenLegal('privacy');
-                    }}
-                    className="w-full text-left px-3.5 py-2 hover:bg-white/10 flex items-center gap-2.5 text-xs transition-colors"
-                  >
-                    <Lock className="w-3.5 h-3.5 text-emerald-400" />
-                    <div>
-                      <span className="block font-semibold">
-                        {lang === 'hi' ? 'प्राइवेसी पॉलिसी' : 'Privacy Policy'}
-                      </span>
-                      <span className="text-[10px] text-slate-400">AdSense & Cookies</span>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      sounds.playPop();
-                      setIsLegalDropdownOpen(false);
-                      onOpenLegal('terms');
-                    }}
-                    className="w-full text-left px-3.5 py-2 hover:bg-white/10 flex items-center gap-2.5 text-xs transition-colors border-t border-slate-800"
-                  >
-                    <FileText className="w-3.5 h-3.5 text-amber-400" />
-                    <div>
-                      <span className="block font-semibold">
-                        {lang === 'hi' ? 'नियम और शर्तें' : 'Terms of Service'}
-                      </span>
-                      <span className="text-[10px] text-slate-400">Usage & Licenses</span>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      sounds.playPop();
-                      setIsLegalDropdownOpen(false);
-                      onOpenLegal('coppa');
-                    }}
-                    className="w-full text-left px-3.5 py-2 hover:bg-white/10 flex items-center gap-2.5 text-xs transition-colors border-t border-slate-800"
-                  >
-                    <ShieldCheck className="w-3.5 h-3.5 text-rose-400" />
-                    <div>
-                      <span className="block font-semibold">
-                        {lang === 'hi' ? 'बाल सुरक्षा नीति (COPPA)' : 'Child Safety (COPPA)'}
-                      </span>
-                      <span className="text-[10px] text-slate-400">Under 18 Safe Rules</span>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      sounds.playPop();
-                      setIsLegalDropdownOpen(false);
-                      onOpenLegal('contact');
-                    }}
-                    className="w-full text-left px-3.5 py-2 hover:bg-white/10 flex items-center gap-2.5 text-xs transition-colors border-t border-slate-800"
-                  >
-                    <Mail className="w-3.5 h-3.5 text-sky-400" />
-                    <div>
-                      <span className="block font-semibold">
-                        {lang === 'hi' ? 'संपर्क करें (Contact)' : 'Contact Us'}
-                      </span>
-                      <span className="text-[10px] text-slate-400">support@kiddozap.com</span>
-                    </div>
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          {/* Policy & Legal Direct Opener Button */}
+          <button
+            onClick={() => {
+              sounds.playPop();
+              onOpenLegal('privacy');
+            }}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-emerald-300 hover:text-white hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors whitespace-nowrap shrink-0"
+            title={lang === 'hi' ? 'प्राइवेसी व सुरक्षा नीतियां' : 'Privacy & Safety Policies'}
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span>{lang === 'hi' ? 'पॉलिसी व सुरक्षा' : 'Policy & Legal'}</span>
+          </button>
 
           <span className="text-slate-700 hidden md:inline">•</span>
 

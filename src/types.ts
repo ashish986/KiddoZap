@@ -6,6 +6,10 @@ export type GameId =
   | 'helix'
   | 'drift'
   | 'stack'
+  | 'flappy'
+  | 'fruitslice'
+  | 'tictactoe'
+  | 'sudoku'
   | 'memory'
   | 'math'
   | 'pattern'
@@ -15,6 +19,8 @@ export type GameId =
   | 'word';
 
 export type Language = 'en' | 'hi';
+
+export type GameCategoryGroup = 'all' | 'mind' | 'fun' | 'learning';
 
 export type GradeLevel = 
   | 'pre_nursery' // Ages 2-3
@@ -45,6 +51,10 @@ export interface PlayerProfile {
     basketHighScore: number;
     helixHighScore: number;
     driftHighScore: number;
+    flappyHighScore?: number;
+    fruitsliceHighScore?: number;
+    tictactoeWins?: number;
+    sudokuCompleted?: number;
     frogHighScore?: number;
     riverCompleted?: number;
   };
@@ -68,6 +78,7 @@ export interface GameInfo {
   subtitleHi: string;
   categoryEn: string;
   categoryHi: string;
+  categoryGroup: 'mind' | 'fun' | 'learning' | 'sports';
   icon: string;
   accentColor: string;
   bgGradient: string;
