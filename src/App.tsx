@@ -44,6 +44,14 @@ import { TicTacToeGame } from './components/TicTacToeGame';
 import { SudokuGame } from './components/SudokuGame';
 import { FlappyHero } from './components/FlappyHero';
 import { FruitSliceGame } from './components/FruitSliceGame';
+import { SnakeGame } from './components/SnakeGame';
+import { WhackAMoleGame } from './components/WhackAMoleGame';
+import { PianoGame } from './components/PianoGame';
+import { BalloonPopGame } from './components/BalloonPopGame';
+import { ConnectFourGame } from './components/ConnectFourGame';
+import { DinoRunGame } from './components/DinoRunGame';
+import { BubbleShooterGame } from './components/BubbleShooterGame';
+import { CardFlipMatchGame } from './components/CardFlipMatchGame';
 import { TrophyRoom } from './components/TrophyRoom';
 import { ProfileModal } from './components/ProfileModal';
 import { AndroidInstallModal } from './components/AndroidInstallModal';
@@ -636,6 +644,58 @@ export default function App() {
 
             {/* Google AdSense Compliant Family Safe Banner */}
             <AdBanner />
+
+            {/* Educational & Child Development Guide (AdSense High Quality Content Section) */}
+            <section className="mt-10 bg-white/80 backdrop-blur rounded-3xl p-6 sm:p-8 border-2 border-amber-100 shadow-sm">
+              <div className="flex items-center gap-2.5 mb-4">
+                <span className="text-2xl">🧠📚</span>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-black text-amber-950 font-display">
+                    {lang === 'hi'
+                      ? 'बच्चों के विकास में माइंड और लॉजिक गेम्स का महत्व'
+                      : 'Why Cognitive & Logic Games Benefit Young Learners'}
+                  </h3>
+                  <p className="text-xs text-amber-700 font-semibold">
+                    {lang === 'hi' ? 'किड्डोज़ैप पेरेंट्स और टीचर्स गाइड' : 'KiddoZap Parents & Educators Learning Guide'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600 leading-relaxed">
+                <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200/60">
+                  <h4 className="font-black text-amber-900 text-sm mb-1">
+                    {lang === 'hi' ? '1. समस्या निवारण (Problem Solving)' : '1. Strategic Problem Solving'}
+                  </h4>
+                  <p>
+                    {lang === 'hi'
+                      ? 'सुडोकू, कनेक्ट 4, और टिक-टैक-टो जैसे खेल बच्चों को आगे की सोच, योजना और तार्किक निर्णय लेने की क्षमता विकसित करने में मदद करते हैं।'
+                      : 'Games like Sudoku, Connect 4, and Tic Tac Toe encourage foresight, tactical spatial planning, and logical decision-making.'}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/60">
+                  <h4 className="font-black text-emerald-900 text-sm mb-1">
+                    {lang === 'hi' ? '2. रिफ्लेक्स व एकाग्रता (Hand-Eye Reflexes)' : '2. Motor Skills & Reflexes'}
+                  </h4>
+                  <p>
+                    {lang === 'hi'
+                      ? 'क्लासिक स्नेक, डाइनो रन, और फ्रूट स्लाइस हाथ-आंख समन्वय (hand-eye coordination) और तुरंत प्रतिक्रिया देने की गति बढ़ाते हैं।'
+                      : 'Fast-paced challenges like Classic Snake, Dino Jump, and Fruit Slice foster hand-eye coordination and rapid response timing.'}
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-purple-50/70 border border-purple-200/60">
+                  <h4 className="font-black text-purple-900 text-sm mb-1">
+                    {lang === 'hi' ? '3. याददाश्त व संगीत (Memory & Audio Sense)' : '3. Audio & Visual Memory'}
+                  </h4>
+                  <p>
+                    {lang === 'hi'
+                      ? 'कार्ड फ्लिप मैचिंग और जादुई सुर पियानो दृश्य स्मृति, संगीत पहचान और पैटर्न याद रखने की शक्ति को तीव्र बनाते हैं।'
+                      : 'Card Flip memory pairs and Magic Piano enhance auditory pitch sensitivity, memory recall, and melodic pattern recognition.'}
+                  </p>
+                </div>
+              </div>
+            </section>
           </div>
         )}
 
@@ -870,6 +930,78 @@ export default function App() {
                 wordScore: Math.max(profile.gameStats.wordScore, score),
               });
             }}
+          />
+        )}
+
+        {/* 12. Classic Snake Feast */}
+        {currentView === 'snake' && (
+          <SnakeGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 13. Whack-A-Mole Smash */}
+        {currentView === 'whack' && (
+          <WhackAMoleGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 14. Rainbow Magic Piano */}
+        {currentView === 'piano' && (
+          <PianoGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 15. Sky Balloon Popper */}
+        {currentView === 'balloon' && (
+          <BalloonPopGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 16. Connect 4 in a Line */}
+        {currentView === 'connect4' && (
+          <ConnectFourGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 17. Dino Desert Jump */}
+        {currentView === 'dino' && (
+          <DinoRunGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 18. Bubble Pop Mania */}
+        {currentView === 'bubble' && (
+          <BubbleShooterGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 19. Animal Card Match */}
+        {currentView === 'cardflip' && (
+          <CardFlipMatchGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
           />
         )}
 

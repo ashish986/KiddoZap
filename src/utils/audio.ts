@@ -516,6 +516,23 @@ class SoundManager {
       // fallback
     }
   }
+
+  // Convenient shortcuts for mini games
+  tap(pitch = 1) {
+    this.playPop(pitch);
+  }
+
+  correct() {
+    this.playChime(1.1);
+  }
+
+  incorrect() {
+    this.playError();
+  }
+
+  complete() {
+    this.playFanfare();
+  }
 }
 
 export const sounds = new SoundManager();

@@ -16,7 +16,15 @@ export type GameId =
   | 'shadow'
   | 'colors'
   | 'logic'
-  | 'word';
+  | 'word'
+  | 'bubble'
+  | 'snake'
+  | 'dino'
+  | 'whack'
+  | 'piano'
+  | 'balloon'
+  | 'connect4'
+  | 'cardflip';
 
 export type Language = 'en' | 'hi';
 
