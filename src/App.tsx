@@ -20,6 +20,7 @@ import {
   Zap,
   GraduationCap,
   Layers,
+  Menu,
 } from 'lucide-react';
 import { GAMES, BADGES, GRADE_TABS } from './data/games';
 import { GameId, GradeLevel, Language, PlayerProfile } from './types';
@@ -44,7 +45,7 @@ import { ProfileModal } from './components/ProfileModal';
 import { AndroidInstallModal } from './components/AndroidInstallModal';
 import { KiddoZapLogo } from './components/KiddoZapLogo';
 import { LegalPagesModal, LegalPageTab } from './components/LegalPagesModal';
-import { AdSenseNavMenu } from './components/AdSenseNavMenu';
+import { TopUtilityNav, MobileMenuDrawer } from './components/AdSenseNavMenu';
 import { Footer } from './components/Footer';
 import { AdBanner } from './components/AdBanner';
 import confetti from 'canvas-confetti';
@@ -91,6 +92,7 @@ export default function App() {
   const [isInstallModalOpen, setIsInstallModalOpen] = useState<boolean>(false);
   const [isLegalModalOpen, setIsLegalModalOpen] = useState<boolean>(false);
   const [activeLegalTab, setActiveLegalTab] = useState<LegalPageTab>('about');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [selectedGrade, setSelectedGrade] = useState<'all' | GradeLevel>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -235,97 +237,80 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50/80 via-orange-50/30 to-yellow-50/70 text-slate-800 font-body selection:bg-amber-200">
-      {/* Top App Bar with KiddoZap branding */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-amber-200/70 shadow-xs px-3 sm:px-6 py-2.5">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
-          {/* Logo & Kid Avatar */}
-          <div className="flex items-center gap-2 sm:gap-3">
+      {/* 1. TOP HORIZONTAL UTILITY BAR (AdSense Menus & Controls) */}
+      <TopUtilityNav
+        lang={lang}
+        soundEnabled={profile.soundEnabled}
+        onToggleSound={toggleSound}
+        onToggleLang={toggleLanguage}
+        onOpenLegal={(tab) => {
+          setActiveLegalTab(tab);
+          setIsLegalModalOpen(true);
+        }}
+        onGoHome={() => setCurrentView('hub')}
+        onOpenInstall={() => setIsInstallModalOpen(true)}
+      />
+
+      {/* 2. MAIN BRAND & PLAYER ROW */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/80 shadow-xs px-3 sm:px-6 py-2.5">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
+          {/* Left: KiddoZap Logo & Brand */}
+          <button
+            id="header-home-btn"
+            onClick={() => {
+              sounds.playPop();
+              setCurrentView('hub');
+            }}
+            className="text-left flex items-center gap-3 group shrink-0"
+          >
+            <KiddoZapLogo size={42} variant="header" />
+
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-2xl font-black tracking-tight text-amber-900 leading-tight font-display group-hover:text-amber-800 transition-colors">
+                  KiddoZap
+                </h1>
+                <span className="text-[10px] bg-amber-500 text-white font-black px-2 py-0.5 rounded-lg uppercase tracking-wider hidden sm:inline shadow-2xs">
+                  {lang === 'hi' ? 'किड्स गेम्स' : 'Fun & Mind Games'}
+                </span>
+              </div>
+              <p className="text-[11px] text-amber-700/80 font-bold hidden md:block">
+                {lang === 'hi'
+                  ? 'कक्षा 1-12 व 18 वर्ष से कम के मजेदार खेल'
+                  : 'Puzzles, Run & Brain Games (Class 1-12 & Below 18)'}
+              </p>
+            </div>
+          </button>
+
+          {/* Right Action Icons: Profile, Stars, Trophies, Compose, Mobile Menu */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Kid Avatar & Name */}
             <button
               id="header-profile-btn"
               onClick={() => {
                 sounds.playPop(1.1);
                 setIsProfileOpen(true);
               }}
-              className="flex items-center gap-2 p-1 sm:pr-3 rounded-2xl bg-amber-100 hover:bg-amber-200 text-slate-800 transition-all border border-amber-300/80 active:scale-95 shadow-xs"
+              className="flex items-center gap-2 p-1.5 sm:pr-3 rounded-2xl bg-amber-100 hover:bg-amber-200 text-slate-800 transition-all border border-amber-300/80 active:scale-95 shadow-2xs"
               title={lang === 'hi' ? 'अवतार बदलें' : 'Change Avatar'}
             >
-              <span className="w-9 h-9 rounded-xl bg-white shadow-xs flex items-center justify-center text-2xl">
+              <span className="w-8 h-8 rounded-xl bg-white shadow-2xs flex items-center justify-center text-xl">
                 {profile.avatar}
               </span>
-              <span className="font-extrabold text-xs sm:text-sm hidden sm:inline max-w-[90px] truncate">
+              <span className="font-extrabold text-xs sm:text-sm hidden sm:inline max-w-[100px] truncate">
                 {profile.name}
               </span>
             </button>
 
-            <button
-              id="header-home-btn"
-              onClick={() => {
-                sounds.playPop();
-                setCurrentView('hub');
-              }}
-              className="text-left flex items-center gap-2.5 group"
-            >
-              <KiddoZapLogo size={36} variant="header" />
-
-              <div>
-                <h1 className="text-base sm:text-xl font-black tracking-tight text-amber-900 leading-tight font-display flex items-center gap-1.5 group-hover:text-amber-800 transition-colors">
-                  <span>KiddoZap</span>
-                  <span className="text-[10px] bg-amber-500 text-white font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider hidden md:inline shadow-xs">
-                    {lang === 'hi' ? 'किड्स गेम्स' : 'Fun & Mind Games'}
-                  </span>
-                </h1>
-                <p className="text-[10px] text-amber-700/80 font-bold hidden sm:block">
-                  {lang === 'hi'
-                    ? 'कक्षा 1-12 व 18 वर्ष से कम के मजेदार खेल'
-                    : 'Puzzles, Run & Brain Games (Below 18)'}
-                </p>
-              </div>
-            </button>
-          </div>
-
-          {/* Right Action Icons: Stars, Compose Code, Android, Trophies, Sound, Language */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
             {/* Stars counter pill */}
             <div
               id="stars-badge"
-              className="flex items-center gap-1 px-2.5 py-1 bg-amber-400/20 text-amber-900 rounded-xl font-black text-xs border border-amber-300/80 shadow-xs"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-400/20 text-amber-900 rounded-xl font-black text-xs border border-amber-300/80 shadow-2xs"
               title={lang === 'hi' ? 'कुल सितारे' : 'Total Stars'}
             >
               <Star className="w-4 h-4 text-amber-500 fill-amber-400 animate-pulse" />
               <span>{profile.totalStars}</span>
             </div>
-
-            {/* Jetpack Compose Kotlin Code Button */}
-            <button
-              id="view-compose-btn"
-              onClick={() => {
-                sounds.playPop();
-                setCurrentView('compose');
-              }}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-xs ${
-                currentView === 'compose'
-                  ? 'bg-indigo-600 text-white border-indigo-700'
-                  : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
-              }`}
-              title="Jetpack Compose Kotlin Source"
-            >
-              <Smartphone className="w-3.5 h-3.5 text-indigo-600" />
-              <span className="hidden md:inline">Compose</span>
-            </button>
-
-            {/* Android App & Publish Modal Button */}
-            <button
-              id="header-install-app-btn"
-              onClick={() => {
-                sounds.playPop(1.1);
-                setIsInstallModalOpen(true);
-              }}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300"
-              title={lang === 'hi' ? 'एंड्रॉयड ऐप व पब्लिश' : 'Android App & Publish'}
-            >
-              <Smartphone className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="hidden sm:inline">{lang === 'hi' ? 'Android / Web' : 'Android / Web'}</span>
-            </button>
 
             {/* Trophy Room Button */}
             <button
@@ -334,55 +319,63 @@ export default function App() {
                 sounds.playPop();
                 setCurrentView('trophy');
               }}
-              className={`p-1.5 sm:px-2.5 sm:py-1 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-xs flex items-center gap-1 ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs flex items-center gap-1.5 ${
                 currentView === 'trophy'
                   ? 'bg-amber-500 text-white border-amber-600'
-                  : 'bg-amber-50 hover:bg-amber-100 text-amber-800 border-amber-200'
+                  : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-200'
               }`}
               title={lang === 'hi' ? 'ट्रॉफी व मेडल' : 'Trophies'}
             >
-              <Trophy className="w-4 h-4 text-amber-500" />
+              <Trophy className="w-3.5 h-3.5 text-amber-500" />
               <span className="hidden sm:inline">
                 {lang === 'hi' ? 'मेडल' : 'Trophies'}
               </span>
             </button>
 
-            {/* Sound Toggle */}
+            {/* Jetpack Compose Kotlin Code Button */}
             <button
-              id="sound-toggle-btn"
-              onClick={toggleSound}
-              className={`p-1.5 rounded-xl border transition-all active:scale-95 ${
-                profile.soundEnabled
-                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
-                  : 'bg-slate-100 text-slate-400 border-slate-200'
-              }`}
-              title={profile.soundEnabled ? 'Mute' : 'Unmute'}
-            >
-              {profile.soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-            </button>
-
-            {/* Language Switch */}
-            <button
-              id="lang-switch-btn"
-              onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-black border border-slate-200 active:scale-95 transition-all shadow-2xs"
-              title={lang === 'en' ? 'Switch to Hindi (हिंदी में बदलें)' : 'Switch to English'}
-            >
-              <Globe className="w-3.5 h-3.5 text-slate-500" />
-              <span>{lang === 'hi' ? 'हिंदी' : 'English'}</span>
-            </button>
-
-            {/* AdSense Menu & Legal Navigation */}
-            <AdSenseNavMenu
-              lang={lang}
-              onOpenLegal={(tab) => {
-                setActiveLegalTab(tab);
-                setIsLegalModalOpen(true);
+              id="view-compose-btn"
+              onClick={() => {
+                sounds.playPop();
+                setCurrentView('compose');
               }}
-              onGoHome={() => setCurrentView('hub')}
-              onOpenTrophies={() => setCurrentView('trophy')}
-              onOpenInstall={() => setIsInstallModalOpen(true)}
-            />
+              className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs ${
+                currentView === 'compose'
+                  ? 'bg-indigo-600 text-white border-indigo-700'
+                  : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
+              }`}
+              title="Jetpack Compose Kotlin Source"
+            >
+              <Smartphone className="w-3.5 h-3.5 text-indigo-600" />
+              <span>Compose</span>
+            </button>
+
+            {/* Android App & Publish Button (Tablet/Desktop) */}
+            <button
+              id="header-install-app-btn"
+              onClick={() => {
+                sounds.playPop(1.1);
+                setIsInstallModalOpen(true);
+              }}
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-300"
+              title={lang === 'hi' ? 'एंड्रॉयड ऐप व पब्लिश' : 'Android App & Publish'}
+            >
+              <Smartphone className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Android App</span>
+            </button>
+
+            {/* Mobile Drawer Menu Button (Small Screens) */}
+            <button
+              id="mobile-menu-drawer-btn"
+              onClick={() => {
+                sounds.playPop();
+                setIsMobileMenuOpen(true);
+              }}
+              className="md:hidden p-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 active:scale-95 transition-all shadow-2xs"
+              title="Menu"
+            >
+              <Menu className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </header>
@@ -808,6 +801,21 @@ export default function App() {
         onClose={() => setIsLegalModalOpen(false)}
         lang={lang}
         onTabChange={(tab) => setActiveLegalTab(tab)}
+      />
+
+      {/* Responsive Mobile Drawer Menu */}
+      <MobileMenuDrawer
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        lang={lang}
+        onOpenLegal={(tab) => {
+          setActiveLegalTab(tab);
+          setIsLegalModalOpen(true);
+        }}
+        onGoHome={() => setCurrentView('hub')}
+        onOpenTrophies={() => setCurrentView('trophy')}
+        onOpenInstall={() => setIsInstallModalOpen(true)}
+        onOpenCompose={() => setCurrentView('compose')}
       />
 
       {/* Google AdSense Compliant Footer */}
