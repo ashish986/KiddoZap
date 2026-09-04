@@ -52,6 +52,13 @@ import { ConnectFourGame } from './components/ConnectFourGame';
 import { DinoRunGame } from './components/DinoRunGame';
 import { BubbleShooterGame } from './components/BubbleShooterGame';
 import { CardFlipMatchGame } from './components/CardFlipMatchGame';
+import { NurseryRhymes } from './components/NurseryRhymes';
+import { SubwaySurferGame } from './components/SubwaySurferGame';
+import { SpaceInvadersGame } from './components/SpaceInvadersGame';
+import { CrossyRoadGame } from './components/CrossyRoadGame';
+import { MotoX3MGame } from './components/MotoX3MGame';
+import { BrickBreakerGame } from './components/BrickBreakerGame';
+import { JetpackJoyrideGame } from './components/JetpackJoyrideGame';
 import { TrophyRoom } from './components/TrophyRoom';
 import { ProfileModal } from './components/ProfileModal';
 import { AndroidInstallModal } from './components/AndroidInstallModal';
@@ -257,22 +264,24 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50/80 via-orange-50/30 to-yellow-50/70 text-slate-800 font-body selection:bg-amber-200">
-      {/* 1. TOP HORIZONTAL UTILITY BAR (AdSense Menus & Controls) */}
-      <TopUtilityNav
-        lang={lang}
-        soundEnabled={profile.soundEnabled}
-        onToggleSound={toggleSound}
-        onToggleLang={toggleLanguage}
-        onOpenLegal={(tab) => {
-          setActiveLegalTab(tab);
-          setIsLegalModalOpen(true);
-        }}
-        onGoHome={() => setCurrentView('hub')}
-        onOpenInstall={() => setIsInstallModalOpen(true)}
-      />
+      {/* 1. TOP HORIZONTAL UTILITY BAR (AdSense Menus & Controls - shown on hub or when not in full gameplay) */}
+      {currentView === 'hub' && (
+        <TopUtilityNav
+          lang={lang}
+          soundEnabled={profile.soundEnabled}
+          onToggleSound={toggleSound}
+          onToggleLang={toggleLanguage}
+          onOpenLegal={(tab) => {
+            setActiveLegalTab(tab);
+            setIsLegalModalOpen(true);
+          }}
+          onGoHome={() => setCurrentView('hub')}
+          onOpenInstall={() => setIsInstallModalOpen(true)}
+        />
+      )}
 
       {/* 2. MAIN BRAND & PLAYER ROW */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/80 shadow-xs px-3 sm:px-6 py-2.5">
+      <header className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/80 shadow-xs px-3 sm:px-6 ${currentView === 'hub' ? 'py-2.5' : 'py-1.5'}`}>
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           {/* Left: KiddoZap Logo & Brand */}
           <button
@@ -281,13 +290,13 @@ export default function App() {
               sounds.playPop();
               setCurrentView('hub');
             }}
-            className="text-left flex items-center gap-3 group shrink-0"
+            className="text-left flex items-center gap-2 sm:gap-3 group shrink-0"
           >
-            <KiddoZapLogo size={42} variant="header" />
+            <KiddoZapLogo size={currentView === 'hub' ? 42 : 32} variant="header" />
 
             <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-xl sm:text-2xl font-black tracking-tight text-amber-900 leading-tight font-display group-hover:text-amber-800 transition-colors">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <h1 className={`${currentView === 'hub' ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'} font-black tracking-tight text-amber-900 leading-tight font-display group-hover:text-amber-800 transition-colors`}>
                   KiddoZap
                 </h1>
                 <span className="text-[10px] bg-amber-500 text-white font-black px-2 py-0.5 rounded-lg uppercase tracking-wider hidden sm:inline shadow-2xs">
@@ -303,7 +312,7 @@ export default function App() {
           </button>
 
           {/* Right Action Icons: Profile, Stars, Trophies, Compose, Mobile Menu */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
+          <div className="flex items-center gap-1.5 sm:gap-2.5">
             {/* Kid Avatar & Name */}
             <button
               id="header-profile-btn"
@@ -311,10 +320,10 @@ export default function App() {
                 sounds.playPop(1.1);
                 setIsProfileOpen(true);
               }}
-              className="flex items-center gap-2 p-1.5 sm:pr-3 rounded-2xl bg-amber-100 hover:bg-amber-200 text-slate-800 transition-all border border-amber-300/80 active:scale-95 shadow-2xs"
+              className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 sm:pr-3 rounded-2xl bg-amber-100 hover:bg-amber-200 text-slate-800 transition-all border border-amber-300/80 active:scale-95 shadow-2xs"
               title={lang === 'hi' ? 'अवतार बदलें' : 'Change Avatar'}
             >
-              <span className="w-8 h-8 rounded-xl bg-white shadow-2xs flex items-center justify-center text-xl">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white shadow-2xs flex items-center justify-center text-lg sm:text-xl">
                 {profile.avatar}
               </span>
               <span className="font-extrabold text-xs sm:text-sm hidden sm:inline max-w-[100px] truncate">
@@ -325,10 +334,10 @@ export default function App() {
             {/* Stars counter pill */}
             <div
               id="stars-badge"
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-400/20 text-amber-900 rounded-xl font-black text-xs border border-amber-300/80 shadow-2xs"
+              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 bg-amber-400/20 text-amber-900 rounded-xl font-black text-xs border border-amber-300/80 shadow-2xs"
               title={lang === 'hi' ? 'कुल सितारे' : 'Total Stars'}
             >
-              <Star className="w-4 h-4 text-amber-500 fill-amber-400 animate-pulse" />
+              <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 fill-amber-400 animate-pulse" />
               <span>{profile.totalStars}</span>
             </div>
 
@@ -339,7 +348,7 @@ export default function App() {
                 sounds.playPop();
                 setCurrentView('trophy');
               }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs flex items-center gap-1.5 ${
+              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs flex items-center gap-1.5 ${
                 currentView === 'trophy'
                   ? 'bg-amber-500 text-white border-amber-600'
                   : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-200'
@@ -359,11 +368,11 @@ export default function App() {
                 sounds.playPop(1.1);
                 setIsInstallModalOpen(true);
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black transition-all border active:scale-95 shadow-2xs bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white border-orange-400"
+              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-black transition-all border active:scale-95 shadow-2xs bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white border-orange-400"
               title={lang === 'hi' ? 'सीधे ऐप इंस्टॉल करें' : 'Install KiddoZap App'}
             >
               <Download className="w-3.5 h-3.5 text-yellow-200 animate-bounce" />
-              <span>{lang === 'hi' ? 'ऐप इंस्टॉल करें' : 'Install App'}</span>
+              <span className="hidden sm:inline">{lang === 'hi' ? 'ऐप इंस्टॉल' : 'Install App'}</span>
             </button>
 
             {/* Mobile Drawer Menu Button (Small Screens) */}
@@ -373,7 +382,7 @@ export default function App() {
                 sounds.playPop();
                 setIsMobileMenuOpen(true);
               }}
-              className="md:hidden p-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 active:scale-95 transition-all shadow-2xs"
+              className="md:hidden p-1.5 sm:p-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 active:scale-95 transition-all shadow-2xs"
               title="Menu"
             >
               <Menu className="w-4 h-4" />
@@ -382,8 +391,8 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main View Router */}
-      <main className="pb-16 pt-4">
+      {/* Main View Router - Compact padding during gameplay */}
+      <main className={currentView === 'hub' ? 'pb-16 pt-4' : 'px-2 py-2 max-w-4xl mx-auto flex flex-col items-center justify-center'}>
         {currentView === 'hub' && (
           <div id="games-hub-view" className="max-w-6xl mx-auto px-3 sm:px-4">
             {/* Daily Brain Quest Banner */}
@@ -444,11 +453,22 @@ export default function App() {
                     id="hero-play-runner-btn"
                     onClick={() => {
                       sounds.playPop(1.2);
-                      setCurrentView('runner');
+                      setCurrentView('subwaysurf');
                     }}
                     className="flex items-center gap-2 px-4 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
                   >
-                    <span>🏃‍♂️ {lang === 'hi' ? 'RunGame' : 'Run Dash'}</span>
+                    <span>🚇 {lang === 'hi' ? 'सबवे 3D' : 'Subway 3D'}</span>
+                  </button>
+
+                  <button
+                    id="hero-play-rhymes-btn"
+                    onClick={() => {
+                      sounds.playPop(1.2);
+                      setCurrentView('rhymes');
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                  >
+                    <span>🎶 {lang === 'hi' ? 'बाल कविताएं' : 'Rhymes Sing'}</span>
                   </button>
                 </div>
               </div>
@@ -1005,6 +1025,69 @@ export default function App() {
           />
         )}
 
+        {/* 20. Nursery Rhymes Sing-Along */}
+        {currentView === 'rhymes' && (
+          <NurseryRhymes
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 21. Subway 3D Surfers */}
+        {currentView === 'subwaysurf' && (
+          <SubwaySurferGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 22. Crossy Road Adventure */}
+        {currentView === 'crossyroad' && (
+          <CrossyRoadGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 23. Space Invaders Galaxy */}
+        {currentView === 'spaceinvaders' && (
+          <SpaceInvadersGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 24. Moto X3M Stunt Biker */}
+        {currentView === 'motox3m' && (
+          <MotoX3MGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 25. Brick Breaker Neon */}
+        {currentView === 'brickbreaker' && (
+          <BrickBreakerGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 26. Jetpack Sky Raider */}
+        {currentView === 'jetpack' && (
+          <JetpackJoyrideGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
         {/* Trophy & Badges Hall */}
         {currentView === 'trophy' && (
           <TrophyRoom
@@ -1056,15 +1139,17 @@ export default function App() {
         onOpenInstall={() => setIsInstallModalOpen(true)}
       />
 
-      {/* Google AdSense Compliant Footer */}
-      <Footer
-        lang={lang}
-        onOpenLegal={(tab) => {
-          setActiveLegalTab(tab);
-          setIsLegalModalOpen(true);
-        }}
-        onOpenInstall={() => setIsInstallModalOpen(true)}
-      />
+      {/* Google AdSense Compliant Footer - Shown on Hub & Trophy pages */}
+      {currentView === 'hub' && (
+        <Footer
+          lang={lang}
+          onOpenLegal={(tab) => {
+            setActiveLegalTab(tab);
+            setIsLegalModalOpen(true);
+          }}
+          onOpenInstall={() => setIsInstallModalOpen(true)}
+        />
+      )}
     </div>
   );
 }

@@ -24,7 +24,14 @@ export type GameId =
   | 'piano'
   | 'balloon'
   | 'connect4'
-  | 'cardflip';
+  | 'cardflip'
+  | 'rhymes'
+  | 'subwaysurf'
+  | 'crossyroad'
+  | 'spaceinvaders'
+  | 'motox3m'
+  | 'brickbreaker'
+  | 'jetpack';
 
 export type Language = 'en' | 'hi';
 

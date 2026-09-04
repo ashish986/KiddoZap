@@ -533,6 +533,27 @@ class SoundManager {
   complete() {
     this.playFanfare();
   }
+
+  // Play musical pitch for rhymes or songs
+  playTone(freq: number, duration = 0.4, type: OscillatorType = 'sine') {
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const now = ctx.currentTime;
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + duration);
+    } catch {
+      // fallback
+    }
+  }
 }
 
 export const sounds = new SoundManager();
