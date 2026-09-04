@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "KiddoZap: Fun Kids Games & Brain Puzzles",
+  "short_name": "KiddoZap",
+  "description": "KiddoZap offers fun kids mini-games, Knife Hit target master, Mini Golf Club, Tap-Tap Dunk Shots, Helix Spiral Jump, and brain puzzles categorized for Class 1-12 and all ages below 18.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fffbeb",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,409 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bgGrad" cx="50%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#1e2c56"/>
+      <stop offset="55%" stop-color="#0b132b"/>
+      <stop offset="100%" stop-color="#040817"/>
+    </radialGradient>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Brain Gradients -->
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffb3c6"/>
+      <stop offset="50%" stop-color="#ff758f"/>
+      <stop offset="100%" stop-color="#c9184a"/>
+    </linearGradient>
+    <linearGradient id="brainHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Lightning Gradients -->
+    <linearGradient id="lightningGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff566"/>
+      <stop offset="40%" stop-color="#ffd000"/>
+      <stop offset="100%" stop-color="#ff9100"/>
+    </linearGradient>
+    <linearGradient id="lightningSide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9100"/>
+      <stop offset="100%" stop-color="#d84a00"/>
+    </linearGradient>
+
+    <!-- Kiddo Letter Gradients -->
+    <linearGradient id="kGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe600"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="iGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="d1Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a3e635"/>
+      <stop offset="100%" stop-color="#4d7c0f"/>
+    </linearGradient>
+    <linearGradient id="d2Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff5964"/>
+      <stop offset="100%" stop-color="#b91c1c"/>
+    </linearGradient>
+    <linearGradient id="oGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+
+    <!-- ZAP Gradients -->
+    <linearGradient id="zapZ" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff066"/>
+      <stop offset="45%" stop-color="#ffb703"/>
+      <stop offset="100%" stop-color="#fb8500"/>
+    </linearGradient>
+    <linearGradient id="zapA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff8c38"/>
+      <stop offset="50%" stop-color="#f72585"/>
+      <stop offset="100%" stop-color="#d90429"/>
+    </linearGradient>
+    <linearGradient id="zapP" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c77dff"/>
+      <stop offset="50%" stop-color="#9d4edd"/>
+      <stop offset="100%" stop-color="#5a189a"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+    <filter id="heavyShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="8" flood-color="#000000" flood-opacity="0.75"/>
+    </filter>
+  </defs>
+
+  <!-- Dark Circular Badge -->
+  <circle cx="300" cy="300" r="285" fill="url(#bgGrad)"/>
+  <circle cx="300" cy="300" r="275" fill="none" stroke="url(#ringGrad)" stroke-width="6" opacity="0.65"/>
+  <circle cx="300" cy="300" r="255" fill="none" stroke="#1e3a8a" stroke-width="2" stroke-dasharray="10 8" opacity="0.4"/>
+
+  <!-- ================= BACKGROUND FLOATING ACCESSORIES ================= -->
+
+  <!-- Top-Left Lightning Bolt -->
+  <g filter="url(#dropShadow)">
+    <polygon points="205,32 230,85 210,88 235,140 185,82 208,80" fill="url(#lightningGrad)" stroke="#ffffff" stroke-width="3"/>
+  </g>
+
+  <!-- Top-Right Lightning Bolt -->
+  <g filter="url(#dropShadow)">
+    <polygon points="395,34 372,86 392,88 368,140 418,82 396,80" fill="url(#lightningGrad)" stroke="#ffffff" stroke-width="3"/>
+  </g>
+
+  <!-- Huge Electric Bolt Behind ZAP on Right -->
+  <g filter="url(#heavyShadow)">
+    <polygon points="460,210 580,215 480,285 550,290 435,420 470,310 410,305" fill="url(#lightningGrad)" stroke="#ffffff" stroke-width="6"/>
+  </g>
+
+  <!-- Electric Bolt on Left -->
+  <g filter="url(#dropShadow)">
+    <polygon points="120,270 45,310 115,325 50,390 145,335 90,320" fill="url(#lightningGrad)" stroke="#ffffff" stroke-width="5"/>
+  </g>
+
+  <!-- Top-Left Cyan Puzzle Piece -->
+  <g transform="translate(65, 85) rotate(-15)" filter="url(#dropShadow)">
+    <path d="M 0,12 C 0,5 5,0 12,0 L 25,0 C 25,7 31,12 38,12 C 45,12 51,7 51,0 L 64,0 C 71,0 76,5 76,12 L 76,25 C 83,25 88,31 88,38 C 88,45 83,51 76,51 L 76,64 C 76,71 71,76 64,76 L 51,76 C 51,69 45,64 38,64 C 31,64 25,69 25,76 L 12,76 C 5,76 0,71 0,64 Z" fill="#00b4d8" stroke="#ffffff" stroke-width="4"/>
+    <circle cx="38" cy="38" r="8" fill="#ffffff" opacity="0.4"/>
+  </g>
+
+  <!-- Top-Right Glowing Lightbulb -->
+  <g transform="translate(435, 60)" filter="url(#dropShadow)">
+    <!-- Glow rays -->
+    <line x1="25" y1="-8" x2="25" y2="-20" stroke="#fef08a" stroke-width="4" stroke-linecap="round"/>
+    <line x1="50" y1="5" x2="60" y2="-3" stroke="#fef08a" stroke-width="4" stroke-linecap="round"/>
+    <line x1="0" y1="5" x2="-10" y2="-3" stroke="#fef08a" stroke-width="4" stroke-linecap="round"/>
+    <!-- Glass Bulb -->
+    <path d="M 10,25 C 0,15 5,0 25,0 C 45,0 50,15 40,25 C 36,30 34,35 34,42 L 16,42 C 16,35 14,30 10,25 Z" fill="#ffd166" stroke="#ffffff" stroke-width="3"/>
+    <!-- Base & Socket -->
+    <rect x="18" y="42" width="14" height="8" rx="2" fill="#94a3b8" stroke="#ffffff" stroke-width="2"/>
+    <ellipse cx="25" cy="52" rx="5" ry="3" fill="#64748b"/>
+    <!-- Filament -->
+    <path d="M 21,28 L 25,18 L 29,28" fill="none" stroke="#f59e0b" stroke-width="2"/>
+  </g>
+
+  <!-- Top-Right Pink Puzzle Piece -->
+  <g transform="translate(488, 115) rotate(20)" filter="url(#dropShadow)">
+    <path d="M 0,8 C 0,3 3,0 8,0 L 18,0 C 18,5 22,8 27,8 C 32,8 36,5 36,0 L 46,0 C 51,0 54,3 54,8 L 54,18 C 59,18 62,22 62,27 C 62,32 59,36 54,36 L 54,46 C 54,51 51,54 46,54 L 36,54 C 36,49 32,46 27,46 C 22,46 18,49 18,54 L 8,54 C 3,54 0,51 0,46 Z" fill="#f72585" stroke="#ffffff" stroke-width="3"/>
+  </g>
+
+  <!-- Golden Stars & Sparkles -->
+  <g fill="#ffe600">
+    <!-- Star Left -->
+    <path d="M 60,180 Q 60,195 45,195 Q 60,195 60,210 Q 60,195 75,195 Q 60,195 60,180" filter="url(#glow)"/>
+    <!-- Star Right -->
+    <path d="M 535,365 Q 535,377 523,377 Q 535,377 535,389 Q 535,377 547,377 Q 535,377 535,365"/>
+    <circle cx="158" cy="68" r="7" fill="#84cc16"/>
+    <circle cx="410" cy="120" r="6" fill="#38bdf8"/>
+    <circle cx="555" cy="188" r="8" fill="#ec4899"/>
+    <circle cx="415" cy="495" r="7" fill="#a855f7"/>
+  </g>
+
+  <!-- ================= THE CUTE SMILING BRAIN CHARACTER ================= -->
+  <g id="brain-character" filter="url(#heavyShadow)">
+    <!-- White Cartoon Thumbs-Up Hand (Left of Brain) -->
+    <g transform="translate(162, 75)">
+      <!-- Wrist Cuff -->
+      <path d="M 12,70 L 40,68 L 36,88 L 8,88 Z" fill="#f8fafc" stroke="#1e293b" stroke-width="5" stroke-linejoin="round"/>
+      <!-- Fist Body & Palm -->
+      <path d="M 18,36 C 18,36 12,48 12,58 C 12,68 22,70 34,70 C 46,70 54,64 54,50 C 54,42 48,36 40,36 Z" fill="#ffffff" stroke="#1e293b" stroke-width="5" stroke-linejoin="round"/>
+      <!-- Thumbs Up Finger -->
+      <path d="M 22,38 C 20,25 18,6 28,2 C 38,-2 42,12 40,30 L 40,38 Z" fill="#ffffff" stroke="#1e293b" stroke-width="5" stroke-linejoin="round"/>
+      <!-- Finger Creases -->
+      <path d="M 28,45 C 34,46 44,45 48,42" fill="none" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 26,55 C 32,56 42,56 46,52" fill="none" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Main Brain Shape -->
+    <!-- Brain Base with Lobes -->
+    <path d="M 230,165 
+             C 200,165 190,140 198,125 
+             C 185,115 190,90 205,82 
+             C 200,65 220,48 240,55 
+             C 255,42 285,42 298,54 
+             C 315,44 342,52 348,70 
+             C 365,75 378,95 370,115 
+             C 382,130 375,155 352,165 
+             C 340,170 320,165 300,165
+             Z" 
+          fill="url(#brainGrad)" 
+          stroke="#1e293b" 
+          stroke-width="7" 
+          stroke-linejoin="round"/>
+
+    <!-- Brain Lobe Curves / Wrinkles -->
+    <g fill="none" stroke="#b91c1c" stroke-width="4.5" stroke-linecap="round">
+      <path d="M 228,88 C 240,96 250,90 252,78"/>
+      <path d="M 275,65 C 282,80 292,80 298,70"/>
+      <path d="M 322,78 C 328,92 342,95 348,85"/>
+      <path d="M 215,115 C 230,122 245,112 248,105"/>
+      <path d="M 330,110 C 345,118 355,115 360,125"/>
+      <path d="M 270,100 C 275,115 285,115 292,102"/>
+    </g>
+
+    <!-- Brain Highlights -->
+    <path d="M 235,68 C 248,58 270,55 285,60" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+    <path d="M 320,62 C 335,62 345,70 350,78" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
+
+    <!-- Left Eye (Big Wide Cartoon Eye) -->
+    <g transform="translate(242, 112)">
+      <ellipse cx="0" cy="0" rx="14" ry="17" fill="#ffffff" stroke="#1e293b" stroke-width="4"/>
+      <!-- Iris & Pupil -->
+      <ellipse cx="2" cy="0" rx="9" ry="12" fill="#0f172a"/>
+      <!-- Highlights -->
+      <circle cx="-1" cy="-4" r="4.5" fill="#ffffff"/>
+      <circle cx="5" cy="4" r="2" fill="#ffffff"/>
+      <!-- Eyebrow -->
+      <path d="M -12,-20 C -5,-26 8,-23 14,-17" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- Right Eye (Playful Winking Eye) -->
+    <g transform="translate(315, 112)">
+      <path d="M -15,5 C -8,-7 8,-7 16,5" fill="none" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>
+      <!-- Eyebrow -->
+      <path d="M -14,-18 C -5,-25 8,-23 15,-16" fill="none" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- Smiling Mouth with Tongue -->
+    <g transform="translate(280, 140)">
+      <path d="M -22,0 C -22,18 22,18 22,0 Z" fill="#7f1d1d" stroke="#1e293b" stroke-width="4" stroke-linejoin="round"/>
+      <!-- Pink Tongue -->
+      <path d="M -10,8 C -10,4 10,4 10,8 C 10,16 -10,16 -10,8 Z" fill="#ff758f"/>
+      <!-- Lip Corners / Smile Dimples -->
+      <path d="M -25,-3 C -23,0 -20,2 -18,1" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <path d="M 25,-3 C 23,0 20,2 18,1" fill="none" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- ================= "KIDDO" 3D BUBBLE TYPOGRAPHY ================= -->
+  <!-- Outer White Cushion Backdrop for entire KIDDO text -->
+  <g id="kiddo-title" filter="url(#heavyShadow)">
+    
+    <!-- Heavy White Outlines (Thick Border) -->
+    <!-- K -->
+    <path d="M 98,220 L 98,340 L 142,340 L 142,295 L 180,340 L 235,340 L 175,278 L 228,220 L 175,220 L 142,260 L 142,220 Z" 
+          stroke="#ffffff" stroke-width="26" stroke-linejoin="round" stroke-linecap="round" fill="#ffffff"/>
+    <!-- i -->
+    <rect x="238" y="250" width="38" height="90" rx="19" stroke="#ffffff" stroke-width="26" stroke-linejoin="round" fill="#ffffff"/>
+    <circle cx="257" cy="226" r="19" stroke="#ffffff" stroke-width="26" fill="#ffffff"/>
+    <!-- d1 -->
+    <path d="M 285,255 L 285,340 L 325,340 L 325,328 C 335,338 350,344 365,342 C 395,338 412,312 410,285 C 408,255 388,232 358,232 C 342,232 332,240 325,248 L 325,200 L 285,200 Z" 
+          stroke="#ffffff" stroke-width="26" stroke-linejoin="round" fill="#ffffff"/>
+    <!-- d2 -->
+    <path d="M 378,255 L 378,340 L 418,340 L 418,328 C 428,338 443,344 458,342 C 488,338 505,312 503,285 C 501,255 481,232 451,232 C 435,232 425,240 418,248 L 418,200 L 378,200 Z" 
+          stroke="#ffffff" stroke-width="26" stroke-linejoin="round" fill="#ffffff"/>
+    <!-- o -->
+    <ellipse cx="485" cy="285" rx="42" ry="55" stroke="#ffffff" stroke-width="26" fill="#ffffff"/>
+
+    <!-- Black Inner Borders for Comic Pop -->
+    <!-- K 3D Dark Bevel & Front -->
+    <g>
+      <!-- Shadow Extrusions -->
+      <path d="M 98,340 L 98,352 L 142,352 L 142,340 Z" fill="#b45309"/>
+      <path d="M 180,340 L 195,352 L 235,352 L 220,340 Z" fill="#b45309"/>
+      <!-- Front Body -->
+      <path d="M 98,220 L 98,340 L 142,340 L 142,295 L 180,340 L 235,340 L 175,278 L 228,220 L 175,220 L 142,260 L 142,220 Z" 
+            fill="url(#kGrad)" stroke="#1e293b" stroke-width="6" stroke-linejoin="round"/>
+      <!-- Gloss Highlight -->
+      <path d="M 104,228 L 104,330 L 118,330 L 118,228 Z" fill="#ffffff" opacity="0.45"/>
+    </g>
+
+    <!-- i 3D Dark Bevel & Front -->
+    <g>
+      <rect x="238" y="254" width="38" height="90" rx="19" fill="#0369a1"/>
+      <rect x="238" y="248" width="38" height="90" rx="19" fill="url(#iGrad)" stroke="#1e293b" stroke-width="6"/>
+      <circle cx="257" cy="223" r="18" fill="#fb8500" stroke="#1e293b" stroke-width="6"/>
+      <!-- Gloss -->
+      <rect x="244" y="256" width="10" height="70" rx="5" fill="#ffffff" opacity="0.5"/>
+      <circle cx="253" cy="218" r="5" fill="#ffffff" opacity="0.6"/>
+    </g>
+
+    <!-- d1 (Green) -->
+    <g>
+      <path d="M 285,255 L 285,340 L 325,340 L 325,328 C 335,338 350,344 365,342 C 395,338 412,312 410,285 C 408,255 388,232 358,232 C 342,232 332,240 325,248 L 325,200 L 285,200 Z" 
+            fill="url(#d1Grad)" stroke="#1e293b" stroke-width="6" stroke-linejoin="round"/>
+      <!-- Inner Hole -->
+      <ellipse cx="350" cy="290" rx="16" ry="24" fill="#ffffff" stroke="#1e293b" stroke-width="5"/>
+      <!-- Gloss -->
+      <path d="M 292,210 L 292,330 L 302,330 L 302,210 Z" fill="#ffffff" opacity="0.45"/>
+    </g>
+
+    <!-- d2 (Red) -->
+    <g>
+      <path d="M 378,255 L 378,340 L 418,340 L 418,328 C 428,338 443,344 458,342 C 488,338 505,312 503,285 C 501,255 481,232 451,232 C 435,232 425,240 418,248 L 418,200 L 378,200 Z" 
+            fill="url(#d2Grad)" stroke="#1e293b" stroke-width="6" stroke-linejoin="round"/>
+      <!-- Inner Hole -->
+      <ellipse cx="445" cy="290" rx="16" ry="24" fill="#ffffff" stroke="#1e293b" stroke-width="5"/>
+      <!-- Gloss -->
+      <path d="M 385,210 L 385,330 L 395,330 L 395,210 Z" fill="#ffffff" opacity="0.45"/>
+    </g>
+
+    <!-- o (Blue) -->
+    <g>
+      <ellipse cx="488" cy="290" rx="42" ry="54" fill="#1e3a8a"/>
+      <ellipse cx="485" cy="285" rx="42" ry="54" fill="url(#oGrad)" stroke="#1e293b" stroke-width="6"/>
+      <ellipse cx="485" cy="285" rx="18" ry="26" fill="#ffffff" stroke="#1e293b" stroke-width="5"/>
+      <!-- Gloss -->
+      <path d="M 460,250 C 470,240 495,240 508,252" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- ================= "ZAP" DYNAMIC 3D BLOCK LETTERS ================= -->
+  <g id="zap-title" filter="url(#heavyShadow)">
+    <!-- Heavy White Outline / Backing for ZAP -->
+    <g stroke="#ffffff" stroke-width="32" stroke-linejoin="round" stroke-linecap="round" fill="#ffffff">
+      <!-- Z -->
+      <polygon points="140,360 270,360 270,405 195,475 275,475 265,520 130,520 130,475 205,405 140,405"/>
+      <!-- A -->
+      <polygon points="265,520 315,360 380,360 425,520 375,520 360,470 325,470 310,520"/>
+      <!-- P -->
+      <path d="M 390,360 L 485,360 C 530,360 545,395 535,435 C 525,470 495,485 455,485 L 430,485 L 420,520 L 375,520 Z"/>
+    </g>
+
+    <!-- 3D Shadow Extrusions (Dark Angled Sides) -->
+    <!-- Z Bevel -->
+    <polygon points="140,405 130,520 120,535 255,535 265,520 195,475 185,490 130,490" fill="#c2410c"/>
+    <!-- A Bevel -->
+    <polygon points="310,520 298,535 365,535 375,520" fill="#991b1b"/>
+    <!-- P Bevel -->
+    <path d="M 420,520 L 410,535 L 450,535 L 455,485 C 495,485 525,470 535,435 L 545,445 C 535,485 500,500 460,500 L 435,500 Z" fill="#3b0764"/>
+
+    <!-- Front Z (Yellow) -->
+    <polygon points="140,360 270,360 270,405 195,475 275,475 265,520 130,520 130,475 205,405 140,405" 
+             fill="url(#zapZ)" stroke="#1e293b" stroke-width="7" stroke-linejoin="round"/>
+    <polygon points="148,368 260,368 260,385 160,385" fill="#ffffff" opacity="0.5"/>
+
+    <!-- Front A (Orange-Red) -->
+    <polygon points="265,520 315,360 380,360 425,520 375,520 360,470 325,470 310,520" 
+             fill="url(#zapA)" stroke="#1e293b" stroke-width="7" stroke-linejoin="round"/>
+    <polygon points="334,435 352,435 343,398" fill="#1e293b"/>
+    <path d="M 320,368 L 375,368 L 368,390 L 326,390 Z" fill="#ffffff" opacity="0.4"/>
+
+    <!-- Front P (Purple) -->
+    <path d="M 390,360 L 485,360 C 530,360 545,395 535,435 C 525,470 495,485 455,485 L 430,485 L 420,520 L 375,520 Z" 
+          fill="url(#zapP)" stroke="#1e293b" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M 425,395 L 465,395 C 485,395 495,410 490,425 C 485,445 470,450 450,450 L 415,450 Z" 
+          fill="#1e293b"/>
+    <path d="M 395,368 L 475,368 C 490,368 500,378 495,388 L 400,388 Z" fill="#ffffff" opacity="0.45"/>
+  </g>
+
+  <!-- ================= "THINK • PLAY • ZAP!" RIBBON BANNER ================= -->
+  <g transform="translate(300, 520)" filter="url(#heavyShadow)">
+    <!-- Black Ribbon Container with White Border -->
+    <path d="M -190,-22 L 190,-22 C 205,-22 215,-10 215,6 L 210,18 C 208,28 198,34 185,34 L -185,34 C -198,34 -208,28 -210,18 L -215,6 C -215,-10 -205,-22 -190,-22 Z" 
+          fill="#0f172a" stroke="#ffffff" stroke-width="6" stroke-linejoin="round"/>
+    
+    <!-- Text Elements inside Banner -->
+    <text x="-120" y="14" font-family="system-ui, -apple-system, 'Montserrat', sans-serif" font-weight="900" font-size="25" fill="#4ade80" text-anchor="middle" letter-spacing="1">THINK</text>
+    <circle cx="-50" cy="7" r="4" fill="#ffffff"/>
+    <text x="5" y="14" font-family="system-ui, -apple-system, 'Montserrat', sans-serif" font-weight="900" font-size="25" fill="#38bdf8" text-anchor="middle" letter-spacing="1">PLAY</text>
+    <circle cx="60" cy="7" r="4" fill="#ffffff"/>
+    <text x="125" y="14" font-family="system-ui, -apple-system, 'Montserrat', sans-serif" font-weight="900" font-size="26" fill="#facc15" text-anchor="middle" letter-spacing="1">ZAP!</text>
+  </g>
+
+  <!-- ================= BOTTOM ACCESSORIES ================= -->
+
+  <!-- Bottom-Left Magnifying Glass -->
+  <g transform="translate(95, 480) rotate(-25)" filter="url(#dropShadow)">
+    <!-- Handle -->
+    <rect x="25" y="45" width="14" height="36" rx="7" fill="#7c3aed" stroke="#1e293b" stroke-width="4"/>
+    <!-- Glass Rim -->
+    <circle cx="32" cy="28" r="28" fill="#38bdf8" stroke="#ffffff" stroke-width="5"/>
+    <circle cx="32" cy="28" r="22" fill="#0284c7" stroke="#1e293b" stroke-width="3"/>
+    <!-- Glare reflection line -->
+    <path d="M 20,16 A 16 16 0 0 1 38,16" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- Bottom-Center 3D Rubik's Cube -->
+  <g transform="translate(270, 545)" filter="url(#dropShadow)">
+    <!-- Isometric Cube Faces -->
+    <!-- Top Face -->
+    <polygon points="30,0 60,15 30,30 0,15" fill="#ffffff" stroke="#1e293b" stroke-width="3"/>
+    <line x1="10" y1="10" x2="40" y2="25" stroke="#1e293b" stroke-width="2"/>
+    <line x1="20" y1="5" x2="50" y2="20" stroke="#1e293b" stroke-width="2"/>
+    <line x1="15" y1="22" x2="45" y2="7" stroke="#1e293b" stroke-width="2"/>
+    <polygon points="20,5 30,0 40,5 30,10" fill="#ef4444"/>
+    <polygon points="30,10 40,5 50,10 40,15" fill="#3b82f6"/>
+    <polygon points="10,10 20,5 30,10 20,15" fill="#eab308"/>
+
+    <!-- Left Face -->
+    <polygon points="0,15 30,30 30,62 0,47" fill="#22c55e" stroke="#1e293b" stroke-width="3"/>
+    <line x1="10" y1="20" x2="10" y2="52" stroke="#1e293b" stroke-width="2"/>
+    <line x1="20" y1="25" x2="20" y2="57" stroke="#1e293b" stroke-width="2"/>
+    <line x1="0" y1="26" x2="30" y2="41" stroke="#1e293b" stroke-width="2"/>
+    <line x1="0" y1="37" x2="30" y2="52" stroke="#1e293b" stroke-width="2"/>
+
+    <!-- Right Face -->
+    <polygon points="30,30 60,15 60,47 30,62" fill="#f97316" stroke="#1e293b" stroke-width="3"/>
+    <line x1="40" y1="25" x2="40" y2="57" stroke="#1e293b" stroke-width="2"/>
+    <line x1="50" y1="20" x2="50" y2="52" stroke="#1e293b" stroke-width="2"/>
+    <line x1="30" y1="41" x2="60" y2="26" stroke="#1e293b" stroke-width="2"/>
+    <line x1="30" y1="52" x2="60" y2="37" stroke="#1e293b" stroke-width="2"/>
+  </g>
+
+  <!-- Bottom-Right 3D Question Mark -->
+  <g transform="translate(485, 470) rotate(15)" filter="url(#dropShadow)">
+    <path d="M 12,0 C 26,-4 38,5 36,20 C 34,30 24,35 20,44 L 20,50 L 10,50 L 10,42 C 10,32 24,28 26,18 C 28,10 20,6 12,8 C 5,10 0,6 0,2 Z" 
+          fill="#facc15" stroke="#1e293b" stroke-width="4"/>
+    <circle cx="15" cy="62" r="6" fill="#facc15" stroke="#1e293b" stroke-width="4"/>
+  </g>
+
+  <!-- Bottom Subtitle Ribbon/Text -->
+  <g transform="translate(300, 582)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="13.5" fill="#f8fafc" text-anchor="middle" letter-spacing="2" opacity="0.95">
+      PUZZLES  •  RIDDLES  •  QUIZZES  •  BRAIN GAMES
+    </text>
+  </g>
+</svg>
