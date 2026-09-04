@@ -43,6 +43,10 @@ import { TrophyRoom } from './components/TrophyRoom';
 import { ProfileModal } from './components/ProfileModal';
 import { AndroidInstallModal } from './components/AndroidInstallModal';
 import { KiddoZapLogo } from './components/KiddoZapLogo';
+import { LegalPagesModal, LegalPageTab } from './components/LegalPagesModal';
+import { AdSenseNavMenu } from './components/AdSenseNavMenu';
+import { Footer } from './components/Footer';
+import { AdBanner } from './components/AdBanner';
 import confetti from 'canvas-confetti';
 
 const STORAGE_KEY = 'kiddozap_player_profile_v2';
@@ -74,9 +78,19 @@ const DEFAULT_PROFILE: PlayerProfile = {
 
 export default function App() {
   const [currentView, setCurrentView] = useState<GameId | 'hub' | 'compose' | 'trophy'>('hub');
-  const [lang, setLang] = useState<Language>('hi');
+  const [lang, setLang] = useState<Language>(() => {
+    try {
+      const savedLang = localStorage.getItem('kiddozap_lang');
+      if (savedLang === 'hi' || savedLang === 'en') return savedLang;
+    } catch {
+      // ignore
+    }
+    return 'en';
+  });
   const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
   const [isInstallModalOpen, setIsInstallModalOpen] = useState<boolean>(false);
+  const [isLegalModalOpen, setIsLegalModalOpen] = useState<boolean>(false);
+  const [activeLegalTab, setActiveLegalTab] = useState<LegalPageTab>('about');
   const [selectedGrade, setSelectedGrade] = useState<'all' | GradeLevel>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -120,7 +134,15 @@ export default function App() {
 
   const toggleLanguage = () => {
     sounds.playPop(1.1);
-    setLang((prev) => (prev === 'hi' ? 'en' : 'hi'));
+    setLang((prev) => {
+      const next = prev === 'hi' ? 'en' : 'hi';
+      try {
+        localStorage.setItem('kiddozap_lang', next);
+      } catch {
+        // ignore
+      }
+      return next;
+    });
   };
 
   const checkBadgeUnlocks = (updatedStats: PlayerProfile['gameStats'], totalStars: number) => {
@@ -343,12 +365,24 @@ export default function App() {
             <button
               id="lang-switch-btn"
               onClick={toggleLanguage}
-              className="flex items-center gap-1 px-2 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-black border border-slate-200 active:scale-95 transition-all"
-              title="Change Language"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-black border border-slate-200 active:scale-95 transition-all shadow-2xs"
+              title={lang === 'en' ? 'Switch to Hindi (हिंदी में बदलें)' : 'Switch to English'}
             >
               <Globe className="w-3.5 h-3.5 text-slate-500" />
-              <span>{lang === 'hi' ? 'हिंदी' : 'EN'}</span>
+              <span>{lang === 'hi' ? 'हिंदी' : 'English'}</span>
             </button>
+
+            {/* AdSense Menu & Legal Navigation */}
+            <AdSenseNavMenu
+              lang={lang}
+              onOpenLegal={(tab) => {
+                setActiveLegalTab(tab);
+                setIsLegalModalOpen(true);
+              }}
+              onGoHome={() => setCurrentView('hub')}
+              onOpenTrophies={() => setCurrentView('trophy')}
+              onOpenInstall={() => setIsInstallModalOpen(true)}
+            />
           </div>
         </div>
       </header>
@@ -545,6 +579,9 @@ export default function App() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Google AdSense Compliant Family Safe Banner */}
+            <AdBanner />
           </div>
         )}
 
@@ -762,6 +799,25 @@ export default function App() {
         onClose={() => setIsInstallModalOpen(false)}
         lang={lang}
         onOpenComposeCode={() => setCurrentView('compose')}
+      />
+
+      {/* AdSense Mandatory Legal Pages Modal */}
+      <LegalPagesModal
+        isOpen={isLegalModalOpen}
+        activeTab={activeLegalTab}
+        onClose={() => setIsLegalModalOpen(false)}
+        lang={lang}
+        onTabChange={(tab) => setActiveLegalTab(tab)}
+      />
+
+      {/* Google AdSense Compliant Footer */}
+      <Footer
+        lang={lang}
+        onOpenLegal={(tab) => {
+          setActiveLegalTab(tab);
+          setIsLegalModalOpen(true);
+        }}
+        onOpenInstall={() => setIsInstallModalOpen(true)}
       />
     </div>
   );
