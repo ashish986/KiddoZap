@@ -26,14 +26,18 @@ export type GameId =
   | 'connect4'
   | 'cardflip'
   | 'rhymes'
-  | 'subwaysurf'
   | 'crossyroad'
   | 'spaceinvaders'
   | 'motox3m'
   | 'brickbreaker'
   | 'jetpack'
   | 'slope3d'
-  | 'tunnelrush3d';
+  | 'tunnelrush3d'
+  | 'geodash'
+  | 'colorswitch'
+  | 'pacmaze'
+  | 'aimtrainer'
+  | 'parkour';
 
 export type Language = 'en' | 'hi';
 
@@ -76,6 +80,11 @@ export interface PlayerProfile {
     riverCompleted?: number;
     slopeHighScore?: number;
     tunnelHighScore?: number;
+    geodashHighScore?: number;
+    colorSwitchHighScore?: number;
+    pacmazeHighScore?: number;
+    aimHighScore?: number;
+    parkourHighScore?: number;
   };
 }
 

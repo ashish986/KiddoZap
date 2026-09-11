@@ -53,7 +53,11 @@ import { DinoRunGame } from './components/DinoRunGame';
 import { BubbleShooterGame } from './components/BubbleShooterGame';
 import { CardFlipMatchGame } from './components/CardFlipMatchGame';
 import { NurseryRhymes } from './components/NurseryRhymes';
-import { SubwaySurferGame } from './components/SubwaySurferGame';
+import GeoDashGame from './components/GeoDashGame';
+import ColorSwitchGame from './components/ColorSwitchGame';
+import PacMazeGame from './components/PacMazeGame';
+import AimTrainerGame from './components/AimTrainerGame';
+import RooftopParkourGame from './components/RooftopParkourGame';
 import { SpaceInvadersGame } from './components/SpaceInvadersGame';
 import { CrossyRoadGame } from './components/CrossyRoadGame';
 import { MotoX3MGame } from './components/MotoX3MGame';
@@ -101,6 +105,11 @@ const DEFAULT_PROFILE: PlayerProfile = {
     sudokuCompleted: 0,
     slopeHighScore: 0,
     tunnelHighScore: 0,
+    geodashHighScore: 0,
+    colorSwitchHighScore: 0,
+    pacmazeHighScore: 0,
+    aimHighScore: 0,
+    parkourHighScore: 0,
   },
 };
 
@@ -458,14 +467,14 @@ export default function App() {
                   </button>
 
                   <button
-                    id="hero-play-runner-btn"
+                    id="hero-play-geodash-btn"
                     onClick={() => {
                       sounds.playPop(1.2);
-                      setCurrentView('subwaysurf');
+                      setCurrentView('geodash');
                     }}
-                    className="flex items-center gap-2 px-4 py-2 bg-amber-800 hover:bg-amber-900 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
                   >
-                    <span>🚇 {lang === 'hi' ? 'सबवे 3D' : 'Subway 3D'}</span>
+                    <span>⚡ {lang === 'hi' ? 'ज्यामिति डैश' : 'Geo Dash'}</span>
                   </button>
 
                   <button
@@ -1042,16 +1051,7 @@ export default function App() {
           />
         )}
 
-        {/* 21. Subway 3D Surfers */}
-        {currentView === 'subwaysurf' && (
-          <SubwaySurferGame
-            lang={lang}
-            onBack={() => setCurrentView('hub')}
-            onGameComplete={(stars) => addStarsAndStats(stars, {})}
-          />
-        )}
-
-        {/* 22. Crossy Road Adventure */}
+        {/* 21. Crossy Road Adventure */}
         {currentView === 'crossyroad' && (
           <CrossyRoadGame
             lang={lang}
@@ -1109,7 +1109,7 @@ export default function App() {
           />
         )}
 
-        {/* 28. Speed Tunnel Rush 3D */}
+        {/* 27. Speed Tunnel Rush 3D */}
         {currentView === 'tunnelrush3d' && (
           <TunnelRush3DGame
             lang={lang}
@@ -1117,6 +1117,71 @@ export default function App() {
             onGameComplete={(stars, score) => {
               addStarsAndStats(stars, {
                 tunnelHighScore: Math.max(profile.gameStats.tunnelHighScore || 0, score),
+              });
+            }}
+          />
+        )}
+
+        {/* 28. Geo Dash Neon Rhythm */}
+        {currentView === 'geodash' && (
+          <GeoDashGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                geodashHighScore: Math.max(profile.gameStats.geodashHighScore || 0, score),
+              });
+            }}
+          />
+        )}
+
+        {/* 29. Color Switch Arena */}
+        {currentView === 'colorswitch' && (
+          <ColorSwitchGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                colorSwitchHighScore: Math.max(profile.gameStats.colorSwitchHighScore || 0, score),
+              });
+            }}
+          />
+        )}
+
+        {/* 30. Cyber Pac-Maze 2088 */}
+        {currentView === 'pacmaze' && (
+          <PacMazeGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                pacmazeHighScore: Math.max(profile.gameStats.pacmazeHighScore || 0, score),
+              });
+            }}
+          />
+        )}
+
+        {/* 31. Aim Reflex Sniper Pro */}
+        {currentView === 'aimtrainer' && (
+          <AimTrainerGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                aimHighScore: Math.max(profile.gameStats.aimHighScore || 0, score),
+              });
+            }}
+          />
+        )}
+
+        {/* 32. Rooftop Parkour Rush */}
+        {currentView === 'parkour' && (
+          <RooftopParkourGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                parkourHighScore: Math.max(profile.gameStats.parkourHighScore || 0, score),
               });
             }}
           />
