@@ -389,127 +389,131 @@ export const FlappyHero: React.FC<FlappyHeroProps> = ({ lang, onBack, onGameComp
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-3 sm:p-4 flex flex-col items-center">
+    <div className="w-full h-full max-h-[100dvh] flex flex-col items-center justify-between p-2 select-none overflow-hidden">
       {/* Top Navigation */}
-      <div className="w-full flex items-center justify-between gap-3 mb-3">
+      <div className="w-full max-w-sm flex items-center justify-between bg-white/95 backdrop-blur rounded-2xl px-3 py-1.5 border border-amber-200 shadow-2xs">
         <button
           onClick={() => {
             sounds.playPop();
             onBack();
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 font-bold text-xs shadow-2xs active:scale-95 transition-all"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition-all active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>{lang === 'hi' ? 'वापस' : 'Back'}</span>
         </button>
 
         <div className="text-center">
-          <h2 className="text-lg sm:text-xl font-black text-slate-800 font-display flex items-center gap-1.5 justify-center">
+          <h2 className="text-sm font-black text-slate-800 font-display flex items-center gap-1 justify-center">
             <span>🐦</span>
-            <span>{lang === 'hi' ? 'फ़्लैपी किड्डो हीरो' : 'Flappy Hero'}</span>
+            <span>{lang === 'hi' ? 'फ़्लैपी हीरो' : 'Flappy Hero'}</span>
           </h2>
         </div>
 
-        <div className="flex items-center gap-1.5 bg-amber-50 px-3 py-1 rounded-xl border border-amber-200 text-xs font-black text-amber-900">
+        <div className="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-xl border border-amber-200 text-[11px] font-black text-amber-900">
           <Trophy className="w-3.5 h-3.5 text-amber-500" />
           <span>{highScore}</span>
         </div>
       </div>
 
       {/* Canvas Game Container */}
-      <div
-        onClick={jump}
-        className="relative w-full max-w-[360px] aspect-[400/540] rounded-3xl overflow-hidden shadow-2xl border-4 border-amber-300 cursor-pointer select-none bg-sky-200"
-      >
-        <canvas
-          ref={canvasRef}
-          width={400}
-          height={540}
-          className="w-full h-full block"
-        />
+      <div className="flex-1 min-h-0 w-full flex items-center justify-center p-1 relative">
+        <div
+          onClick={jump}
+          className="relative h-full max-h-[min(70vh,500px)] aspect-[400/540] rounded-3xl overflow-hidden shadow-2xl border-4 border-amber-300 cursor-pointer select-none bg-sky-200"
+        >
+          <canvas
+            ref={canvasRef}
+            width={400}
+            height={540}
+            className="w-full h-full block"
+          />
 
-        {/* Live Score Overlay during play */}
-        {gameState === 'playing' && (
-          <div className="absolute top-4 left-0 right-0 flex justify-center pointer-events-none">
-            <span className="text-4xl font-black text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.5)] font-display">
-              {score}
-            </span>
-          </div>
-        )}
-
-        {/* Ready Screen Overlay */}
-        {gameState === 'ready' && (
-          <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-[2px] flex flex-col items-center justify-center p-6 text-center text-white">
-            <div className="w-16 h-16 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center text-3xl shadow-lg animate-bounce mb-3 border-2 border-white">
-              🐦
+          {/* Live Score Overlay during play */}
+          {gameState === 'playing' && (
+            <div className="absolute top-4 left-0 right-0 flex justify-center pointer-events-none">
+              <span className="text-4xl font-black text-white drop-shadow-[0_3px_3px_rgba(0,0,0,0.5)] font-display">
+                {score}
+              </span>
             </div>
-            <h3 className="text-2xl font-black font-display drop-shadow-md">
-              {lang === 'hi' ? 'उड़ने के लिए टैप करें!' : 'Tap or Space to Fly!'}
-            </h3>
-            <p className="text-xs text-amber-100 font-bold mt-1 mb-5 max-w-[240px]">
-              {lang === 'hi'
-                ? 'हरे पाइपों से बचें और सुनहरे सितारे बटोरे!'
-                : 'Dodge green pipes & collect shiny golden stars!'}
-            </p>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                jump();
-              }}
-              className="py-3.5 px-8 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-900 font-black text-base shadow-xl flex items-center gap-2 active:scale-95 transition-all"
-            >
-              <Play className="w-5 h-5 fill-current" />
-              <span>{lang === 'hi' ? 'खेल शुरू करें' : 'Start Flying'}</span>
-            </button>
-          </div>
-        )}
+          )}
 
-        {/* Game Over Screen Overlay */}
-        {gameState === 'gameover' && (
-          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center text-white animate-fade-in">
-            <div className="bg-white text-slate-800 rounded-3xl p-5 w-full max-w-[280px] shadow-2xl border-4 border-amber-300">
-              <h3 className="text-xl font-black text-amber-900 font-display">
-                {lang === 'hi' ? 'खेल समाप्त! 💥' : 'Game Over! 💥'}
-              </h3>
-
-              <div className="my-3 py-2 bg-amber-50 rounded-2xl border border-amber-200">
-                <div className="text-xs font-bold text-amber-800">
-                  {lang === 'hi' ? 'आपका स्कोर' : 'Your Score'}
-                </div>
-                <div className="text-3xl font-black text-amber-950">{score}</div>
-                <div className="text-[11px] font-bold text-slate-500 mt-1">
-                  {lang === 'hi' ? `सर्वश्रेष्ठ: ${highScore}` : `Best: ${highScore}`}
-                </div>
+          {/* Ready Screen Overlay */}
+          {gameState === 'ready' && (
+            <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-xs flex flex-col items-center justify-center p-4 text-center text-white">
+              <div className="w-14 h-14 rounded-full bg-amber-400 text-amber-950 flex items-center justify-center text-2xl shadow-lg animate-bounce mb-2 border-2 border-white">
+                🐦
               </div>
-
-              {starsEarned > 0 && (
-                <div className="flex items-center justify-center gap-1 text-amber-500 mb-4">
-                  {Array.from({ length: starsEarned }).map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-current" />
-                  ))}
-                </div>
-              )}
-
+              <h3 className="text-xl font-black font-display drop-shadow-md">
+                {lang === 'hi' ? 'उड़ने के लिए टैप करें!' : 'Tap or Space to Fly!'}
+              </h3>
+              <p className="text-[11px] text-amber-100 font-bold mt-1 mb-4 max-w-[220px]">
+                {lang === 'hi'
+                  ? 'हरे पाइपों से बचें और सुनहरे सितारे बटोरे!'
+                  : 'Dodge pipes & collect shiny golden stars!'}
+              </p>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  restartGame();
+                  jump();
                 }}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-sm shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all"
+                className="py-2.5 px-6 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 text-slate-900 font-black text-sm shadow-xl flex items-center gap-1.5 active:scale-95 transition-all"
               >
-                <RotateCcw className="w-4 h-4" />
-                <span>{lang === 'hi' ? 'फिर से खेलें' : 'Play Again'}</span>
+                <Play className="w-4 h-4 fill-current" />
+                <span>{lang === 'hi' ? 'खेल शुरू करें' : 'Start Flying'}</span>
               </button>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Game Over Screen Overlay */}
+          {gameState === 'gameover' && (
+            <div className="absolute inset-0 bg-slate-900/65 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center text-white">
+              <div className="bg-white text-slate-800 rounded-3xl p-4 w-full max-w-[260px] shadow-2xl border-4 border-amber-300">
+                <h3 className="text-lg font-black text-amber-900 font-display">
+                  {lang === 'hi' ? 'खेल समाप्त! 💥' : 'Game Over! 💥'}
+                </h3>
+
+                <div className="my-2.5 py-1.5 bg-amber-50 rounded-2xl border border-amber-200">
+                  <div className="text-[11px] font-bold text-amber-800">
+                    {lang === 'hi' ? 'आपका स्कोर' : 'Your Score'}
+                  </div>
+                  <div className="text-3xl font-black text-amber-950">{score}</div>
+                  <div className="text-[10px] font-bold text-slate-500 mt-0.5">
+                    {lang === 'hi' ? `सर्वश्रेष्ठ: ${highScore}` : `Best: ${highScore}`}
+                  </div>
+                </div>
+
+                {starsEarned > 0 && (
+                  <div className="flex items-center justify-center gap-1 text-amber-500 mb-3">
+                    {Array.from({ length: starsEarned }).map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current" />
+                    ))}
+                  </div>
+                )}
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    restartGame();
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition-all"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>{lang === 'hi' ? 'फिर से खेलें' : 'Play Again'}</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="mt-3 text-center text-xs font-semibold text-slate-500">
-        {lang === 'hi'
-          ? '👆 स्क्रीन पर टैप करें या कीबोर्ड पर Spacebar दबाएं!'
-          : '👆 Tap screen or press Spacebar to flap wings!'}
-      </div>
+      {/* Mobile Tap Button */}
+      <button
+        onClick={jump}
+        className="w-full max-w-sm h-11 bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 text-slate-950 font-black text-xs rounded-xl shadow-2xs active:scale-98 flex items-center justify-center gap-1.5 border border-amber-200"
+      >
+        <span>🐦 {lang === 'hi' ? 'पंख फड़फड़ाएं (TAP TO FLAP)' : 'TAP TO FLAP WINGS'}</span>
+      </button>
     </div>
   );
 };

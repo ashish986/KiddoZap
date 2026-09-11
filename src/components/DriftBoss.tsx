@@ -458,46 +458,46 @@ export const DriftBoss: React.FC<Props> = ({ lang, onBack, onGameComplete }) => 
   }, [lang, highScore, selectedVehicle]);
 
   return (
-    <div className="max-w-xl mx-auto px-3 sm:px-4 flex flex-col items-center select-none">
+    <div className="w-full h-full max-h-[100dvh] flex flex-col items-center justify-between p-2 select-none overflow-hidden">
       {/* Top Header Controls */}
-      <div className="w-full flex items-center justify-between mb-3 bg-white/90 backdrop-blur rounded-2xl p-3 border border-amber-200 shadow-xs">
+      <div className="w-full max-w-sm flex items-center justify-between bg-white/95 backdrop-blur rounded-2xl px-3 py-1.5 border border-amber-200 shadow-2xs">
         <button
           onClick={() => {
             sounds.playPop();
             onBack();
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition-all active:scale-95"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition-all active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>{lang === 'hi' ? 'वापस' : 'Back'}</span>
         </button>
 
-        <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-1 px-2.5 py-1 bg-amber-50 border border-amber-300 rounded-xl text-xs font-black text-amber-900">
-            <Trophy className="w-4 h-4 text-amber-500" />
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 px-2 py-0.5 bg-amber-50 border border-amber-300 rounded-xl text-[11px] font-black text-amber-900">
+            <Trophy className="w-3 h-3 text-amber-500" />
             <span>{highScore}</span>
           </div>
 
-          <div className="flex items-center gap-1 px-3 py-1 bg-sky-600 text-white rounded-xl text-sm font-black shadow-xs">
+          <div className="flex items-center gap-1 px-2.5 py-0.5 bg-sky-600 text-white rounded-xl text-xs font-black shadow-2xs">
             <span>🏁 {score}m</span>
           </div>
 
-          <div className="flex items-center gap-1 px-2.5 py-1 bg-amber-400 text-amber-950 rounded-xl text-xs font-black shadow-xs">
+          <div className="flex items-center gap-1 px-2 py-0.5 bg-amber-400 text-amber-950 rounded-xl text-[11px] font-black shadow-2xs">
             <span>🪙 {coins}</span>
           </div>
         </div>
 
         <button
           onClick={startPlaying}
-          className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all"
+          className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all"
           title="Restart"
         >
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="w-3.5 h-3.5" />
         </button>
       </div>
 
       {/* Vehicle Selector Chips */}
-      <div className="flex items-center gap-2 mb-2 overflow-x-auto pb-1 max-w-[380px]">
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 max-w-sm">
         {VEHICLES.map((veh, idx) => (
           <button
             key={veh.id}
@@ -505,114 +505,110 @@ export const DriftBoss: React.FC<Props> = ({ lang, onBack, onGameComplete }) => 
               sounds.playPop();
               setSelectedVehicle(idx);
             }}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold transition-all border ${
+            className={`flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-bold transition-all border ${
               selectedVehicle === idx
-                ? 'bg-amber-500 text-white border-amber-600 shadow-xs'
+                ? 'bg-amber-500 text-white border-amber-600 shadow-2xs'
                 : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
             }`}
           >
             <span>{veh.emoji}</span>
-            <span className="hidden sm:inline">{veh.name}</span>
+            <span>{veh.name}</span>
           </button>
         ))}
       </div>
 
       {/* Main Drift Canvas */}
-      <div
-        className="relative w-full max-w-[380px] aspect-[4/5.4] bg-sky-700 rounded-3xl overflow-hidden shadow-xl border-4 border-sky-900 touch-none cursor-pointer"
-        onPointerDown={handleHoldStart}
-        onPointerUp={handleHoldEnd}
-        onPointerCancel={handleHoldEnd}
-      >
-        <canvas
-          ref={canvasRef}
-          width={380}
-          height={520}
-          className="w-full h-full block"
-        />
+      <div className="flex-1 min-h-0 w-full flex items-center justify-center p-1 relative">
+        <div
+          className="relative h-full max-h-[min(68vh,480px)] aspect-[4/5.4] bg-sky-700 rounded-3xl overflow-hidden shadow-xl border-4 border-sky-900 touch-none cursor-pointer"
+          onPointerDown={handleHoldStart}
+          onPointerUp={handleHoldEnd}
+          onPointerCancel={handleHoldEnd}
+        >
+          <canvas
+            ref={canvasRef}
+            width={380}
+            height={520}
+            className="w-full h-full block"
+          />
 
-        {/* Ready Overlay */}
-        {gameState === 'ready' && (
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-xs flex flex-col items-center justify-center p-6 text-center text-white">
-            <div className="text-6xl mb-3">🏎️</div>
-            <h3 className="text-2xl font-black font-display drop-shadow-md">
-              {lang === 'hi' ? 'ड्रिफ्ट बॉस - कर्व रेसर' : 'Drift Boss Curve Racer'}
-            </h3>
-            <p className="text-xs text-amber-200 font-bold mt-1 max-w-xs leading-relaxed">
-              {lang === 'hi'
-                ? 'दाएं मोड़ने के लिए दबाकर रखें (Hold)। सीधा जाने के लिए छोड़ें (Release)। बादलों में न गिरें!'
-                : 'Press & Hold to Drift Right. Release to Steer Straight. Do not fall off the edge!'}
-            </p>
-
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                startPlaying();
-              }}
-              className="mt-5 px-6 py-3 bg-gradient-to-r from-red-500 to-amber-500 text-white font-black text-sm rounded-2xl shadow-lg active:scale-95 transition-all"
-            >
-              {lang === 'hi' ? 'ड्रिफ्ट शुरू करें' : 'Start Drifting'}
-            </button>
-          </div>
-        )}
-
-        {/* Game Over Overlay */}
-        {gameState === 'gameover' && (
-          <div className="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center text-white">
-            <div className="text-5xl mb-2">🏎️💨</div>
-            <h3 className="text-2xl font-black font-display text-red-400">
-              {lang === 'hi' ? 'गाड़ी खाई में गिरी!' : 'Fell Off the Track!'}
-            </h3>
-
-            <div className="bg-white/10 rounded-2xl p-4 my-4 w-full max-w-xs border border-white/20">
-              <p className="text-xs text-slate-300 font-bold">{lang === 'hi' ? 'दूरी व सिक्के' : 'Distance & Coins'}</p>
-              <p className="text-3xl font-black text-amber-300 my-1 font-display">
-                {score}m + {coins} 🪙
+          {/* Ready Overlay */}
+          {gameState === 'ready' && (
+            <div className="absolute inset-0 bg-black/55 backdrop-blur-xs flex flex-col items-center justify-center p-4 text-center text-white">
+              <div className="text-5xl mb-2">🏎️</div>
+              <h3 className="text-xl font-black font-display drop-shadow-md">
+                {lang === 'hi' ? 'ड्रिफ्ट बॉस - कर्व रेसर' : 'Drift Boss Curve Racer'}
+              </h3>
+              <p className="text-[11px] text-amber-200 font-bold mt-1 max-w-xs leading-tight">
+                {lang === 'hi'
+                  ? 'दाएं मोड़ने के लिए दबाकर रखें (Hold)। सीधा जाने के लिए छोड़ें (Release)।'
+                  : 'Press & Hold to Drift Right. Release to Steer Straight.'}
               </p>
-              <p className="text-xs text-slate-300">
-                {lang === 'hi' ? `सर्वश्रेष्ठ: ${highScore}` : `Best: ${highScore}`}
-              </p>
-            </div>
 
-            <div className="flex gap-3 w-full max-w-xs">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   startPlaying();
                 }}
-                className="flex-1 py-3 bg-gradient-to-r from-red-500 to-amber-500 hover:from-red-600 hover:to-amber-600 text-white font-black text-xs rounded-2xl shadow-md active:scale-95 transition-all"
+                className="mt-4 px-5 py-2.5 bg-gradient-to-r from-red-500 to-amber-500 text-white font-black text-xs rounded-xl shadow-lg active:scale-95 transition-all"
               >
-                {lang === 'hi' ? 'फिर दौड़ें' : 'Drive Again'}
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onBack();
-                }}
-                className="py-3 px-4 bg-white/20 hover:bg-white/30 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all"
-              >
-                {lang === 'hi' ? 'हब' : 'Hub'}
+                {lang === 'hi' ? 'ड्रिफ्ट शुरू करें' : 'Start Drifting'}
               </button>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Game Over Overlay */}
+          {gameState === 'gameover' && (
+            <div className="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center text-white">
+              <div className="text-4xl mb-1">🏎️💨</div>
+              <h3 className="text-xl font-black font-display text-red-400">
+                {lang === 'hi' ? 'गाड़ी खाई में गिरी!' : 'Fell Off Track!'}
+              </h3>
+
+              <div className="bg-white/10 rounded-2xl p-3 my-2 w-full max-w-xs border border-white/20">
+                <p className="text-[11px] text-slate-300 font-bold">{lang === 'hi' ? 'दूरी व सिक्के' : 'Distance & Coins'}</p>
+                <p className="text-3xl font-black text-amber-300 my-0.5 font-display">
+                  {score}m + {coins} 🪙
+                </p>
+                <p className="text-[10px] text-slate-300">
+                  {lang === 'hi' ? `सर्वश्रेष्ठ: ${highScore}` : `Best: ${highScore}`}
+                </p>
+              </div>
+
+              <div className="flex gap-2 w-full max-w-xs">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    startPlaying();
+                  }}
+                  className="flex-1 py-2.5 bg-gradient-to-r from-red-500 to-amber-500 hover:from-red-600 hover:to-amber-600 text-white font-black text-xs rounded-xl shadow-md active:scale-95 transition-all"
+                >
+                  {lang === 'hi' ? 'फिर दौड़ें' : 'Drive Again'}
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onBack();
+                  }}
+                  className="py-2.5 px-4 bg-white/20 hover:bg-white/30 text-white font-bold text-xs rounded-xl active:scale-95 transition-all"
+                >
+                  {lang === 'hi' ? 'हब' : 'Hub'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Mobile Hold button */}
+      {/* Hold button */}
       <button
         onPointerDown={handleHoldStart}
         onPointerUp={handleHoldEnd}
         onPointerCancel={handleHoldEnd}
-        className="w-full max-w-[380px] mt-3 py-4 bg-gradient-to-r from-red-500 via-amber-500 to-red-500 text-white font-black text-sm rounded-2xl shadow-md active:scale-98 flex items-center justify-center gap-2 border border-amber-300 sm:hidden"
+        className="w-full max-w-sm h-11 bg-gradient-to-r from-red-500 via-amber-500 to-red-500 text-white font-black text-xs rounded-xl shadow-2xs active:scale-98 flex items-center justify-center gap-1.5 border border-amber-300"
       >
         <span>🏎️ {lang === 'hi' ? 'दबाकर रखें: दायां ड्रिफ्ट (HOLD TO DRIFT)' : 'HOLD TO DRIFT RIGHT'}</span>
       </button>
-
-      <p className="text-center text-xs text-slate-500 font-bold mt-2">
-        {lang === 'hi'
-          ? 'कंट्रोल: स्पेसबार या स्क्रीन दबाए रखने पर कार दाएं मुड़ेगी, छोड़ने पर सीधी चलेगी!'
-          : 'Controls: Hold Spacebar or Tap-Hold to turn right; release to steer forward!'}
-      </p>
     </div>
   );
 };

@@ -522,12 +522,24 @@ class SoundManager {
     this.playPop(pitch);
   }
 
+  chime(pitch = 1) {
+    this.playChime(pitch);
+  }
+
   correct() {
     this.playChime(1.1);
   }
 
   incorrect() {
     this.playError();
+  }
+
+  error() {
+    this.playError();
+  }
+
+  powerup() {
+    this.playMagic();
   }
 
   complete() {

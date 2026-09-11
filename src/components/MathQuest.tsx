@@ -177,28 +177,28 @@ export const MathQuest: React.FC<MathQuestProps> = ({ lang, onBack, onGameComple
   };
 
   return (
-    <div id="math-quest-container" className="max-w-2xl mx-auto px-4 py-4">
-      {/* Top Controls */}
-      <div className="flex items-center justify-between mb-4 bg-white/80 backdrop-blur rounded-2xl p-3 border border-rose-100 shadow-sm">
+    <div id="math-quest-container" className="w-full h-full max-h-[100dvh] flex flex-col items-center justify-between p-2 select-none overflow-hidden">
+      {/* Top Controls Bar */}
+      <div className="w-full max-w-md flex items-center justify-between bg-white/95 backdrop-blur rounded-2xl px-3 py-1.5 border border-rose-200 shadow-2xs">
         <button
           id="math-back-btn"
           onClick={() => {
             sounds.playPop();
             onBack();
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-100 text-rose-700 hover:bg-rose-200 font-semibold text-sm transition-all active:scale-95"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-rose-50 text-rose-700 hover:bg-rose-100 font-semibold text-xs transition-all active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>{lang === 'hi' ? 'वापस' : 'Back'}</span>
         </button>
 
         {/* Lives & Streak */}
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-2">
+          <div className="flex gap-0.5 items-center">
             {[1, 2, 3].map((l) => (
               <Heart
                 key={l}
-                className={`w-5 h-5 transition-all ${
+                className={`w-4 h-4 transition-all ${
                   l <= lives ? 'text-rose-500 fill-rose-500' : 'text-slate-200'
                 }`}
               />
@@ -206,71 +206,63 @@ export const MathQuest: React.FC<MathQuestProps> = ({ lang, onBack, onGameComple
           </div>
 
           {streak > 1 && (
-            <div className="flex items-center gap-1 bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-xs font-black animate-pulse">
-              <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+            <div className="flex items-center gap-0.5 bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded-full text-[10px] font-black animate-pulse">
+              <Flame className="w-3 h-3 text-amber-500 fill-amber-500" />
               <span>{streak}x</span>
             </div>
           )}
 
-          <div className="text-sm font-bold text-slate-700">
-            <span>{lang === 'hi' ? 'अंक: ' : 'Score: '}</span>
-            <span className="text-rose-600 font-extrabold text-base">{score}</span>
+          <div className="text-xs font-bold text-slate-700">
+            <span className="text-rose-600 font-extrabold">{score}</span>
           </div>
         </div>
 
-        <button
-          id="math-reset-btn"
-          onClick={startNewGame}
-          className="p-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all active:rotate-180 duration-300"
-          title="Restart"
-        >
-          <RotateCcw className="w-4 h-4" />
-        </button>
-      </div>
-
-      {/* Level Selection Pill */}
-      <div className="flex justify-center gap-2 mb-4">
-        {(['junior', 'explorer', 'master'] as const).map((lvl) => (
-          <button
-            key={lvl}
-            onClick={() => setLevel(lvl)}
-            className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
-              level === lvl
-                ? 'bg-rose-500 text-white shadow-md shadow-rose-200 scale-105'
-                : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'
-            }`}
+        <div className="flex items-center gap-1">
+          {/* Level selector small */}
+          <select
+            value={level}
+            onChange={(e) => setLevel(e.target.value as any)}
+            className="text-[11px] font-bold bg-slate-100 text-slate-700 rounded-lg px-1.5 py-1 border border-slate-200"
           >
-            {lvl === 'junior' && (lang === 'hi' ? 'सरल (1-10)' : 'Junior (1-10)')}
-            {lvl === 'explorer' && (lang === 'hi' ? 'मध्यम (1-20)' : 'Explorer (1-20)')}
-            {lvl === 'master' && (lang === 'hi' ? 'चैंपियन (गुणा/मिश्र)' : 'Master (Mix/Multi)')}
+            <option value="junior">1-10</option>
+            <option value="explorer">1-20</option>
+            <option value="master">Mix</option>
+          </select>
+
+          <button
+            id="math-reset-btn"
+            onClick={startNewGame}
+            className="p-1.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all active:scale-95"
+            title="Restart"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
           </button>
-        ))}
+        </div>
       </div>
 
-      {/* Equation Cloud Banner */}
-      <div className="relative mb-6">
+      {/* Middle Question Card - Sits in flex container */}
+      <div className="w-full max-w-sm my-auto">
         <motion.div
           key={round}
-          initial={{ scale: 0.9, opacity: 0 }}
+          initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          className="bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 text-white p-6 rounded-3xl text-center shadow-lg shadow-rose-200/60 relative overflow-hidden"
+          className="bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 text-white p-4 rounded-3xl text-center shadow-lg shadow-rose-200/60 relative overflow-hidden"
         >
-          <div className="flex justify-between items-center text-xs text-rose-100 font-bold mb-2">
+          <div className="flex justify-between items-center text-[11px] text-rose-100 font-bold mb-1">
             <span>{lang === 'hi' ? `सवाल ${round} / ${maxRounds}` : `Question ${round} of ${maxRounds}`}</span>
-            <span>{lang === 'hi' ? 'सही गुब्बारा फोड़ें! 🎈' : 'Pop the right balloon! 🎈'}</span>
+            <span>{lang === 'hi' ? 'सही गुब्बारा फोड़ें! 🎈' : 'Pop the balloon! 🎈'}</span>
           </div>
 
-          <div className="text-4xl sm:text-5xl font-black tracking-wider drop-shadow">
+          <div className="text-4xl sm:text-5xl font-black tracking-wider drop-shadow my-2 font-display">
             {currentQ ? `${currentQ.num1} ${currentQ.op} ${currentQ.num2} = ?` : '...'}
           </div>
 
           {/* Feedback pill */}
           {feedback && (
             <motion.div
-              initial={{ y: 10, opacity: 0 }}
+              initial={{ y: 5, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-extrabold ${
+              className={`inline-block px-3 py-0.5 rounded-full text-xs font-extrabold ${
                 feedback.isCorrect
                   ? 'bg-emerald-400 text-emerald-950'
                   : 'bg-white text-rose-600'
@@ -282,14 +274,14 @@ export const MathQuest: React.FC<MathQuestProps> = ({ lang, onBack, onGameComple
         </motion.div>
       </div>
 
-      {/* Floating Balloons Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
+      {/* Floating Balloons Grid - 4 Balloons fitting nicely */}
+      <div className="grid grid-cols-4 gap-2 w-full max-w-sm pb-2">
         {currentQ?.options.map((option, idx) => (
           <motion.button
             key={`${round}-${option}-${idx}`}
-            initial={{ y: 30, opacity: 0 }}
+            initial={{ y: 15, opacity: 0 }}
             animate={{
-              y: [0, -6, 0],
+              y: [0, -4, 0],
               opacity: 1,
             }}
             transition={{
@@ -300,23 +292,22 @@ export const MathQuest: React.FC<MathQuestProps> = ({ lang, onBack, onGameComple
               },
               opacity: { duration: 0.2 },
             }}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
             onClick={() => handleSelectOption(option)}
-            className={`aspect-[3/4] rounded-[45%] flex flex-col items-center justify-center p-4 relative shadow-lg cursor-pointer ${
+            className={`aspect-[3/3.8] rounded-[45%] flex flex-col items-center justify-center p-2 relative shadow-md cursor-pointer ${
               BALLOON_COLORS[idx % BALLOON_COLORS.length]
-            } border-2 border-white/40`}
+            } border-2 border-white/50 active:scale-95 transition-transform`}
           >
             {/* Balloon shine effect */}
-            <div className="absolute top-3 left-4 w-4 h-8 bg-white/40 rounded-full rotate-[-25deg] blur-[0.5px]" />
+            <div className="absolute top-2 left-2.5 w-3 h-5 bg-white/40 rounded-full rotate-[-25deg] blur-[0.5px]" />
 
-            <span className="text-3xl sm:text-4xl font-black drop-shadow-sm">
+            <span className="text-2xl sm:text-3xl font-black drop-shadow-sm font-display">
               {option}
             </span>
 
             {/* Balloon string knot */}
-            <div className="absolute -bottom-2 w-3 h-2 bg-rose-600 rounded-sm" />
-            <div className="absolute -bottom-6 w-0.5 h-5 bg-slate-400" />
+            <div className="absolute -bottom-1.5 w-2.5 h-1.5 bg-rose-600 rounded-xs" />
           </motion.button>
         ))}
       </div>
@@ -328,40 +319,40 @@ export const MathQuest: React.FC<MathQuestProps> = ({ lang, onBack, onGameComple
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4"
           >
             <motion.div
               initial={{ scale: 0.8, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              className="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl border-4 border-rose-300"
+              className="bg-white rounded-3xl p-5 max-w-xs w-full text-center shadow-2xl border-4 border-rose-300"
             >
-              <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Trophy className="w-8 h-8 text-rose-500 animate-bounce" />
+              <div className="w-14 h-14 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Trophy className="w-7 h-7 text-rose-500 animate-bounce" />
               </div>
 
-              <h3 className="text-2xl font-black text-slate-800">
+              <h3 className="text-xl font-black text-slate-800">
                 {lives > 0
                   ? lang === 'hi' ? 'गणित मास्टर! 🚀' : 'Math Rocket! 🚀'
                   : lang === 'hi' ? 'अच्छा प्रयास! 👏' : 'Great Try! 👏'}
               </h3>
-              <p className="text-sm font-semibold text-slate-500 mt-1">
+              <p className="text-xs font-semibold text-slate-500 mt-1">
                 {lang === 'hi'
-                  ? `आपका कुल स्कोर: ${score} अंक!`
-                  : `Your final score: ${score} points!`}
+                  ? `कुल स्कोर: ${score} अंक!`
+                  : `Final score: ${score} points!`}
               </p>
 
-              <div className="flex gap-2 mt-5">
+              <div className="flex gap-2 mt-4">
                 <button
                   id="math-play-again-btn"
                   onClick={startNewGame}
-                  className="flex-1 py-3 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold rounded-2xl shadow-md active:scale-95 transition-all text-sm"
+                  className="flex-1 py-2.5 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white font-bold rounded-xl shadow-md active:scale-95 transition-all text-xs"
                 >
                   {lang === 'hi' ? 'फिर से खेलें' : 'Play Again'}
                 </button>
                 <button
                   id="math-modal-back-btn"
                   onClick={onBack}
-                  className="px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl active:scale-95 transition-all text-sm"
+                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl active:scale-95 transition-all text-xs"
                 >
                   {lang === 'hi' ? 'होम' : 'Menu'}
                 </button>

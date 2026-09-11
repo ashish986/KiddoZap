@@ -77,7 +77,16 @@ export const JetpackJoyrideGame: React.FC<JetpackProps> = ({ lang, onBack, onGam
     s.zappers = [];
     s.coins = [];
     s.particles = [];
-    s.nextObstacleDist = 200;
+    s.nextObstacleDist = 350; // Give 350m runway to get into rhythm
+
+    // Seed fun welcoming coins
+    for (let c = 0; c < 12; c++) {
+      s.coins.push({
+        x: 250 + c * 45,
+        y: 200 + Math.sin(c * 0.5) * 80,
+        collected: false,
+      });
+    }
 
     setScore(0);
     setCoins(0);
@@ -164,24 +173,24 @@ export const JetpackJoyrideGame: React.FC<JetpackProps> = ({ lang, onBack, onGam
         setScore(Math.floor(s.distance) + s.coinsCollected * 5);
         s.speed = Math.min(14, 6.5 + s.distance * 0.004);
 
-        // Spawn Zappers
-        if (s.distance > s.nextObstacleDist - 400) {
+        // Spawn Zappers (Only after 350m, paced fairly)
+        if (s.distance > 350 && s.distance >= s.nextObstacleDist) {
           const zY = 70 + Math.random() * (H - 180);
           s.zappers.push({
-            x: W + 50,
+            x: W + 60,
             y: zY,
-            length: 65 + Math.random() * 30,
+            length: 55 + Math.random() * 25,
             angle: Math.random() > 0.5 ? 0 : Math.PI / 3,
           });
           // Also spawn coin ring
           for (let c = 0; c < 4; c++) {
             s.coins.push({
-              x: W + 120 + c * 24,
+              x: W + 140 + c * 24,
               y: zY > H / 2 ? zY - 60 : zY + 60,
               collected: false,
             });
           }
-          s.nextObstacleDist += 160 + Math.random() * 80;
+          s.nextObstacleDist = s.distance + 180 + Math.random() * 100;
         }
 
         // Move Zappers
@@ -189,12 +198,12 @@ export const JetpackJoyrideGame: React.FC<JetpackProps> = ({ lang, onBack, onGam
           const z = s.zappers[i];
           z.x -= s.speed;
 
-          // Check Collision with player (box approx around zapper)
+          // Check Collision with player (fair hitbox)
           const dx = p.x - z.x;
           const dy = p.y - z.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 26) {
+          if (dist < 20) {
             // Zapped!
             sounds.incorrect();
             setGameState('gameover');

@@ -58,7 +58,7 @@ export const CrossyRoadGame: React.FC<CrossyRoadProps> = ({ lang, onBack, onGame
   const CELL_SIZE = 44;
 
   const generateLane = (yIndex: number): Lane => {
-    if (yIndex <= 2) {
+    if (yIndex <= 4) {
       return {
         id: yIndex,
         yIndex,
@@ -71,7 +71,7 @@ export const CrossyRoadGame: React.FC<CrossyRoadProps> = ({ lang, onBack, onGame
     }
 
     const rand = Math.random();
-    if (rand < 0.35) {
+    if (rand < 0.38) {
       // Grass / Safe zone
       return {
         id: yIndex,
@@ -80,18 +80,18 @@ export const CrossyRoadGame: React.FC<CrossyRoadProps> = ({ lang, onBack, onGame
         speed: 0,
         direction: 1,
         color: '#4ade80',
-        items: Math.random() > 0.6 ? [{ x: Math.floor(Math.random() * GRID_COLS), width: 1, type: 'tree' }] : [],
+        items: Math.random() > 0.7 ? [{ x: Math.floor(Math.random() * GRID_COLS), width: 1, type: 'tree' }] : [],
       };
-    } else if (rand < 0.72) {
+    } else if (rand < 0.75) {
       // Road with cars
       const dir = Math.random() > 0.5 ? 1 : -1;
-      const speed = 1.2 + Math.random() * 1.5;
-      const carCount = Math.floor(Math.random() * 2) + 2;
+      const speed = 0.8 + Math.min(yIndex * 0.03, 1.2) + Math.random() * 0.5;
+      const carCount = Math.floor(Math.random() * 2) + 1;
       const items = [];
       for (let i = 0; i < carCount; i++) {
         items.push({
           x: (i * (GRID_COLS / carCount) + Math.random() * 1.5) % GRID_COLS,
-          width: 1.6,
+          width: 1.5,
           type: 'car',
         });
       }
@@ -107,13 +107,13 @@ export const CrossyRoadGame: React.FC<CrossyRoadProps> = ({ lang, onBack, onGame
     } else {
       // River with floating logs
       const dir = Math.random() > 0.5 ? 1 : -1;
-      const speed = 0.9 + Math.random() * 1.0;
+      const speed = 0.8 + Math.random() * 0.6;
       const logCount = 2;
       const items = [];
       for (let i = 0; i < logCount; i++) {
         items.push({
           x: i * 4.5,
-          width: 2.3,
+          width: 2.5,
           type: 'log',
         });
       }
@@ -132,11 +132,16 @@ export const CrossyRoadGame: React.FC<CrossyRoadProps> = ({ lang, onBack, onGame
   const moveChicken = (dx: number, dy: number) => {
     if (gameState !== 'playing') return;
     const s = stateRef.current;
-    const newX = Math.max(0, Math.min(GRID_COLS - 1, s.chicken.gridX + dx));
+    let newX = Math.max(0, Math.min(GRID_COLS - 1, s.chicken.gridX + dx));
     const newY = Math.max(0, s.chicken.gridY + dy);
 
-    // Can't move into trees
+    // If moving onto grass or road, snap to nearest integer column
     const targetLane = s.lanes.find((l) => l.yIndex === newY);
+    if (targetLane && targetLane.type !== 'river') {
+      newX = Math.round(newX);
+    }
+
+    // Can't move into trees
     if (targetLane && targetLane.type === 'grass') {
       const treeHit = targetLane.items.some((it) => it.type === 'tree' && Math.round(it.x) === newX);
       if (treeHit) {

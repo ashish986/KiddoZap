@@ -111,18 +111,17 @@ export const SubwaySurferGame: React.FC<SubwaySurferProps> = ({ lang, onBack, on
     s.coins = 0;
     s.obstacles = [];
     s.coinsList = [];
-    s.nextObstacleZ = 100;
-    s.nextCoinZ = 60;
+    s.nextObstacleZ = 420; // First 400m is safe runway with coins
+    s.nextCoinZ = 50;
 
-    // Seed initial obstacles
-    for (let i = 0; i < 4; i++) {
-      const obsLane = Math.floor(Math.random() * 3) - 1;
-      s.obstacles.push({
+    // Seed welcoming coin trails on all 3 lanes for a fun start
+    for (let i = 0; i < 15; i++) {
+      const cLane = (i % 3) - 1;
+      s.coinsList.push({
         id: s.nextId++,
-        lane: obsLane,
-        z: 140 + i * 110,
-        type: i % 2 === 0 ? 'train' : 'barrier',
-        color: i % 2 === 0 ? '#ef4444' : '#f59e0b',
+        lane: cLane,
+        z: 80 + i * 22,
+        collected: false,
       });
     }
 
@@ -210,18 +209,18 @@ export const SubwaySurferGame: React.FC<SubwaySurferProps> = ({ lang, onBack, on
           }
         }
 
-        // Spawn obstacles
-        if (s.distance > s.nextObstacleZ - 300) {
+        // Spawn obstacles (Only after distance > 350, with good spacing)
+        if (s.distance > 350 && s.distance > s.nextObstacleZ - 300) {
           const l = Math.floor(Math.random() * 3) - 1;
           const type = Math.random() > 0.45 ? 'train' : 'barrier';
           s.obstacles.push({
             id: s.nextId++,
             lane: l,
-            z: s.distance + 350,
+            z: s.distance + 380,
             type,
             color: type === 'train' ? '#ef4444' : '#eab308',
           });
-          s.nextObstacleZ += 95 + Math.random() * 50;
+          s.nextObstacleZ = s.distance + 140 + Math.random() * 80;
         }
 
         // Spawn coins
@@ -242,12 +241,12 @@ export const SubwaySurferGame: React.FC<SubwaySurferProps> = ({ lang, onBack, on
         s.obstacles.forEach((obs) => {
           // Check collision at player z = 30
           const distZ = obs.z - s.distance;
-          if (distZ > 5 && distZ < 35 && Math.abs(obs.lane - s.laneX) < 0.6) {
+          if (distZ > 10 && distZ < 28 && Math.abs(obs.lane - s.laneX) < 0.45) {
             // Collision logic
-            if (obs.type === 'barrier' && s.isJumping && s.jumpY > 28) {
+            if (obs.type === 'barrier' && s.isJumping && s.jumpY > 16) {
               // Safely jumped over barrier
-            } else if (obs.type === 'barrier' && s.isRolling && s.jumpY === 0) {
-              // Safely slid under high barrier
+            } else if (obs.type === 'barrier' && s.isRolling) {
+              // Safely slid under barrier
             } else {
               // Crashed!
               sounds.incorrect();
@@ -476,143 +475,145 @@ export const SubwaySurferGame: React.FC<SubwaySurferProps> = ({ lang, onBack, on
   }, [gameState]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center select-none overflow-hidden pb-1">
+    <div className="w-full h-full max-h-[100dvh] flex flex-col items-center justify-between p-2 select-none overflow-hidden">
       {/* Top Header Bar */}
-      <div className="w-full max-w-[420px] flex items-center justify-between mb-2 bg-white/95 backdrop-blur rounded-2xl p-2.5 border border-amber-200 shadow-xs">
+      <div className="w-full max-w-sm flex items-center justify-between bg-white/95 backdrop-blur rounded-2xl px-3 py-1.5 border border-amber-200 shadow-2xs">
         <button
           onClick={() => {
             sounds.tap(0.9);
             onBack();
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition-all active:scale-95"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition-all active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>{lang === 'hi' ? 'वापस' : 'Back'}</span>
         </button>
 
-        <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-1 px-2.5 py-1 bg-amber-50 text-amber-900 border border-amber-300 rounded-xl text-xs font-black">
-            <Trophy className="w-3.5 h-3.5 text-amber-500" />
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 px-2 py-0.5 bg-amber-50 text-amber-900 border border-amber-300 rounded-xl text-[11px] font-black">
+            <Trophy className="w-3 h-3 text-amber-500" />
             <span>{highScore}</span>
           </div>
 
-          <div className="flex items-center gap-1 px-3 py-1 bg-orange-600 text-white rounded-xl text-xs font-black shadow-xs">
+          <div className="flex items-center gap-1 px-2.5 py-0.5 bg-orange-600 text-white rounded-xl text-xs font-black shadow-2xs">
             <span>🏃 {score}m</span>
           </div>
 
-          <div className="flex items-center gap-1 px-2.5 py-1 bg-yellow-400 text-yellow-950 rounded-xl text-xs font-black shadow-xs">
+          <div className="flex items-center gap-1 px-2 py-0.5 bg-yellow-400 text-yellow-950 rounded-xl text-xs font-black shadow-2xs">
             <span>🪙 {coins}</span>
           </div>
         </div>
 
         <button
           onClick={startGame}
-          className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95"
+          className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95"
           title="Restart"
         >
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="w-3.5 h-3.5" />
         </button>
       </div>
 
-      {/* Main 3D Canvas Stage */}
-      <div
-        className="relative w-full max-w-[420px] aspect-[400/520] bg-slate-950 rounded-3xl overflow-hidden shadow-xl border-4 border-amber-400 cursor-pointer touch-none"
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-      >
-        <canvas
-          ref={canvasRef}
-          width={400}
-          height={520}
-          className="w-full h-full block"
-        />
+      {/* Main 3D Canvas Stage - Fitted into available flex height */}
+      <div className="flex-1 min-h-0 w-full flex items-center justify-center p-1 relative">
+        <div
+          className="relative h-full max-h-[min(65vh,480px)] aspect-[400/520] bg-slate-950 rounded-3xl overflow-hidden shadow-xl border-4 border-amber-400 cursor-pointer touch-none"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <canvas
+            ref={canvasRef}
+            width={400}
+            height={520}
+            className="w-full h-full block"
+          />
 
-        {/* Start Overlay */}
-        {gameState === 'ready' && (
-          <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-xs flex flex-col items-center justify-center p-6 text-center text-white z-20">
-            <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-4xl shadow-xl mb-3 animate-bounce">
-              🚇
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-black font-display text-amber-300">
-              {lang === 'hi' ? 'सबवे सर्फ 3D रनर' : 'Subway 3D Surfers'}
-            </h3>
-            <p className="text-xs text-amber-100/90 font-semibold max-w-xs mt-1 mb-5 leading-relaxed">
-              {lang === 'hi'
-                ? 'ट्रैक बदलें, ट्रेनों और बैरियर से बचें! कूदने के लिए ऊपर स्वाइप और स्लाइड के लिए नीचे स्वाइप करें।'
-                : 'Dodge oncoming subway trains and roadblocks! Swipe UP to jump, DOWN to slide under hurdles.'}
-            </p>
-
-            <button
-              onClick={startGame}
-              className="px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black rounded-2xl text-sm shadow-xl active:scale-95 transition-all flex items-center gap-2"
-            >
-              <Play className="w-5 h-5 fill-white" />
-              <span>{lang === 'hi' ? 'दौड़ शुरू करें!' : 'Start Surfing!'}</span>
-            </button>
-          </div>
-        )}
-
-        {/* Game Over Screen */}
-        {gameState === 'gameover' && (
-          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center text-white z-20">
-            <span className="text-5xl mb-2">💥</span>
-            <h3 className="text-2xl font-black font-display text-amber-300">
-              {lang === 'hi' ? 'टकराव हो गया!' : 'Train Crash!'}
-            </h3>
-            <div className="bg-white/10 rounded-2xl p-4 my-3 w-full max-w-xs border border-white/20">
-              <p className="text-xs text-slate-300 font-bold">{lang === 'hi' ? 'दूरी व सिक्के' : 'Distance & Coins'}</p>
-              <p className="text-3xl font-black text-amber-300 my-1 font-display">
-                {score}m | {coins} 🪙
+          {/* Start Overlay */}
+          {gameState === 'ready' && (
+            <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-xs flex flex-col items-center justify-center p-4 text-center text-white z-20">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-3xl shadow-xl mb-2 animate-bounce">
+                🚇
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black font-display text-amber-300">
+                {lang === 'hi' ? 'सबवे सर्फ 3D रनर' : 'Subway 3D Surfers'}
+              </h3>
+              <p className="text-[11px] text-amber-100/90 font-semibold max-w-xs mt-1 mb-4 leading-relaxed">
+                {lang === 'hi'
+                  ? 'ट्रैक बदलें, ट्रेनों से बचें! कूदने के लिए ऊपर और स्लाइड के लिए नीचे स्वाइप करें।'
+                  : 'Dodge trains! Swipe or tap buttons: Left/Right to turn, Up to jump, Down to slide.'}
               </p>
-              <p className="text-xs text-slate-300">
-                {lang === 'hi' ? `सर्वश्रेष्ठ: ${highScore}m` : `Personal Best: ${highScore}m`}
-              </p>
-            </div>
 
-            <div className="flex gap-3 w-full max-w-xs">
               <button
                 onClick={startGame}
-                className="flex-1 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-xs rounded-2xl shadow-md active:scale-95"
+                className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black rounded-xl text-xs shadow-xl active:scale-95 transition-all flex items-center gap-1.5"
               >
-                {lang === 'hi' ? 'फिर से दौड़ें' : 'Surf Again'}
-              </button>
-              <button
-                onClick={onBack}
-                className="py-3 px-5 bg-white/20 hover:bg-white/30 text-white font-bold text-xs rounded-2xl active:scale-95"
-              >
-                {lang === 'hi' ? 'हब' : 'Hub'}
+                <Play className="w-4 h-4 fill-white" />
+                <span>{lang === 'hi' ? 'दौड़ शुरू करें!' : 'Start Surfing!'}</span>
               </button>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Game Over Screen */}
+          {gameState === 'gameover' && (
+            <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center text-white z-20">
+              <span className="text-4xl mb-1">💥</span>
+              <h3 className="text-xl font-black font-display text-amber-300">
+                {lang === 'hi' ? 'टकराव हो गया!' : 'Train Crash!'}
+              </h3>
+              <div className="bg-white/10 rounded-2xl p-3 my-2 w-full max-w-xs border border-white/20">
+                <p className="text-[11px] text-slate-300 font-bold">{lang === 'hi' ? 'दूरी व सिक्के' : 'Distance & Coins'}</p>
+                <p className="text-2xl font-black text-amber-300 my-0.5 font-display">
+                  {score}m | {coins} 🪙
+                </p>
+                <p className="text-[10px] text-slate-300">
+                  {lang === 'hi' ? `सर्वश्रेष्ठ: ${highScore}m` : `Personal Best: ${highScore}m`}
+                </p>
+              </div>
+
+              <div className="flex gap-2 w-full max-w-xs">
+                <button
+                  onClick={startGame}
+                  className="flex-1 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-black text-xs rounded-xl shadow-md active:scale-95"
+                >
+                  {lang === 'hi' ? 'फिर से दौड़ें' : 'Surf Again'}
+                </button>
+                <button
+                  onClick={onBack}
+                  className="py-2.5 px-4 bg-white/20 hover:bg-white/30 text-white font-bold text-xs rounded-xl active:scale-95"
+                >
+                  {lang === 'hi' ? 'हब' : 'Hub'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Touch D-Pad / Buttons for Easy Play on Mobile without swiping */}
-      <div className="w-full max-w-[420px] flex items-center justify-between gap-2 mt-2 px-1">
+      {/* Touch D-Pad / Buttons for Easy Play on Mobile - Compact */}
+      <div className="w-full max-w-sm flex items-center justify-between gap-1.5 pb-1 px-1">
         <button
           onClick={() => moveLane(-1)}
-          className="flex-1 py-3 rounded-2xl bg-white hover:bg-slate-100 border-2 border-slate-200 text-slate-800 font-black text-sm shadow-md active:translate-y-1 active:border-b-0"
+          className="flex-1 h-10 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-800 font-black text-xs shadow-xs active:translate-y-0.5"
         >
           ◀ {lang === 'hi' ? 'बाएं' : 'Left'}
         </button>
 
         <button
           onClick={jump}
-          className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 text-white font-black text-sm shadow-md active:scale-95"
+          className="flex-1 h-10 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-white font-black text-xs shadow-xs active:scale-95"
         >
           ▲ {lang === 'hi' ? 'कूदें' : 'Jump'}
         </button>
 
         <button
           onClick={roll}
-          className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-black text-sm shadow-md active:scale-95"
+          className="flex-1 h-10 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-black text-xs shadow-xs active:scale-95"
         >
           ▼ {lang === 'hi' ? 'स्लाइड' : 'Slide'}
         </button>
 
         <button
           onClick={() => moveLane(1)}
-          className="flex-1 py-3 rounded-2xl bg-white hover:bg-slate-100 border-2 border-slate-200 text-slate-800 font-black text-sm shadow-md active:translate-y-1 active:border-b-0"
+          className="flex-1 h-10 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-800 font-black text-xs shadow-xs active:translate-y-0.5"
         >
           {lang === 'hi' ? 'दाएं' : 'Right'} ▶
         </button>

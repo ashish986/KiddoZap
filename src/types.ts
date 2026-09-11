@@ -31,7 +31,9 @@ export type GameId =
   | 'spaceinvaders'
   | 'motox3m'
   | 'brickbreaker'
-  | 'jetpack';
+  | 'jetpack'
+  | 'slope3d'
+  | 'tunnelrush3d';
 
 export type Language = 'en' | 'hi';
 
@@ -72,6 +74,8 @@ export interface PlayerProfile {
     sudokuCompleted?: number;
     frogHighScore?: number;
     riverCompleted?: number;
+    slopeHighScore?: number;
+    tunnelHighScore?: number;
   };
 }
 

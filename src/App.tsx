@@ -59,6 +59,8 @@ import { CrossyRoadGame } from './components/CrossyRoadGame';
 import { MotoX3MGame } from './components/MotoX3MGame';
 import { BrickBreakerGame } from './components/BrickBreakerGame';
 import { JetpackJoyrideGame } from './components/JetpackJoyrideGame';
+import Slope3DGame from './components/Slope3DGame';
+import TunnelRush3DGame from './components/TunnelRush3DGame';
 import { TrophyRoom } from './components/TrophyRoom';
 import { ProfileModal } from './components/ProfileModal';
 import { AndroidInstallModal } from './components/AndroidInstallModal';
@@ -97,6 +99,8 @@ const DEFAULT_PROFILE: PlayerProfile = {
     fruitsliceHighScore: 0,
     tictactoeWins: 0,
     sudokuCompleted: 0,
+    slopeHighScore: 0,
+    tunnelHighScore: 0,
   },
 };
 
@@ -262,8 +266,10 @@ export default function App() {
     return true;
   });
 
+  const isPlayingGame = currentView !== 'hub' && currentView !== 'trophy';
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50/80 via-orange-50/30 to-yellow-50/70 text-slate-800 font-body selection:bg-amber-200">
+    <div className={isPlayingGame ? "h-[100dvh] max-h-[100dvh] w-full overflow-hidden flex flex-col bg-gradient-to-b from-amber-50/80 via-orange-50/30 to-yellow-50/70 text-slate-800 font-body selection:bg-amber-200" : "min-h-screen bg-gradient-to-b from-amber-50/80 via-orange-50/30 to-yellow-50/70 text-slate-800 font-body selection:bg-amber-200"}>
       {/* 1. TOP HORIZONTAL UTILITY BAR (AdSense Menus & Controls - shown on hub or when not in full gameplay) */}
       {currentView === 'hub' && (
         <TopUtilityNav
@@ -280,119 +286,121 @@ export default function App() {
         />
       )}
 
-      {/* 2. MAIN BRAND & PLAYER ROW */}
-      <header className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/80 shadow-xs px-3 sm:px-6 ${currentView === 'hub' ? 'py-2.5' : 'py-1.5'}`}>
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
-          {/* Left: KiddoZap Logo & Brand */}
-          <button
-            id="header-home-btn"
-            onClick={() => {
-              sounds.playPop();
-              setCurrentView('hub');
-            }}
-            className="text-left flex items-center gap-2 sm:gap-3 group shrink-0"
-          >
-            <KiddoZapLogo size={currentView === 'hub' ? 42 : 32} variant="header" />
+      {/* 2. MAIN BRAND & PLAYER ROW (Shown only on Hub & Trophy pages to preserve 100% screen resolution for games) */}
+      {!isPlayingGame && (
+        <header className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/80 shadow-xs px-3 sm:px-6 ${currentView === 'hub' ? 'py-2.5' : 'py-1.5'}`}>
+          <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
+            {/* Left: KiddoZap Logo & Brand */}
+            <button
+              id="header-home-btn"
+              onClick={() => {
+                sounds.playPop();
+                setCurrentView('hub');
+              }}
+              className="text-left flex items-center gap-2 sm:gap-3 group shrink-0"
+            >
+              <KiddoZapLogo size={currentView === 'hub' ? 42 : 32} variant="header" />
 
-            <div>
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <h1 className={`${currentView === 'hub' ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'} font-black tracking-tight text-amber-900 leading-tight font-display group-hover:text-amber-800 transition-colors`}>
-                  KiddoZap
-                </h1>
-                <span className="text-[10px] bg-amber-500 text-white font-black px-2 py-0.5 rounded-lg uppercase tracking-wider hidden sm:inline shadow-2xs">
-                  {lang === 'hi' ? 'किड्स गेम्स' : 'Fun & Mind Games'}
-                </span>
+              <div>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <h1 className={`${currentView === 'hub' ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'} font-black tracking-tight text-amber-900 leading-tight font-display group-hover:text-amber-800 transition-colors`}>
+                    KiddoZap
+                  </h1>
+                  <span className="text-[10px] bg-amber-500 text-white font-black px-2 py-0.5 rounded-lg uppercase tracking-wider hidden sm:inline shadow-2xs">
+                    {lang === 'hi' ? 'किड्स गेम्स' : 'Fun & Mind Games'}
+                  </span>
+                </div>
+                <p className="text-[11px] text-amber-700/80 font-bold hidden md:block">
+                  {lang === 'hi'
+                    ? 'कक्षा 1-12 व 18 वर्ष से कम के मजेदार खेल'
+                    : 'Puzzles, Run & Brain Games (Class 1-12 & Below 18)'}
+                </p>
               </div>
-              <p className="text-[11px] text-amber-700/80 font-bold hidden md:block">
-                {lang === 'hi'
-                  ? 'कक्षा 1-12 व 18 वर्ष से कम के मजेदार खेल'
-                  : 'Puzzles, Run & Brain Games (Class 1-12 & Below 18)'}
-              </p>
+            </button>
+
+            {/* Right Action Icons: Profile, Stars, Trophies, Compose, Mobile Menu */}
+            <div className="flex items-center gap-1.5 sm:gap-2.5">
+              {/* Kid Avatar & Name */}
+              <button
+                id="header-profile-btn"
+                onClick={() => {
+                  sounds.playPop(1.1);
+                  setIsProfileOpen(true);
+                }}
+                className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 sm:pr-3 rounded-2xl bg-amber-100 hover:bg-amber-200 text-slate-800 transition-all border border-amber-300/80 active:scale-95 shadow-2xs"
+                title={lang === 'hi' ? 'अवतार बदलें' : 'Change Avatar'}
+              >
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white shadow-2xs flex items-center justify-center text-lg sm:text-xl">
+                  {profile.avatar}
+                </span>
+                <span className="font-extrabold text-xs sm:text-sm hidden sm:inline max-w-[100px] truncate">
+                  {profile.name}
+                </span>
+              </button>
+
+              {/* Stars counter pill */}
+              <div
+                id="stars-badge"
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 bg-amber-400/20 text-amber-900 rounded-xl font-black text-xs border border-amber-300/80 shadow-2xs"
+                title={lang === 'hi' ? 'कुल सितारे' : 'Total Stars'}
+              >
+                <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 fill-amber-400 animate-pulse" />
+                <span>{profile.totalStars}</span>
+              </div>
+
+              {/* Trophy Room Button */}
+              <button
+                id="view-trophy-btn"
+                onClick={() => {
+                  sounds.playPop();
+                  setCurrentView('trophy');
+                }}
+                className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs flex items-center gap-1.5 ${
+                  currentView === 'trophy'
+                    ? 'bg-amber-500 text-white border-amber-600'
+                    : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-200'
+                }`}
+                title={lang === 'hi' ? 'ट्रॉफी व मेडल' : 'Trophies'}
+              >
+                <Trophy className="w-3.5 h-3.5 text-amber-500" />
+                <span className="hidden sm:inline">
+                  {lang === 'hi' ? 'मेडल' : 'Trophies'}
+                </span>
+              </button>
+
+              {/* 1-Tap App Install Button for End Users */}
+              <button
+                id="header-install-app-btn"
+                onClick={() => {
+                  sounds.playPop(1.1);
+                  setIsInstallModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-black transition-all border active:scale-95 shadow-2xs bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white border-orange-400"
+                title={lang === 'hi' ? 'सीधे ऐप इंस्टॉल करें' : 'Install KiddoZap App'}
+              >
+                <Download className="w-3.5 h-3.5 text-yellow-200 animate-bounce" />
+                <span className="hidden sm:inline">{lang === 'hi' ? 'ऐप इंस्टॉल' : 'Install App'}</span>
+              </button>
+
+              {/* Mobile Drawer Menu Button (Small Screens) */}
+              <button
+                id="mobile-menu-drawer-btn"
+                onClick={() => {
+                  sounds.playPop();
+                  setIsMobileMenuOpen(true);
+                }}
+                className="md:hidden p-1.5 sm:p-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 active:scale-95 transition-all shadow-2xs"
+                title="Menu"
+              >
+                <Menu className="w-4 h-4" />
+              </button>
             </div>
-          </button>
-
-          {/* Right Action Icons: Profile, Stars, Trophies, Compose, Mobile Menu */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5">
-            {/* Kid Avatar & Name */}
-            <button
-              id="header-profile-btn"
-              onClick={() => {
-                sounds.playPop(1.1);
-                setIsProfileOpen(true);
-              }}
-              className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 sm:pr-3 rounded-2xl bg-amber-100 hover:bg-amber-200 text-slate-800 transition-all border border-amber-300/80 active:scale-95 shadow-2xs"
-              title={lang === 'hi' ? 'अवतार बदलें' : 'Change Avatar'}
-            >
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white shadow-2xs flex items-center justify-center text-lg sm:text-xl">
-                {profile.avatar}
-              </span>
-              <span className="font-extrabold text-xs sm:text-sm hidden sm:inline max-w-[100px] truncate">
-                {profile.name}
-              </span>
-            </button>
-
-            {/* Stars counter pill */}
-            <div
-              id="stars-badge"
-              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 bg-amber-400/20 text-amber-900 rounded-xl font-black text-xs border border-amber-300/80 shadow-2xs"
-              title={lang === 'hi' ? 'कुल सितारे' : 'Total Stars'}
-            >
-              <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 fill-amber-400 animate-pulse" />
-              <span>{profile.totalStars}</span>
-            </div>
-
-            {/* Trophy Room Button */}
-            <button
-              id="view-trophy-btn"
-              onClick={() => {
-                sounds.playPop();
-                setCurrentView('trophy');
-              }}
-              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs flex items-center gap-1.5 ${
-                currentView === 'trophy'
-                  ? 'bg-amber-500 text-white border-amber-600'
-                  : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-200'
-              }`}
-              title={lang === 'hi' ? 'ट्रॉफी व मेडल' : 'Trophies'}
-            >
-              <Trophy className="w-3.5 h-3.5 text-amber-500" />
-              <span className="hidden sm:inline">
-                {lang === 'hi' ? 'मेडल' : 'Trophies'}
-              </span>
-            </button>
-
-            {/* 1-Tap App Install Button for End Users */}
-            <button
-              id="header-install-app-btn"
-              onClick={() => {
-                sounds.playPop(1.1);
-                setIsInstallModalOpen(true);
-              }}
-              className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-black transition-all border active:scale-95 shadow-2xs bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white border-orange-400"
-              title={lang === 'hi' ? 'सीधे ऐप इंस्टॉल करें' : 'Install KiddoZap App'}
-            >
-              <Download className="w-3.5 h-3.5 text-yellow-200 animate-bounce" />
-              <span className="hidden sm:inline">{lang === 'hi' ? 'ऐप इंस्टॉल' : 'Install App'}</span>
-            </button>
-
-            {/* Mobile Drawer Menu Button (Small Screens) */}
-            <button
-              id="mobile-menu-drawer-btn"
-              onClick={() => {
-                sounds.playPop();
-                setIsMobileMenuOpen(true);
-              }}
-              className="md:hidden p-1.5 sm:p-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 active:scale-95 transition-all shadow-2xs"
-              title="Menu"
-            >
-              <Menu className="w-4 h-4" />
-            </button>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
 
-      {/* Main View Router - Compact padding during gameplay */}
-      <main className={currentView === 'hub' ? 'pb-16 pt-4' : 'px-2 py-2 max-w-4xl mx-auto flex flex-col items-center justify-center'}>
+      {/* Main View Router - Viewport locked during gameplay */}
+      <main className={isPlayingGame ? 'flex-1 min-h-0 w-full overflow-hidden flex flex-col items-center justify-center p-0.5 sm:p-1' : currentView === 'hub' ? 'pb-16 pt-4' : 'px-2 py-2 max-w-4xl mx-auto flex flex-col items-center justify-center'}>
         {currentView === 'hub' && (
           <div id="games-hub-view" className="max-w-6xl mx-auto px-3 sm:px-4">
             {/* Daily Brain Quest Banner */}
@@ -1085,6 +1093,32 @@ export default function App() {
             lang={lang}
             onBack={() => setCurrentView('hub')}
             onGameComplete={(stars) => addStarsAndStats(stars, {})}
+          />
+        )}
+
+        {/* 27. Slope 3D Cyber Run */}
+        {currentView === 'slope3d' && (
+          <Slope3DGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                slopeHighScore: Math.max(profile.gameStats.slopeHighScore || 0, score),
+              });
+            }}
+          />
+        )}
+
+        {/* 28. Speed Tunnel Rush 3D */}
+        {currentView === 'tunnelrush3d' && (
+          <TunnelRush3DGame
+            lang={lang}
+            onBack={() => setCurrentView('hub')}
+            onGameComplete={(stars, score) => {
+              addStarsAndStats(stars, {
+                tunnelHighScore: Math.max(profile.gameStats.tunnelHighScore || 0, score),
+              });
+            }}
           />
         )}
 

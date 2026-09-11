@@ -49,15 +49,27 @@ export const MotoX3MGame: React.FC<MotoX3MProps> = ({ lang, onBack, onGameComple
 
   // Procedural 2D Terrain Height generator
   const getGroundY = (worldX: number) => {
-    // Base rolling hills with ramps and loops
+    // Base rolling hills with ramps and smooth landings
     const base = 380;
-    const hill1 = Math.sin(worldX * 0.005) * 45;
-    const hill2 = Math.sin(worldX * 0.015) * 25;
+    const hill1 = Math.sin(worldX * 0.004) * 35;
+    const hill2 = Math.sin(worldX * 0.012) * 18;
+
+    // Smooth stunt ramps with curved takeoffs and gentle landing transitions
     let ramp = 0;
-    // Special stunt ramps
-    if (worldX > 400 && worldX < 600) ramp = -((worldX - 400) * 0.35);
-    if (worldX > 1100 && worldX < 1350) ramp = -((worldX - 1100) * 0.45);
-    if (worldX > 1900 && worldX < 2150) ramp = -((worldX - 1900) * 0.4);
+    const makeRamp = (start: number, peak: number, end: number, height: number) => {
+      if (worldX >= start && worldX <= peak) {
+        const t = (worldX - start) / (peak - start);
+        return -Math.sin(t * (Math.PI / 2)) * height;
+      } else if (worldX > peak && worldX <= end) {
+        const t = (worldX - peak) / (end - peak);
+        return -(1 - Math.sin(t * (Math.PI / 2))) * height;
+      }
+      return 0;
+    };
+
+    ramp += makeRamp(400, 580, 850, 75);
+    ramp += makeRamp(1100, 1300, 1600, 90);
+    ramp += makeRamp(1900, 2100, 2400, 85);
 
     return base + hill1 + hill2 + ramp;
   };
@@ -182,12 +194,12 @@ export const MotoX3MGame: React.FC<MotoX3MProps> = ({ lang, onBack, onGameComple
 
           // Align with terrain slope
           const angleDiff = slope - b.angle;
-          b.angle += angleDiff * 0.2;
+          b.angle += angleDiff * 0.28;
 
-          // Check for head crash (If angle is upside down)
+          // Check for head crash (only if landing sharply inverted)
           const normAngle = ((b.angle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-          if (normAngle > Math.PI * 0.55 && normAngle < Math.PI * 1.45) {
-            // Head landed on ground -> Crash!
+          if (normAngle > Math.PI * 0.72 && normAngle < Math.PI * 1.28) {
+            // Severe upside down head crash on ground
             sounds.incorrect();
             setGameState('gameover');
             const finalScore = Math.floor(b.x) + s.flipsCount * 250;

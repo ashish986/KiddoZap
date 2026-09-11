@@ -113,8 +113,8 @@ export const TowerStack: React.FC<TowerStackProps> = ({
       return;
     }
 
-    // Perfect placement check (< 2.5% deviation)
-    if (absDiff < 2.5) {
+    // Perfect placement check (< 3.2% deviation)
+    if (absDiff < 3.2) {
       sounds.playChime(1.5);
       const newLayer: BlockLayer = {
         y: blocks.length,
@@ -126,8 +126,13 @@ export const TowerStack: React.FC<TowerStackProps> = ({
       setScore((s) => s + 2); // bonus for perfect
     } else {
       // Sliced block
-      sounds.playPop(1.2);
       const newWidth = topBlock.width - absDiff;
+      if (newWidth < 4) {
+        sounds.playError();
+        handleGameOver();
+        return;
+      }
+      sounds.playPop(1.2);
       const newX = topBlock.x + diff / 2;
 
       const newLayer: BlockLayer = {

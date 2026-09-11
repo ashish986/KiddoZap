@@ -180,227 +180,154 @@ export const TicTacToeGame: React.FC<TicTacToeProps> = ({ lang, onBack, onGameCo
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-3 sm:p-5 flex flex-col items-center">
+    <div className="w-full h-full max-h-[100dvh] flex flex-col items-center justify-between p-2 sm:p-3 select-none overflow-hidden">
       {/* Top Header */}
-      <div className="w-full flex items-center justify-between gap-3 mb-4">
+      <div className="w-full max-w-md flex items-center justify-between gap-2 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-amber-200/80 shadow-xs">
         <button
           onClick={() => {
             sounds.playPop();
             onBack();
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 font-bold text-xs shadow-2xs active:scale-95 transition-all"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs shadow-2xs active:scale-95 transition-all"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>{lang === 'hi' ? 'वापस' : 'Back'}</span>
         </button>
 
-        <div className="text-center">
-          <h2 className="text-lg sm:text-xl font-black text-slate-800 font-display flex items-center gap-1.5 justify-center">
-            <span>🧠</span>
-            <span>{lang === 'hi' ? 'टिक-टैक-टो (X & O)' : 'Tic Tac Toe Brain'}</span>
-          </h2>
-          <p className="text-[11px] font-bold text-amber-700">
-            {lang === 'hi' ? '3 का जोड़ा बनाएं और जीतें!' : 'Match 3 in a row to win!'}
-          </p>
+        <div className="flex items-center gap-1 font-black text-xs text-slate-800">
+          <span>🧠</span>
+          <span>{lang === 'hi' ? 'टिक-टैक-टो' : 'Tic Tac Toe'}</span>
         </div>
 
-        <button
-          onClick={resetRound}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-2xs active:scale-95 transition-all"
-          title={lang === 'hi' ? 'नया राउंड' : 'New Round'}
-        >
-          <RotateCcw className="w-4 h-4" />
-          <span className="hidden sm:inline">{lang === 'hi' ? 'रीसेट' : 'Reset'}</span>
-        </button>
+        {/* Mode Toggle & Reset */}
+        <div className="flex items-center gap-1.5">
+          <div className="flex items-center bg-slate-100 p-0.5 rounded-lg text-xs">
+            <button
+              onClick={() => {
+                sounds.playPop();
+                setGameMode('ai');
+                resetRound();
+              }}
+              className={`flex items-center gap-1 px-2 py-0.5 rounded-md font-bold text-[11px] transition-all ${
+                gameMode === 'ai' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-500'
+              }`}
+            >
+              <Bot className="w-3 h-3 text-indigo-600" />
+              <span>AI</span>
+            </button>
+            <button
+              onClick={() => {
+                sounds.playPop();
+                setGameMode('pvp');
+                resetRound();
+              }}
+              className={`flex items-center gap-1 px-2 py-0.5 rounded-md font-bold text-[11px] transition-all ${
+                gameMode === 'pvp' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-500'
+              }`}
+            >
+              <Users className="w-3 h-3 text-emerald-600" />
+              <span>2P</span>
+            </button>
+          </div>
+
+          <button
+            onClick={resetRound}
+            className="p-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 transition-all active:scale-95"
+            title="Reset"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
 
-      {/* Mode & Theme Controls */}
-      <div className="w-full bg-white rounded-2xl p-3 border border-amber-200/80 shadow-xs mb-4 flex flex-wrap items-center justify-between gap-2">
-        {/* Game Mode (AI vs 2-Player) */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
-          <button
-            onClick={() => {
-              sounds.playPop();
-              setGameMode('ai');
-              resetRound();
-            }}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-              gameMode === 'ai' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Bot className="w-3.5 h-3.5 text-indigo-600" />
-            <span>{lang === 'hi' ? 'बॉट AI' : 'Vs AI'}</span>
-          </button>
-
-          <button
-            onClick={() => {
-              sounds.playPop();
-              setGameMode('pvp');
-              resetRound();
-            }}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-bold transition-all ${
-              gameMode === 'pvp' ? 'bg-white text-slate-900 shadow-2xs' : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Users className="w-3.5 h-3.5 text-emerald-600" />
-            <span>{lang === 'hi' ? '2 खिलाड़ी' : '2-Player'}</span>
-          </button>
+      {/* Score & Status Bar */}
+      <div className="w-full max-w-md flex items-center justify-between gap-2 px-1 text-xs">
+        <div className="flex items-center gap-2 bg-amber-50/80 px-2.5 py-1 rounded-xl border border-amber-200 text-amber-900 font-bold">
+          <span>{renderMarker('X')} {scores.x}</span>
+          <span className="text-slate-300">|</span>
+          <span className="text-slate-600">🤝 {scores.draws}</span>
+          <span className="text-slate-300">|</span>
+          <span className="text-indigo-900">{renderMarker('O')} {scores.o}</span>
         </div>
 
-        {/* AI Difficulty (if in AI mode) */}
-        {gameMode === 'ai' && (
-          <div className="flex items-center gap-1 text-xs">
-            <span className="text-[11px] font-bold text-slate-500 mr-1">
-              {lang === 'hi' ? 'स्तर:' : 'Level:'}
+        {/* Turn status */}
+        <div className="font-bold text-xs">
+          {winner === 'draw' ? (
+            <span className="px-2.5 py-1 rounded-lg bg-slate-200 text-slate-800">
+              🤝 {lang === 'hi' ? 'बराबरी' : 'Draw'}
             </span>
-            {(['easy', 'medium', 'master'] as AIDifficulty[]).map((d) => (
+          ) : winner ? (
+            <span className="px-2.5 py-1 rounded-lg bg-emerald-500 text-white flex items-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              <span>{winner === 'X' ? (gameMode === 'ai' ? 'You Won! 🎉' : 'P1 Won! 🎉') : (gameMode === 'ai' ? 'AI Won!' : 'P2 Won!')}</span>
+            </span>
+          ) : (
+            <span className="px-2.5 py-1 rounded-lg bg-white border border-amber-200 text-slate-700">
+              {isXNext ? `${renderMarker('X')} Turn` : `${renderMarker('O')} Turn`}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* 3x3 Tic Tac Toe Grid - Centered & Responsive */}
+      <div className="flex-1 min-h-0 w-full flex items-center justify-center p-1 relative">
+        <div className="bg-gradient-to-br from-amber-400 via-orange-400 to-amber-500 p-2 sm:p-3 rounded-3xl shadow-xl border-4 border-amber-300 h-full max-h-[min(48vh,290px)] aspect-square flex flex-col justify-center">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5 w-full h-full">
+            {board.map((val, idx) => {
+              const isWinningCell = winningLine?.includes(idx);
+              return (
+                <motion.button
+                  key={idx}
+                  whileHover={{ scale: val ? 1 : 1.03 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleCellClick(idx)}
+                  disabled={Boolean(val) || Boolean(winner) || (gameMode === 'ai' && !isXNext)}
+                  className={`w-full h-full rounded-2xl flex items-center justify-center font-black text-2xl sm:text-3xl select-none transition-all shadow-sm ${
+                    isWinningCell
+                      ? 'bg-emerald-400 text-white ring-4 ring-white animate-pulse'
+                      : val
+                        ? 'bg-white text-slate-800'
+                        : 'bg-white/90 hover:bg-white text-transparent cursor-pointer'
+                  }`}
+                >
+                  {val ? renderMarker(val) : ''}
+                </motion.button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Controls / Play Again */}
+      <div className="w-full max-w-xs flex items-center justify-center gap-2 pb-1">
+        {winner ? (
+          <button
+            onClick={resetRound}
+            className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black text-xs shadow-md active:scale-95 transition-all flex items-center justify-center gap-1.5"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+            <span>{lang === 'hi' ? 'अगला राउंड खेलें' : 'Play Next Round'}</span>
+          </button>
+        ) : (
+          <div className="flex items-center gap-1 bg-white/80 backdrop-blur px-3 py-1 rounded-xl border border-amber-200 text-xs">
+            <span className="text-[11px] font-bold text-slate-500">{lang === 'hi' ? 'थीम:' : 'Theme:'}</span>
+            {(['stars', 'elements', 'classic'] as MarkerTheme[]).map((t) => (
               <button
-                key={d}
+                key={t}
                 onClick={() => {
                   sounds.playPop();
-                  setDifficulty(d);
-                  resetRound();
+                  setTheme(t);
                 }}
-                className={`px-2 py-0.5 rounded-lg text-[11px] font-bold capitalize transition-all ${
-                  difficulty === d
-                    ? 'bg-amber-500 text-white shadow-2xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                className={`px-2 py-0.5 rounded-lg text-xs font-bold transition-all ${
+                  theme === t ? 'bg-amber-100 text-amber-900 font-black' : 'text-slate-500'
                 }`}
               >
-                {d === 'easy' ? (lang === 'hi' ? 'सरल' : 'Easy') : d === 'medium' ? (lang === 'hi' ? 'मध्यम' : 'Medium') : (lang === 'hi' ? 'मास्टर' : 'Master')}
+                {t === 'stars' ? '⭐/🌙' : t === 'elements' ? '🔥/💧' : 'X/O'}
               </button>
             ))}
           </div>
         )}
-
-        {/* Theme Marker Selector */}
-        <div className="flex items-center gap-1">
-          {(['stars', 'elements', 'classic'] as MarkerTheme[]).map((t) => (
-            <button
-              key={t}
-              onClick={() => {
-                sounds.playPop();
-                setTheme(t);
-              }}
-              className={`px-2 py-1 rounded-lg text-xs font-bold transition-all ${
-                theme === t ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-slate-50 text-slate-500'
-              }`}
-            >
-              {t === 'stars' ? '⭐/🌙' : t === 'elements' ? '🔥/💧' : 'X/O'}
-            </button>
-          ))}
-        </div>
       </div>
-
-      {/* Scoreboard Cards */}
-      <div className="w-full grid grid-cols-3 gap-2 mb-4 text-center">
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-2.5">
-          <span className="text-base">{renderMarker('X')}</span>
-          <div className="text-[10px] font-bold text-amber-800 uppercase mt-0.5">
-            {gameMode === 'ai' ? (lang === 'hi' ? 'आप (खिलाड़ी)' : 'You (P1)') : 'Player 1'}
-          </div>
-          <div className="text-xl font-black text-amber-900">{scores.x}</div>
-        </div>
-
-        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-2.5">
-          <span className="text-base">🤝</span>
-          <div className="text-[10px] font-bold text-slate-600 uppercase mt-0.5">
-            {lang === 'hi' ? 'बराबरी' : 'Ties'}
-          </div>
-          <div className="text-xl font-black text-slate-800">{scores.draws}</div>
-        </div>
-
-        <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-2.5">
-          <span className="text-base">{renderMarker('O')}</span>
-          <div className="text-[10px] font-bold text-indigo-800 uppercase mt-0.5">
-            {gameMode === 'ai' ? (lang === 'hi' ? 'कंप्यूटर AI' : 'Smart AI') : 'Player 2'}
-          </div>
-          <div className="text-xl font-black text-indigo-900">{scores.o}</div>
-        </div>
-      </div>
-
-      {/* Current Turn Status Banner */}
-      <div className="mb-4 text-center font-bold text-sm">
-        {winner === 'draw' ? (
-          <span className="px-4 py-1.5 rounded-full bg-slate-200 text-slate-800 animate-pulse">
-            {lang === 'hi' ? '🤝 खेल बराबर रहा!' : '🤝 Match Draw!'}
-          </span>
-        ) : winner ? (
-          <span className="px-4 py-1.5 rounded-full bg-emerald-500 text-white shadow-md animate-bounce flex items-center gap-1.5 justify-center">
-            <Sparkles className="w-4 h-4 text-yellow-200" />
-            <span>
-              {winner === 'X'
-                ? lang === 'hi'
-                  ? '🎉 बधाई! आप जीत गए!'
-                  : '🎉 Player 1 / You Won!'
-                : lang === 'hi'
-                  ? '🤖 कंप्यूटर AI जीता!'
-                  : '🤖 AI / Player 2 Won!'}
-            </span>
-          </span>
-        ) : (
-          <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-900 flex items-center gap-1.5 justify-center">
-            <span>{isXNext ? renderMarker('X') : renderMarker('O')}</span>
-            <span>
-              {isXNext
-                ? lang === 'hi'
-                  ? 'आपकी बारी (Player 1)'
-                  : "Player 1's Turn"
-                : gameMode === 'ai'
-                  ? lang === 'hi'
-                    ? 'कंप्यूटर सोच रहा है...'
-                    : 'AI is thinking...'
-                  : lang === 'hi'
-                    ? "Player 2 की बारी"
-                    : "Player 2's Turn"}
-            </span>
-          </span>
-        )}
-      </div>
-
-      {/* 3x3 Tic Tac Toe Grid */}
-      <div className="bg-gradient-to-br from-amber-400 via-orange-400 to-amber-500 p-3 sm:p-4 rounded-3xl shadow-xl border-4 border-amber-300 w-full max-w-sm aspect-square">
-        <div className="grid grid-cols-3 gap-2 sm:gap-3 w-full h-full">
-          {board.map((val, idx) => {
-            const isWinningCell = winningLine?.includes(idx);
-            return (
-              <motion.button
-                key={idx}
-                whileHover={{ scale: val ? 1 : 1.03 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => handleCellClick(idx)}
-                disabled={Boolean(val) || Boolean(winner) || (gameMode === 'ai' && !isXNext)}
-                className={`w-full h-full rounded-2xl flex items-center justify-center font-black text-3xl sm:text-4xl select-none transition-all shadow-md ${
-                  isWinningCell
-                    ? 'bg-emerald-400 text-white ring-4 ring-white animate-pulse'
-                    : val
-                      ? 'bg-white text-slate-800'
-                      : 'bg-white/90 hover:bg-white text-transparent cursor-pointer'
-                }`}
-              >
-                {val ? renderMarker(val) : ''}
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Play Again Button on Game End */}
-      {winner && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-5"
-        >
-          <button
-            onClick={resetRound}
-            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black text-sm shadow-lg active:scale-95 transition-all"
-          >
-            <RotateCcw className="w-4 h-4" />
-            <span>{lang === 'hi' ? 'अगला राउंड खेलें' : 'Play Next Round'}</span>
-          </button>
-        </motion.div>
-      )}
     </div>
   );
 };

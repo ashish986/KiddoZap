@@ -123,8 +123,8 @@ export const HelixJump: React.FC<Props> = ({ lang, onBack, onGameComplete }) => 
       const gapIndex = Math.floor(Math.random() * numSlices);
       const gapIndex2 = Math.random() > 0.6 ? (gapIndex + 4) % numSlices : -1;
 
-      // Hazard count increases with level
-      const hazardCount = i === 0 ? 0 : Math.min(2 + Math.floor(lvl / 2), 3);
+      // Hazard count increases with level (first 2 floors are safe)
+      const hazardCount = i <= 1 ? 0 : Math.min(1 + Math.floor(lvl / 2), 3);
       const hazardIndices = new Set<number>();
       while (hazardIndices.size < hazardCount) {
         const candidate = Math.floor(Math.random() * numSlices);
@@ -541,32 +541,32 @@ export const HelixJump: React.FC<Props> = ({ lang, onBack, onGameComplete }) => 
   };
 
   return (
-    <div className="max-w-xl mx-auto px-3 sm:px-4 flex flex-col items-center">
+    <div className="w-full h-full max-h-[100dvh] flex flex-col items-center justify-between p-2 select-none overflow-hidden">
       {/* Top Controls Header */}
-      <div className="w-full flex items-center justify-between mb-3 bg-white/90 backdrop-blur rounded-2xl p-3 border border-amber-200 shadow-xs">
+      <div className="w-full max-w-sm flex items-center justify-between bg-white/95 backdrop-blur rounded-2xl px-3 py-1.5 border border-amber-200 shadow-2xs">
         <button
           onClick={() => {
             sounds.playPop();
             onBack();
           }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition-all active:scale-95"
+          className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs transition-all active:scale-95"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>{lang === 'hi' ? 'वापस' : 'Back'}</span>
         </button>
 
-        <div className="flex items-center gap-2.5">
-          <span className="px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-xl text-xs font-black">
+        <div className="flex items-center gap-2">
+          <span className="px-2 py-0.5 bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-xl text-[11px] font-black">
             Lvl {level}
           </span>
 
-          <div className="flex items-center gap-1 px-3 py-1 bg-amber-500 text-white rounded-xl text-sm font-black shadow-xs">
+          <div className="flex items-center gap-1 px-2.5 py-0.5 bg-amber-500 text-white rounded-xl text-xs font-black shadow-2xs">
             <span>⭐ {score}</span>
           </div>
 
           {combo >= 2 && (
-            <div className="flex items-center gap-1 px-2 py-0.5 bg-orange-500 text-white rounded-lg text-xs font-black animate-bounce">
-              <Flame className="w-3.5 h-3.5 fill-yellow-200" />
+            <div className="flex items-center gap-0.5 px-1.5 py-0.5 bg-orange-500 text-white rounded-lg text-[10px] font-black animate-bounce">
+              <Flame className="w-3 h-3 fill-yellow-200" />
               <span>x{combo}</span>
             </div>
           )}
@@ -574,20 +574,20 @@ export const HelixJump: React.FC<Props> = ({ lang, onBack, onGameComplete }) => 
 
         <button
           onClick={resetAll}
-          className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all"
+          className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95 transition-all"
           title="Restart"
         >
-          <RotateCcw className="w-4 h-4" />
+          <RotateCcw className="w-3.5 h-3.5" />
         </button>
       </div>
 
       {/* Progress to Goal Bar */}
-      <div className="w-full max-w-[380px] mb-2 px-1">
-        <div className="flex items-center justify-between text-[10px] font-black text-slate-600 mb-1">
+      <div className="w-full max-w-sm px-1">
+        <div className="flex items-center justify-between text-[10px] font-black text-slate-600 mb-0.5">
           <span>{lang === 'hi' ? 'मंजिल की दूरी' : 'Descent to Goal'}</span>
           <span>{Math.round(progress)}%</span>
         </div>
-        <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+        <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-cyan-400 to-indigo-600 transition-all duration-100"
             style={{ width: `${progress}%` }}
@@ -596,119 +596,115 @@ export const HelixJump: React.FC<Props> = ({ lang, onBack, onGameComplete }) => 
       </div>
 
       {/* Helix Interactive Canvas */}
-      <div
-        className="relative w-full max-w-[380px] aspect-[4/5.4] bg-slate-950 rounded-3xl overflow-hidden shadow-xl border-4 border-slate-800 select-none touch-none cursor-grab active:cursor-grabbing"
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-      >
-        <canvas
-          ref={canvasRef}
-          width={380}
-          height={520}
-          className="w-full h-full block"
-        />
+      <div className="flex-1 min-h-0 w-full flex items-center justify-center p-1 relative">
+        <div
+          className="relative h-full max-h-[min(68vh,480px)] aspect-[4/5.4] bg-slate-950 rounded-3xl overflow-hidden shadow-xl border-4 border-slate-800 select-none touch-none cursor-grab active:cursor-grabbing"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          <canvas
+            ref={canvasRef}
+            width={380}
+            height={520}
+            className="w-full h-full block"
+          />
 
-        {/* Ready Screen */}
-        {gameState === 'ready' && (
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs flex flex-col items-center justify-center p-6 text-center text-white">
-            <div className="text-6xl mb-3">🌀</div>
-            <h3 className="text-2xl font-black font-display drop-shadow-md">
-              {lang === 'hi' ? 'हेलिक्स स्पाइरल जंप' : 'Helix Spiral Jump'}
-            </h3>
-            <p className="text-xs text-cyan-200 font-bold mt-1 max-w-xs leading-relaxed">
-              {lang === 'hi'
-                ? 'टावर को घुमाएं, गेंद को खाली जगहों से नीचे गिराएं। लाल खतरे से बचें!'
-                : 'Spin the tower to drop the bouncing ball through gaps. Avoid red hazard tiles!'}
-            </p>
-            <button
-              onClick={() => startLevel(1)}
-              className="mt-5 px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black text-sm rounded-2xl shadow-lg active:scale-95 transition-all"
-            >
-              {lang === 'hi' ? 'खेल शुरू करें' : 'Start Jump'}
-            </button>
-          </div>
-        )}
-
-        {/* Level Won Overlay */}
-        {gameState === 'levelcomplete' && (
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center text-white">
-            <div className="text-5xl mb-2">🎉</div>
-            <h3 className="text-2xl font-black font-display text-amber-400">
-              {lang === 'hi' ? 'लेवल पार! शाबाश!' : 'Level Complete!'}
-            </h3>
-            <p className="text-xs text-slate-300 font-bold mt-1">
-              {lang === 'hi' ? `शानदार! लेवल ${level} पूरा किया` : `Awesome! Level ${level} cleared`}
-            </p>
-
-            <button
-              onClick={() => startLevel(level + 1)}
-              className="mt-5 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs rounded-2xl shadow-md active:scale-95 transition-all"
-            >
-              {lang === 'hi' ? 'अगला लेवल खेलें' : 'Next Level'}
-            </button>
-          </div>
-        )}
-
-        {/* Game Over Overlay */}
-        {gameState === 'gameover' && (
-          <div className="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center text-white">
-            <div className="text-5xl mb-2">💥</div>
-            <h3 className="text-2xl font-black font-display text-red-400">
-              {lang === 'hi' ? 'खतरे से टकराए!' : 'Hazard Hit!'}
-            </h3>
-
-            <div className="bg-white/10 rounded-2xl p-4 my-4 w-full max-w-xs border border-white/20">
-              <p className="text-xs text-slate-300 font-bold">{lang === 'hi' ? 'कुल स्कोर' : 'Total Score'}</p>
-              <p className="text-3xl font-black text-amber-300 my-1 font-display">{score}</p>
-              <p className="text-xs text-slate-400 font-medium">
-                {lang === 'hi' ? `सर्वश्रेष्ठ स्कोर: ${highScore}` : `High Score: ${highScore}`}
+          {/* Ready Screen */}
+          {gameState === 'ready' && (
+            <div className="absolute inset-0 bg-black/65 backdrop-blur-xs flex flex-col items-center justify-center p-4 text-center text-white">
+              <div className="text-5xl mb-2">🌀</div>
+              <h3 className="text-xl font-black font-display drop-shadow-md">
+                {lang === 'hi' ? 'हेलिक्स स्पाइरल जंप' : 'Helix Spiral Jump'}
+              </h3>
+              <p className="text-[11px] text-cyan-200 font-bold mt-1 max-w-xs leading-tight">
+                {lang === 'hi'
+                  ? 'टावर को घुमाएं, गेंद को नीचे गिराएं। लाल खतरे से बचें!'
+                  : 'Spin the tower to drop the ball. Avoid red hazard tiles!'}
               </p>
+              <button
+                onClick={() => startLevel(1)}
+                className="mt-4 px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-black text-xs rounded-xl shadow-lg active:scale-95 transition-all"
+              >
+                {lang === 'hi' ? 'खेल शुरू करें' : 'Start Jump'}
+              </button>
             </div>
+          )}
 
-            <div className="flex gap-3 w-full max-w-xs">
+          {/* Level Won Overlay */}
+          {gameState === 'levelcomplete' && (
+            <div className="absolute inset-0 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center text-white">
+              <div className="text-4xl mb-1">🎉</div>
+              <h3 className="text-xl font-black font-display text-amber-400">
+                {lang === 'hi' ? 'लेवल पार! शाबाश!' : 'Level Complete!'}
+              </h3>
+              <p className="text-[11px] text-slate-300 font-bold mt-0.5">
+                {lang === 'hi' ? `शानदार! लेवल ${level} पूरा किया` : `Awesome! Level ${level} cleared`}
+              </p>
+
               <button
-                onClick={() => startLevel(level)}
-                className="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-black text-xs rounded-2xl shadow-md active:scale-95 transition-all"
+                onClick={() => startLevel(level + 1)}
+                className="mt-4 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs rounded-xl shadow-md active:scale-95 transition-all"
               >
-                {lang === 'hi' ? 'दोबारा कोशिश करें' : 'Try Again'}
-              </button>
-              <button
-                onClick={onBack}
-                className="py-3 px-4 bg-white/20 hover:bg-white/30 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all"
-              >
-                {lang === 'hi' ? 'हब' : 'Hub'}
+                {lang === 'hi' ? 'अगला लेवल खेलें' : 'Next Level'}
               </button>
             </div>
-          </div>
-        )}
+          )}
+
+          {/* Game Over Overlay */}
+          {gameState === 'gameover' && (
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center p-4 text-center text-white">
+              <div className="text-4xl mb-1">💥</div>
+              <h3 className="text-xl font-black font-display text-red-400">
+                {lang === 'hi' ? 'खतरे से टकराए!' : 'Hazard Hit!'}
+              </h3>
+
+              <div className="bg-white/10 rounded-2xl p-3 my-2 w-full max-w-xs border border-white/20">
+                <p className="text-[11px] text-slate-300 font-bold">{lang === 'hi' ? 'कुल स्कोर' : 'Total Score'}</p>
+                <p className="text-3xl font-black text-amber-300 my-0.5 font-display">{score}</p>
+                <p className="text-[10px] text-slate-400 font-medium">
+                  {lang === 'hi' ? `सर्वश्रेष्ठ स्कोर: ${highScore}` : `High Score: ${highScore}`}
+                </p>
+              </div>
+
+              <div className="flex gap-2 w-full max-w-xs">
+                <button
+                  onClick={() => startLevel(level)}
+                  className="flex-1 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-black text-xs rounded-xl shadow-md active:scale-95 transition-all"
+                >
+                  {lang === 'hi' ? 'दोबारा कोशिश करें' : 'Try Again'}
+                </button>
+                <button
+                  onClick={onBack}
+                  className="py-2.5 px-4 bg-white/20 hover:bg-white/30 text-white font-bold text-xs rounded-xl active:scale-95 transition-all"
+                >
+                  {lang === 'hi' ? 'हब' : 'Hub'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* On-screen Left & Right Spin Buttons */}
-      <div className="flex items-center justify-center gap-4 w-full max-w-[380px] mt-3">
+      <div className="flex items-center justify-center gap-2 w-full max-w-sm">
         <button
           onClick={() => rotateTower(0.35)}
-          className="flex-1 py-3 bg-white hover:bg-slate-100 text-slate-800 rounded-2xl font-black text-xs shadow-xs border border-slate-200 active:scale-95 flex items-center justify-center gap-1"
+          className="flex-1 h-11 bg-white hover:bg-slate-100 text-slate-800 rounded-xl font-black text-xs shadow-2xs border border-slate-200 active:scale-95 flex items-center justify-center gap-1"
         >
-          <ChevronLeft className="w-5 h-5 text-indigo-600" />
+          <ChevronLeft className="w-4 h-4 text-indigo-600" />
           <span>{lang === 'hi' ? 'बाएं घुमाएं' : 'Turn Left'}</span>
         </button>
 
         <button
           onClick={() => rotateTower(-0.35)}
-          className="flex-1 py-3 bg-white hover:bg-slate-100 text-slate-800 rounded-2xl font-black text-xs shadow-xs border border-slate-200 active:scale-95 flex items-center justify-center gap-1"
+          className="flex-1 h-11 bg-white hover:bg-slate-100 text-slate-800 rounded-xl font-black text-xs shadow-2xs border border-slate-200 active:scale-95 flex items-center justify-center gap-1"
         >
           <span>{lang === 'hi' ? 'दाएं घुमाएं' : 'Turn Right'}</span>
-          <ChevronRight className="w-5 h-5 text-indigo-600" />
+          <ChevronRight className="w-4 h-4 text-indigo-600" />
         </button>
       </div>
-
-      <p className="text-center text-xs text-slate-500 font-bold mt-2">
-        {lang === 'hi'
-          ? 'टिप: लगातार 3 मंजिल बिना उछले गिरने पर गेंद "फायरबॉल" बनकर खतरे को तोड़ देती है!'
-          : 'Tip: Dropping 3 floors in a row creates a Fireball that smashes through hazards!'}
-      </p>
     </div>
   );
 };
