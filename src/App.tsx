@@ -164,6 +164,34 @@ export default function App() {
     }
   }, [profile]);
 
+  // Direct URL Pathname & Hash routing for Search Console, AdSense Review, and Direct Links
+  useEffect(() => {
+    try {
+      const path = (window.location.pathname || '').toLowerCase();
+      const hash = (window.location.hash || '').toLowerCase();
+      const combined = `${path} ${hash}`;
+
+      if (combined.includes('privacy')) {
+        setActiveLegalTab('privacy');
+        setIsLegalModalOpen(true);
+      } else if (combined.includes('terms')) {
+        setActiveLegalTab('terms');
+        setIsLegalModalOpen(true);
+      } else if (combined.includes('about')) {
+        setActiveLegalTab('about');
+        setIsLegalModalOpen(true);
+      } else if (combined.includes('contact')) {
+        setActiveLegalTab('contact');
+        setIsLegalModalOpen(true);
+      } else if (combined.includes('coppa')) {
+        setActiveLegalTab('coppa');
+        setIsLegalModalOpen(true);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
   const toggleSound = () => {
     const next = !profile.soundEnabled;
     sounds.enabled = next;
