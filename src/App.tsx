@@ -22,10 +22,12 @@ import {
   Layers,
   Menu,
   Download,
+  Palette,
 } from 'lucide-react';
 import { GAMES, BADGES, GRADE_TABS, CATEGORY_GROUPS } from './data/games';
 import { GameId, GradeLevel, Language, PlayerProfile, GameCategoryGroup } from './types';
 import { sounds } from './utils/audio';
+import { THEMES, ThemeId } from './utils/theme';
 import { MemoryGame } from './components/MemoryGame';
 import { MathQuest } from './components/MathQuest';
 import { PatternMaster } from './components/PatternMaster';
@@ -85,6 +87,7 @@ const DEFAULT_PROFILE: PlayerProfile = {
   unlockedBadges: ['starter'],
   soundEnabled: true,
   selectedGrade: 'all',
+  theme: 'cyber_neon',
   gameStats: {
     memoryBestMoves: 999,
     mathHighScore: 0,
@@ -306,8 +309,19 @@ export default function App() {
 
   const isPlayingGame = currentView !== 'hub' && currentView !== 'trophy';
 
+  const currentThemeId = (profile.theme as ThemeId) || 'cyber_neon';
+  const activeTheme = THEMES[currentThemeId] || THEMES.cyber_neon;
+
+  const cycleTheme = () => {
+    sounds.playPop(1.2);
+    const themeKeys: ThemeId[] = ['cyber_neon', 'ocean_breeze', 'candy_pop', 'solar_amber'];
+    const currentIndex = themeKeys.indexOf(currentThemeId);
+    const nextTheme = themeKeys[(currentIndex + 1) % themeKeys.length];
+    setProfile((prev) => ({ ...prev, theme: nextTheme }));
+  };
+
   return (
-    <div className={isPlayingGame ? "h-[100dvh] max-h-[100dvh] w-full overflow-hidden flex flex-col bg-gradient-to-b from-amber-50/80 via-orange-50/30 to-yellow-50/70 text-slate-800 font-body selection:bg-amber-200" : "min-h-screen bg-gradient-to-b from-amber-50/80 via-orange-50/30 to-yellow-50/70 text-slate-800 font-body selection:bg-amber-200"}>
+    <div className={isPlayingGame ? `h-[100dvh] max-h-[100dvh] w-full overflow-hidden flex flex-col ${activeTheme.pageBg} font-body` : `min-h-screen ${activeTheme.pageBg} font-body`}>
       {/* 1. TOP HORIZONTAL UTILITY BAR (AdSense Menus & Controls - shown on hub or when not in full gameplay) */}
       {currentView === 'hub' && (
         <TopUtilityNav
@@ -326,7 +340,7 @@ export default function App() {
 
       {/* 2. MAIN BRAND & PLAYER ROW (Shown only on Hub & Trophy pages to preserve 100% screen resolution for games) */}
       {!isPlayingGame && (
-        <header className={`sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-amber-200/80 shadow-xs px-3 sm:px-6 ${currentView === 'hub' ? 'py-2.5' : 'py-1.5'}`}>
+        <header className={`sticky top-0 z-40 ${activeTheme.headerBg} px-3 sm:px-6 ${currentView === 'hub' ? 'py-2.5' : 'py-1.5'}`}>
           <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
             {/* Left: KiddoZap Logo & Brand */}
             <button
@@ -341,14 +355,14 @@ export default function App() {
 
               <div>
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  <h1 className={`${currentView === 'hub' ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'} font-black tracking-tight text-amber-900 leading-tight font-display group-hover:text-amber-800 transition-colors`}>
+                  <h1 className={`${currentView === 'hub' ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'} font-black tracking-tight ${activeTheme.headerTitle} leading-tight font-display group-hover:opacity-90 transition-colors`}>
                     KiddoZap
                   </h1>
-                  <span className="text-[10px] bg-amber-500 text-white font-black px-2 py-0.5 rounded-lg uppercase tracking-wider hidden sm:inline shadow-2xs">
+                  <span className={`text-[10px] ${activeTheme.badgeBg} font-black px-2 py-0.5 rounded-lg uppercase tracking-wider hidden sm:inline shadow-2xs`}>
                     {lang === 'hi' ? 'किड्स गेम्स' : 'Fun & Mind Games'}
                   </span>
                 </div>
-                <p className="text-[11px] text-amber-700/80 font-bold hidden md:block">
+                <p className="text-[11px] opacity-80 font-bold hidden md:block">
                   {lang === 'hi'
                     ? 'कक्षा 1-12 व 18 वर्ष से कम के मजेदार खेल'
                     : 'Puzzles, Run & Brain Games (Class 1-12 & Below 18)'}
@@ -356,7 +370,7 @@ export default function App() {
               </div>
             </button>
 
-            {/* Right Action Icons: Profile, Stars, Trophies, Compose, Mobile Menu */}
+            {/* Right Action Icons: Profile, Theme, Stars, Trophies, Compose, Mobile Menu */}
             <div className="flex items-center gap-1.5 sm:gap-2.5">
               {/* Kid Avatar & Name */}
               <button
@@ -365,7 +379,7 @@ export default function App() {
                   sounds.playPop(1.1);
                   setIsProfileOpen(true);
                 }}
-                className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 sm:pr-3 rounded-2xl bg-amber-100 hover:bg-amber-200 text-slate-800 transition-all border border-amber-300/80 active:scale-95 shadow-2xs"
+                className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 sm:pr-3 rounded-2xl bg-white/10 hover:bg-white/20 transition-all border border-white/20 active:scale-95 shadow-2xs"
                 title={lang === 'hi' ? 'अवतार बदलें' : 'Change Avatar'}
               >
                 <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-white shadow-2xs flex items-center justify-center text-lg sm:text-xl">
@@ -376,13 +390,27 @@ export default function App() {
                 </span>
               </button>
 
+              {/* Theme Cycler Button */}
+              <button
+                id="header-theme-toggle-btn"
+                onClick={cycleTheme}
+                className={`flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-black transition-all border border-white/20 active:scale-95 shadow-2xs ${activeTheme.badgeBg}`}
+                title={lang === 'hi' ? 'थीम बदलें (Theme)' : 'Switch Theme'}
+              >
+                <Palette className="w-3.5 h-3.5" />
+                <span className="text-sm">{activeTheme.icon}</span>
+                <span className="hidden sm:inline font-bold">
+                  {lang === 'hi' ? activeTheme.nameHi : activeTheme.nameEn}
+                </span>
+              </button>
+
               {/* Stars counter pill */}
               <div
                 id="stars-badge"
-                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 bg-amber-400/20 text-amber-900 rounded-xl font-black text-xs border border-amber-300/80 shadow-2xs"
+                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 bg-amber-400/20 rounded-xl font-black text-xs border border-amber-300/40 shadow-2xs"
                 title={lang === 'hi' ? 'कुल सितारे' : 'Total Stars'}
               >
-                <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 fill-amber-400 animate-pulse" />
+                <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400 animate-pulse" />
                 <span>{profile.totalStars}</span>
               </div>
 
@@ -396,11 +424,11 @@ export default function App() {
                 className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold transition-all border active:scale-95 shadow-2xs flex items-center gap-1.5 ${
                   currentView === 'trophy'
                     ? 'bg-amber-500 text-white border-amber-600'
-                    : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-200'
+                    : 'bg-white/10 hover:bg-white/20 border-white/20'
                 }`}
                 title={lang === 'hi' ? 'ट्रॉफी व मेडल' : 'Trophies'}
               >
-                <Trophy className="w-3.5 h-3.5 text-amber-500" />
+                <Trophy className="w-3.5 h-3.5 text-amber-400" />
                 <span className="hidden sm:inline">
                   {lang === 'hi' ? 'मेडल' : 'Trophies'}
                 </span>
@@ -413,10 +441,10 @@ export default function App() {
                   sounds.playPop(1.1);
                   setIsInstallModalOpen(true);
                 }}
-                className="flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-black transition-all border active:scale-95 shadow-2xs bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white border-orange-400"
+                className={`flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-xs font-black transition-all border border-white/20 active:scale-95 shadow-2xs ${activeTheme.cardBtnGradient}`}
                 title={lang === 'hi' ? 'सीधे ऐप इंस्टॉल करें' : 'Install KiddoZap App'}
               >
-                <Download className="w-3.5 h-3.5 text-yellow-200 animate-bounce" />
+                <Download className="w-3.5 h-3.5 text-white animate-bounce" />
                 <span className="hidden sm:inline">{lang === 'hi' ? 'ऐप इंस्टॉल' : 'Install App'}</span>
               </button>
 
@@ -427,7 +455,7 @@ export default function App() {
                   sounds.playPop();
                   setIsMobileMenuOpen(true);
                 }}
-                className="md:hidden p-1.5 sm:p-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 active:scale-95 transition-all shadow-2xs"
+                className="md:hidden p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 active:scale-95 transition-all shadow-2xs"
                 title="Menu"
               >
                 <Menu className="w-4 h-4" />
@@ -442,7 +470,7 @@ export default function App() {
         {currentView === 'hub' && (
           <div id="games-hub-view" className="max-w-6xl mx-auto px-3 sm:px-4">
             {/* Daily Brain Quest Banner */}
-            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-orange-400 via-amber-400 to-yellow-300 p-5 sm:p-7 text-white shadow-xl shadow-amber-200/70 mb-5 border-2 border-amber-300/60">
+            <div className={`relative overflow-hidden rounded-3xl ${activeTheme.heroGradient} p-5 sm:p-7 text-white ${activeTheme.heroShadow} mb-5 border-2 ${activeTheme.heroBorder}`}>
               <div className="relative z-10 max-w-xl">
                 <div className="inline-flex items-center gap-1.5 bg-black/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-2 text-white border border-white/20">
                   <Flame className="w-3.5 h-3.5 text-amber-200 fill-amber-200" />
@@ -468,7 +496,7 @@ export default function App() {
                       sounds.playPop(1.2);
                       setCurrentView('tictactoe');
                     }}
-                    className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-amber-50 text-amber-900 rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-white/90 hover:bg-white text-slate-900 rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
                   >
                     <span>🧠 {lang === 'hi' ? 'टिक-टैक-टो (Mind)' : 'Tic Tac Toe (Mind)'}</span>
                   </button>
@@ -479,7 +507,7 @@ export default function App() {
                       sounds.playPop(1.2);
                       setCurrentView('flappy');
                     }}
-                    className="flex items-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
                   >
                     <span>🐦 {lang === 'hi' ? 'फ्लैपी बर्ड (Fun)' : 'Flappy Hero (Fun)'}</span>
                   </button>
@@ -490,7 +518,7 @@ export default function App() {
                       sounds.playPop(1.2);
                       setCurrentView('fruitslice');
                     }}
-                    className="flex items-center gap-2 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-rose-500 hover:bg-rose-600 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
                   >
                     <span>🍉 {lang === 'hi' ? 'फ्रूट स्लाइस (Action)' : 'Fruit Slice'}</span>
                   </button>
@@ -501,7 +529,7 @@ export default function App() {
                       sounds.playPop(1.2);
                       setCurrentView('geodash');
                     }}
-                    className="flex items-center gap-2 px-4 py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
                   >
                     <span>⚡ {lang === 'hi' ? 'ज्यामिति डैश' : 'Geo Dash'}</span>
                   </button>
@@ -512,7 +540,7 @@ export default function App() {
                       sounds.playPop(1.2);
                       setCurrentView('rhymes');
                     }}
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-black text-xs shadow-md active:scale-95 transition-all"
                   >
                     <span>🎶 {lang === 'hi' ? 'बाल कविताएं' : 'Rhymes Sing'}</span>
                   </button>
@@ -522,24 +550,24 @@ export default function App() {
               {/* KiddoZap Brand Logo Badge showcase on Hero */}
               <div className="absolute right-2 sm:right-6 -bottom-6 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 flex items-center justify-center pointer-events-none opacity-85 sm:opacity-100 transform rotate-3 hover:rotate-0 transition-transform">
                 <div className="relative">
-                  <div className="absolute -inset-4 rounded-full bg-yellow-300/30 blur-xl animate-pulse" />
+                  <div className="absolute -inset-4 rounded-full bg-cyan-400/20 blur-xl animate-pulse" />
                   <KiddoZapLogo size={180} variant="badge" className="w-32 h-32 sm:w-44 sm:h-44" />
                 </div>
               </div>
             </div>
 
-            {/* Category Filter Bar (Mind, Fun, Learning, Sports - inspired by KidsGame & SafeKidGames) */}
-            <div className="bg-white rounded-3xl p-3 sm:p-4 border-2 border-amber-200/80 shadow-xs mb-3">
+            {/* Category Filter Bar */}
+            <div className={`rounded-3xl p-3 sm:p-4 border-2 shadow-xs mb-3 ${activeTheme.cardBorder}`}>
               <div className="flex items-center justify-between gap-2 mb-2 px-1">
-                <div className="flex items-center gap-1.5 text-slate-800 font-black text-xs">
-                  <Flame className="w-4 h-4 text-orange-500" />
+                <div className="flex items-center gap-1.5 font-black text-xs">
+                  <Flame className="w-4 h-4 text-orange-400" />
                   <span>
                     {lang === 'hi'
                       ? 'गेम कैटेगरी चुनें (Mind & Fun Games):'
                       : 'Game Categories (Mind, Fun & Brain):'}
                   </span>
                 </div>
-                <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${activeTheme.cardBadgeBg}`}>
                   {CATEGORY_GROUPS.find((c) => c.id === selectedCategory)?.[lang === 'hi' ? 'labelHi' : 'labelEn']}
                 </span>
               </div>
@@ -561,15 +589,15 @@ export default function App() {
                       }}
                       className={`flex items-center gap-2 px-3.5 py-2 rounded-2xl transition-all whitespace-nowrap border text-xs ${
                         isSelected
-                          ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white border-orange-600 shadow-xs scale-102 font-black'
-                          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 font-bold'
+                          ? `${activeTheme.activeTabGradient} ${activeTheme.activeTabBorder} scale-102 font-black shadow-xs`
+                          : 'bg-white/10 hover:bg-white/20 border-white/20 font-bold'
                       }`}
                     >
                       <span className="text-base">{cat.icon}</span>
                       <span>{lang === 'hi' ? cat.labelHi : cat.labelEn}</span>
                       <span
                         className={`px-1.5 py-0.5 rounded-full text-[10px] font-black ${
-                          isSelected ? 'bg-white/25 text-white' : 'bg-slate-200 text-slate-600'
+                          isSelected ? 'bg-white/25 text-white' : 'bg-white/20'
                         }`}
                       >
                         {count}
@@ -581,13 +609,13 @@ export default function App() {
             </div>
 
             {/* Grade / Class Level Category Tabs (Below 18) */}
-            <div className="bg-white rounded-3xl p-3 sm:p-4 border-2 border-amber-200/80 shadow-xs mb-5">
+            <div className={`rounded-3xl p-3 sm:p-4 border-2 shadow-xs mb-5 ${activeTheme.cardBorder}`}>
               <div className="flex items-center justify-between gap-2 mb-2 px-1">
-                <div className="flex items-center gap-1.5 text-slate-800 font-black text-xs">
-                  <GraduationCap className="w-4 h-4 text-amber-600" />
+                <div className="flex items-center gap-1.5 font-black text-xs">
+                  <GraduationCap className={`w-4 h-4 ${activeTheme.accentText}`} />
                   <span>{lang === 'hi' ? 'कक्षा व उम्र के अनुसार खेल (Standard / Age Below 18):' : 'Select Grade / Standard (Below 18):'}</span>
                 </div>
-                <span className="text-[10px] font-bold text-slate-400 hidden sm:inline">
+                <span className="text-[10px] font-bold opacity-60 hidden sm:inline">
                   {filteredGames.length} {lang === 'hi' ? 'उपलब्ध खेल' : 'games available'}
                 </span>
               </div>
@@ -605,14 +633,14 @@ export default function App() {
                       }}
                       className={`flex flex-col items-center px-3 py-2 rounded-2xl transition-all whitespace-nowrap text-left border ${
                         isSelected
-                          ? 'bg-amber-500 text-white border-amber-600 shadow-xs scale-102 font-black'
-                          : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 font-bold'
+                          ? `${activeTheme.activeTabGradient} ${activeTheme.activeTabBorder} scale-102 font-black shadow-xs`
+                          : 'bg-white/10 hover:bg-white/20 border-white/20 font-bold'
                       }`}
                     >
                       <span className="text-xs">
                         {lang === 'hi' ? tab.labelHi : tab.labelEn}
                       </span>
-                      <span className={`text-[10px] ${isSelected ? 'text-amber-100' : 'text-slate-400'}`}>
+                      <span className={`text-[10px] ${isSelected ? 'text-white/80' : 'opacity-60'}`}>
                         {lang === 'hi' ? tab.ageHi : tab.ageEn}
                       </span>
                     </button>
@@ -623,8 +651,8 @@ export default function App() {
 
             {/* Search Bar & Games Count */}
             <div className="flex items-center justify-between gap-3 mb-4">
-              <div className="text-xs font-black text-slate-700 flex items-center gap-1.5">
-                <Layers className="w-4 h-4 text-amber-600" />
+              <div className="text-xs font-black flex items-center gap-1.5">
+                <Layers className={`w-4 h-4 ${activeTheme.accentText}`} />
                 <span>
                   {selectedGrade === 'all' && selectedCategory === 'all'
                     ? lang === 'hi'
@@ -637,18 +665,18 @@ export default function App() {
               </div>
 
               <div className="relative w-48 sm:w-64">
-                <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+                <Search className="w-4 h-4 absolute left-3 top-2.5 opacity-50" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={lang === 'hi' ? 'खेल खोजें...' : 'Search games...'}
-                  className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-700 focus:outline-none focus:border-amber-400 shadow-2xs"
+                  className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-white/20 bg-white/10 text-xs font-bold focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-2xs placeholder:opacity-60"
                 />
               </div>
             </div>
 
-            {/* Games Grid (11 Fun & Brainy Mini-Games) */}
+            {/* Games Grid (32+ Fun & Brainy Mini-Games) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
               {filteredGames.map((game, index) => (
                 <motion.div
@@ -657,37 +685,37 @@ export default function App() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.04, type: 'spring', stiffness: 350, damping: 25 }}
                   whileHover={{ y: -4 }}
-                  className="bg-white rounded-3xl p-4 sm:p-5 border-2 border-amber-100 hover:border-amber-300 shadow-xs hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden group"
+                  className={`rounded-3xl p-4 sm:p-5 border-2 ${activeTheme.cardBorder} ${activeTheme.cardHoverBorder} transition-all flex flex-col justify-between relative overflow-hidden group`}
                 >
                   {/* Background glow circle */}
-                  <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-amber-50/80 group-hover:scale-125 transition-transform duration-300 pointer-events-none" />
+                  <div className="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-cyan-500/10 group-hover:scale-125 transition-transform duration-300 pointer-events-none" />
 
                   <div>
                     <div className="flex items-start justify-between mb-3">
-                      <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 border border-amber-200 flex items-center justify-center text-3xl shadow-xs group-hover:scale-110 transition-transform">
+                      <div className={`w-13 h-13 rounded-2xl ${activeTheme.cardIconBg} flex items-center justify-center text-3xl shadow-xs group-hover:scale-110 transition-transform`}>
                         {game.icon}
                       </div>
 
                       <div className="flex flex-col items-end gap-1">
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-lg bg-slate-100 text-slate-600">
+                        <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-lg ${activeTheme.cardBadgeBg}`}>
                           {lang === 'hi' ? game.categoryHi : game.categoryEn}
                         </span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white/10 opacity-90">
                           {lang === 'hi' ? game.ageLabelHi : game.recommendedAge}
                         </span>
                       </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-black text-slate-800 tracking-tight font-display">
+                    <h3 className="text-base sm:text-lg font-black tracking-tight font-display">
                       {lang === 'hi' ? game.titleHi : game.titleEn}
                     </h3>
-                    <p className="text-xs text-slate-500 font-semibold mt-1 leading-relaxed">
+                    <p className="text-xs opacity-75 font-semibold mt-1 leading-relaxed">
                       {lang === 'hi' ? game.subtitleHi : game.subtitleEn}
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex items-center gap-1 text-xs font-bold text-amber-600">
+                  <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                    <div className={`flex items-center gap-1 text-xs font-bold ${activeTheme.accentText}`}>
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>{lang === 'hi' ? '3 सितारे' : 'Earn Stars'}</span>
                     </div>
@@ -698,7 +726,7 @@ export default function App() {
                         sounds.playPop(1.2);
                         setCurrentView(game.id);
                       }}
-                      className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-extrabold text-xs rounded-xl shadow-xs active:scale-95 transition-all"
+                      className={`flex items-center gap-1.5 px-4 py-2 ${activeTheme.cardBtnGradient} font-extrabold text-xs rounded-xl shadow-xs active:scale-95 transition-all`}
                     >
                       <Play className="w-3.5 h-3.5 fill-white" />
                       <span>{lang === 'hi' ? 'खेलें' : 'Play'}</span>
@@ -1183,8 +1211,8 @@ export default function App() {
         onClose={() => setIsProfileOpen(false)}
         profile={profile}
         lang={lang}
-        onSave={(name, avatar) => {
-          setProfile((prev) => ({ ...prev, name, avatar }));
+        onSave={(name, avatar, theme) => {
+          setProfile((prev) => ({ ...prev, name, avatar, ...(theme ? { theme } : {}) }));
         }}
       />
 

@@ -4,13 +4,14 @@ import { X, Check, Sparkles } from 'lucide-react';
 import { AVATARS } from '../data/games';
 import { Language, PlayerProfile } from '../types';
 import { sounds } from '../utils/audio';
+import { THEMES, ThemeId } from '../utils/theme';
 
 interface ProfileModalProps {
   isOpen: boolean;
   onClose: () => void;
   profile: PlayerProfile;
   lang: Language;
-  onSave: (name: string, avatar: string) => void;
+  onSave: (name: string, avatar: string, theme?: string) => void;
 }
 
 export const ProfileModal: React.FC<ProfileModalProps> = ({
@@ -22,12 +23,13 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 }) => {
   const [selectedAvatar, setSelectedAvatar] = useState(profile.avatar);
   const [name, setName] = useState(profile.name);
+  const [selectedTheme, setSelectedTheme] = useState<ThemeId>((profile.theme as ThemeId) || 'cyber_neon');
 
   if (!isOpen) return null;
 
   const handleSave = () => {
     sounds.playPop(1.2);
-    onSave(name.trim() || 'Super Kid', selectedAvatar);
+    onSave(name.trim() || 'Super Kid', selectedAvatar, selectedTheme);
     onClose();
   };
 
@@ -97,6 +99,39 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   <span className="text-[10px] font-extrabold text-slate-700 mt-1 truncate max-w-full">
                     {lang === 'hi' ? av.nameHi : av.nameEn.split(' ')[0]}
                   </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Theme selection */}
+          <label className="text-xs font-bold text-slate-500 block mb-2">
+            {lang === 'hi' ? 'वेबसाइट थीम चुनें:' : 'Choose Website Theme:'}
+          </label>
+          <div className="grid grid-cols-2 gap-2 mb-5">
+            {(Object.keys(THEMES) as ThemeId[]).map((tKey) => {
+              const themeObj = THEMES[tKey];
+              const isSelected = selectedTheme === tKey;
+              return (
+                <button
+                  key={tKey}
+                  type="button"
+                  onClick={() => {
+                    sounds.playPop(1.2);
+                    setSelectedTheme(tKey);
+                  }}
+                  className={`p-2.5 rounded-xl border flex items-center gap-2 text-left transition-all ${
+                    isSelected
+                      ? 'bg-slate-900 text-white border-cyan-400 ring-2 ring-cyan-400/40 shadow-sm scale-102 font-black'
+                      : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 font-semibold'
+                  }`}
+                >
+                  <span className="text-lg">{themeObj.icon}</span>
+                  <div className="min-w-0">
+                    <div className="text-xs font-extrabold truncate">
+                      {lang === 'hi' ? themeObj.nameHi : themeObj.nameEn}
+                    </div>
+                  </div>
                 </button>
               );
             })}

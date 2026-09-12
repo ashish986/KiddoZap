@@ -57,6 +57,7 @@ export interface PlayerProfile {
   unlockedBadges: string[];
   soundEnabled: boolean;
   selectedGrade: 'all' | GradeLevel;
+  theme?: string;
   gameStats: {
     memoryBestMoves: number;
     mathHighScore: number;
