@@ -170,23 +170,23 @@ export const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/60 backdrop-blur-xs">
+      <div className="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-xs">
         <motion.div
           initial={{ x: '100%' }}
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-          className="w-full max-w-xs sm:max-w-sm bg-white h-full shadow-2xl flex flex-col overflow-y-auto border-l-4 border-amber-400"
+          className="w-full max-w-xs sm:max-w-sm bg-slate-900 h-full shadow-2xl flex flex-col overflow-y-auto border-l border-indigo-500/40 text-slate-100"
         >
           {/* Drawer Header */}
-          <div className="p-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white flex items-center justify-between shadow-xs">
+          <div className="p-4 bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 border-b border-indigo-500/30 text-white flex items-center justify-between shadow-xs">
             <div className="flex items-center gap-2.5">
               <KiddoZapLogo size={36} variant="header" />
               <div>
                 <h3 className="font-black font-display text-base tracking-tight leading-tight">
-                  KiddoZap Menu
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-fuchsia-400">KiddoZap</span> Menu
                 </h3>
-                <p className="text-[11px] text-amber-100">kiddozap.com</p>
+                <p className="text-[11px] text-cyan-400">kiddozap.com</p>
               </div>
             </div>
             <button
@@ -194,7 +194,7 @@ export const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
                 sounds.playPop();
                 onClose();
               }}
-              className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/10"
             >
               <X className="w-4 h-4" />
             </button>
@@ -203,19 +203,19 @@ export const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
           {/* Drawer Links */}
           <div className="p-4 space-y-4 flex-1">
             <div>
-              <h4 className="text-[11px] font-black uppercase tracking-wider text-amber-800 mb-2 px-2">
+              <h4 className="text-[11px] font-black uppercase tracking-wider text-cyan-400 mb-2 px-2">
                 {lang === 'hi' ? 'गेम नेविगेशन' : 'Navigation'}
               </h4>
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <button
                   onClick={() => {
                     sounds.playPop();
                     onGoHome();
                     onClose();
                   }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-bold transition-colors"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 text-slate-200 text-xs font-bold transition-colors"
                 >
-                  <Home className="w-4 h-4 text-amber-600" />
+                  <Home className="w-4 h-4 text-cyan-400" />
                   <span>{lang === 'hi' ? 'गेम्स हब (सभी खेल)' : 'Games Hub (All Games)'}</span>
                 </button>
 
@@ -225,9 +225,9 @@ export const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
                     onOpenTrophies();
                     onClose();
                   }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-bold transition-colors"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 text-slate-200 text-xs font-bold transition-colors"
                 >
-                  <Trophy className="w-4 h-4 text-amber-500" />
+                  <Trophy className="w-4 h-4 text-amber-400" />
                   <span>{lang === 'hi' ? 'ट्रॉफी रूम व बैज' : 'Trophy Room & Badges'}</span>
                 </button>
 
@@ -237,84 +237,84 @@ export const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
                     onOpenInstall();
                     onClose();
                   }}
-                  className="w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-xs font-black transition-all shadow-md shadow-orange-200 active:scale-98"
+                  className="w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white text-xs font-black transition-all shadow-md shadow-indigo-950 active:scale-98"
                 >
-                  <Download className="w-4 h-4 text-yellow-200 animate-bounce" />
+                  <Download className="w-4 h-4 text-yellow-300 animate-bounce" />
                   <span>{lang === 'hi' ? '📲 KiddoZap ऐप इंस्टॉल करें' : '📲 Install KiddoZap App'}</span>
                 </button>
               </div>
             </div>
 
             {/* Google AdSense Mandatory Pages */}
-            <div className="pt-2 border-t border-slate-100">
-              <h4 className="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2 px-2 flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
+            <div className="pt-2 border-t border-slate-800">
+              <h4 className="text-[11px] font-black uppercase tracking-wider text-indigo-400 mb-2 px-2 flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>{lang === 'hi' ? 'नीति व जानकारी' : 'Policies & Guides'}</span>
               </h4>
               <div className="space-y-1">
                 <a
                   href="/games"
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors"
                 >
-                  <Sparkles className="w-4 h-4 text-yellow-500" />
+                  <Sparkles className="w-4 h-4 text-yellow-400" />
                   <span>{lang === 'hi' ? 'गेम गाइड्स (Game Guides)' : 'Game Guides & Manuals'}</span>
                 </a>
 
                 <a
                   href="/parents-guide"
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors"
                 >
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
                   <span>{lang === 'hi' ? 'अभिभावक गाइड (Parents Guide)' : 'Parents & Teachers Guide'}</span>
                 </a>
 
                 <a
                   href="/about"
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors"
                 >
-                  <Info className="w-4 h-4 text-amber-600" />
+                  <Info className="w-4 h-4 text-sky-400" />
                   <span>{lang === 'hi' ? 'हमारे बारे में (About Us)' : 'About KiddoZap'}</span>
                 </a>
 
                 <a
                   href="/privacy"
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors"
                 >
-                  <Lock className="w-4 h-4 text-emerald-600" />
+                  <Lock className="w-4 h-4 text-emerald-400" />
                   <span>{lang === 'hi' ? 'प्राइवेसी पॉलिसी (Privacy Policy)' : 'Privacy Policy & COPPA'}</span>
                 </a>
 
                 <a
                   href="/terms"
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors"
                 >
-                  <FileText className="w-4 h-4 text-purple-600" />
+                  <FileText className="w-4 h-4 text-purple-400" />
                   <span>{lang === 'hi' ? 'नियम और शर्तें (Terms of Service)' : 'Terms of Service'}</span>
                 </a>
 
                 <a
                   href="/contact"
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors"
                 >
-                  <Mail className="w-4 h-4 text-blue-600" />
+                  <Mail className="w-4 h-4 text-rose-400" />
                   <span>{lang === 'hi' ? 'संपर्क करें (Contact Us)' : 'Contact Us'}</span>
                 </a>
               </div>
             </div>
 
             {/* Safe Kids Badge */}
-            <div className="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-center space-y-1">
-              <div className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800">
-                <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
+            <div className="p-3 bg-slate-950/80 rounded-2xl border border-indigo-500/30 text-center space-y-1">
+              <div className="inline-flex items-center gap-1 text-[11px] font-bold text-cyan-300">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Safe Kids Web Platform</span>
               </div>
-              <p className="text-[10px] text-slate-500">
+              <p className="text-[10px] text-slate-400">
                 Compliant with Google AdSense Families Policy & COPPA
               </p>
             </div>
           </div>
 
-          <div className="p-3 bg-slate-50 border-t border-slate-200 text-center text-[10px] text-slate-400">
+          <div className="p-3 bg-slate-950 border-t border-slate-800 text-center text-[10px] text-slate-500">
             KiddoZap • kiddozap.com © 2026
           </div>
         </motion.div>
