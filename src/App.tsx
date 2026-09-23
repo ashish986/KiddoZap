@@ -196,6 +196,34 @@ export default function App() {
     }
   }, []);
 
+  // Synchronize browser address bar with modal state so URL reflects current view
+  useEffect(() => {
+    try {
+      if (isLegalModalOpen) {
+        window.history.replaceState(null, '', `/${activeLegalTab}`);
+      } else if (['/privacy', '/terms', '/about', '/contact', '/coppa', '/games', '/parents-guide'].includes(window.location.pathname)) {
+        window.history.replaceState(null, '', '/');
+      }
+    } catch {
+      // ignore
+    }
+  }, [isLegalModalOpen, activeLegalTab]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = (window.location.pathname || '').toLowerCase();
+      if (path.includes('privacy') || path.includes('terms') || path.includes('about') || path.includes('contact') || path.includes('coppa')) {
+        const tab = (path.replace('/', '') || 'privacy') as LegalPageTab;
+        setActiveLegalTab(tab);
+        setIsLegalModalOpen(true);
+      } else {
+        setIsLegalModalOpen(false);
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const toggleSound = () => {
     const next = !profile.soundEnabled;
     sounds.enabled = next;

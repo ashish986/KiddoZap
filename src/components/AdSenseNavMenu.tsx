@@ -60,44 +60,45 @@ export const TopUtilityNav: React.FC<TopNavProps> = ({
 
           <span className="text-slate-700 hidden sm:inline">•</span>
 
-          <button
-            onClick={() => {
-              sounds.playPop();
-              onOpenLegal('about');
-            }}
+          <a
+            href="/games"
+            className="flex items-center gap-1.5 px-2 py-1 rounded-md hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap shrink-0"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
+            <span>{lang === 'hi' ? 'गेम गाइड्स' : 'Game Guides'}</span>
+          </a>
+
+          <span className="text-slate-700 hidden sm:inline">•</span>
+
+          <a
+            href="/about"
             className="flex items-center gap-1.5 px-2 py-1 rounded-md hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap shrink-0"
           >
             <Info className="w-3.5 h-3.5 text-sky-400" />
             <span>{lang === 'hi' ? 'हमारे बारे में' : 'About'}</span>
-          </button>
+          </a>
 
           <span className="text-slate-700 hidden sm:inline">•</span>
 
           {/* Policy & Legal Direct Opener Button */}
-          <button
-            onClick={() => {
-              sounds.playPop();
-              onOpenLegal('privacy');
-            }}
+          <a
+            href="/privacy"
             className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-emerald-300 hover:text-white hover:bg-emerald-500/20 border border-emerald-500/30 transition-colors whitespace-nowrap shrink-0"
             title={lang === 'hi' ? 'प्राइवेसी व सुरक्षा नीतियां' : 'Privacy & Safety Policies'}
           >
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             <span>{lang === 'hi' ? 'पॉलिसी व सुरक्षा' : 'Policy & Legal'}</span>
-          </button>
+          </a>
 
           <span className="text-slate-700 hidden md:inline">•</span>
 
-          <button
-            onClick={() => {
-              sounds.playPop();
-              onOpenLegal('contact');
-            }}
+          <a
+            href="/contact"
             className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-md hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap shrink-0"
           >
             <Mail className="w-3.5 h-3.5 text-rose-400" />
             <span>{lang === 'hi' ? 'संपर्क करें' : 'Contact Us'}</span>
-          </button>
+          </a>
         </nav>
 
         {/* Right Side: Language, Sound, Android pill */}
@@ -248,68 +249,56 @@ export const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
             <div className="pt-2 border-t border-slate-100">
               <h4 className="text-[11px] font-black uppercase tracking-wider text-slate-500 mb-2 px-2 flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
-                <span>{lang === 'hi' ? 'ऐडसेंस व लीगल नीतियां' : 'AdSense & Legal Hub'}</span>
+                <span>{lang === 'hi' ? 'नीति व जानकारी' : 'Policies & Guides'}</span>
               </h4>
               <div className="space-y-1">
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    onOpenLegal('about');
-                    onClose();
-                  }}
+                <a
+                  href="/games"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
+                >
+                  <Sparkles className="w-4 h-4 text-yellow-500" />
+                  <span>{lang === 'hi' ? 'गेम गाइड्स (Game Guides)' : 'Game Guides & Manuals'}</span>
+                </a>
+
+                <a
+                  href="/parents-guide"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
+                >
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>{lang === 'hi' ? 'अभिभावक गाइड (Parents Guide)' : 'Parents & Teachers Guide'}</span>
+                </a>
+
+                <a
+                  href="/about"
                   className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
                 >
                   <Info className="w-4 h-4 text-amber-600" />
                   <span>{lang === 'hi' ? 'हमारे बारे में (About Us)' : 'About KiddoZap'}</span>
-                </button>
+                </a>
 
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    onOpenLegal('privacy');
-                    onClose();
-                  }}
+                <a
+                  href="/privacy"
                   className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
                 >
                   <Lock className="w-4 h-4 text-emerald-600" />
-                  <span>{lang === 'hi' ? 'प्राइवेसी पॉलिसी (Privacy Policy)' : 'Privacy Policy'}</span>
-                </button>
+                  <span>{lang === 'hi' ? 'प्राइवेसी पॉलिसी (Privacy Policy)' : 'Privacy Policy & COPPA'}</span>
+                </a>
 
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    onOpenLegal('terms');
-                    onClose();
-                  }}
+                <a
+                  href="/terms"
                   className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
                 >
                   <FileText className="w-4 h-4 text-purple-600" />
                   <span>{lang === 'hi' ? 'नियम और शर्तें (Terms of Service)' : 'Terms of Service'}</span>
-                </button>
+                </a>
 
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    onOpenLegal('coppa');
-                    onClose();
-                  }}
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
-                >
-                  <ShieldCheck className="w-4 h-4 text-rose-600" />
-                  <span>{lang === 'hi' ? 'बाल सुरक्षा नीति (COPPA Child Safety)' : 'Child Safety & COPPA'}</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    sounds.playPop();
-                    onOpenLegal('contact');
-                    onClose();
-                  }}
+                <a
+                  href="/contact"
                   className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-amber-50 text-slate-700 text-xs font-semibold"
                 >
                   <Mail className="w-4 h-4 text-blue-600" />
                   <span>{lang === 'hi' ? 'संपर्क करें (Contact Us)' : 'Contact Us'}</span>
-                </button>
+                </a>
               </div>
             </div>
 

@@ -51,52 +51,48 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenLegal, onOpenInstall
         <div>
           <h4 className="text-xs font-black uppercase tracking-wider text-amber-900 mb-3 flex items-center gap-1.5">
             <Lock className="w-3.5 h-3.5 text-amber-600" />
-            <span>{lang === 'hi' ? 'नीति व नियम (AdSense)' : 'Legal & Policies'}</span>
+            <span>{lang === 'hi' ? 'नीति व नियम (Policies)' : 'Legal & Policies'}</span>
           </h4>
           <ul className="space-y-2 text-xs font-semibold text-slate-600">
             <li>
-              <button
-                onClick={() => {
-                  sounds.playPop();
-                  onOpenLegal('privacy');
-                }}
-                className="hover:text-amber-700 hover:underline transition-colors"
+              <a
+                href="/privacy"
+                className="hover:text-amber-700 hover:underline transition-colors block"
               >
                 {lang === 'hi' ? 'प्राइवेसी पॉलिसी (Privacy Policy)' : 'Privacy Policy'}
-              </button>
+              </a>
             </li>
             <li>
-              <button
-                onClick={() => {
-                  sounds.playPop();
-                  onOpenLegal('terms');
-                }}
-                className="hover:text-amber-700 hover:underline transition-colors"
+              <a
+                href="/terms"
+                className="hover:text-amber-700 hover:underline transition-colors block"
               >
                 {lang === 'hi' ? 'नियम और शर्तें (Terms of Service)' : 'Terms of Service'}
-              </button>
+              </a>
             </li>
             <li>
-              <button
-                onClick={() => {
-                  sounds.playPop();
-                  onOpenLegal('coppa');
-                }}
-                className="hover:text-amber-700 hover:underline transition-colors"
+              <a
+                href="/about"
+                className="hover:text-amber-700 hover:underline transition-colors block"
               >
-                {lang === 'hi' ? 'बाल सुरक्षा नीति (COPPA)' : 'Child Protection (COPPA)'}
-              </button>
+                {lang === 'hi' ? 'हमारे बारे में (About KiddoZap)' : 'About KiddoZap'}
+              </a>
             </li>
             <li>
-              <button
-                onClick={() => {
-                  sounds.playPop();
-                  onOpenLegal('about');
-                }}
-                className="hover:text-amber-700 hover:underline transition-colors"
+              <a
+                href="/parents-guide"
+                className="hover:text-amber-700 hover:underline transition-colors block"
               >
-                {lang === 'hi' ? 'हमारे बारे में (About Us)' : 'About KiddoZap'}
-              </button>
+                {lang === 'hi' ? 'अभिभावक गाइड (Parents Guide)' : 'Parents & Teachers Guide'}
+              </a>
+            </li>
+            <li>
+              <a
+                href="/games"
+                className="hover:text-amber-700 hover:underline transition-colors block"
+              >
+                {lang === 'hi' ? 'गेम मैनुअल व गाइड (Game Guides)' : 'Game Manuals & Guides'}
+              </a>
             </li>
           </ul>
         </div>
@@ -105,20 +101,17 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenLegal, onOpenInstall
         <div>
           <h4 className="text-xs font-black uppercase tracking-wider text-amber-900 mb-3 flex items-center gap-1.5">
             <Mail className="w-3.5 h-3.5 text-amber-600" />
-            <span>{lang === 'hi' ? 'सहायता व ऐप' : 'Support & App'}</span>
+            <span>{lang === 'hi' ? 'सहायता व संपर्क' : 'Support & Contact'}</span>
           </h4>
           <ul className="space-y-2 text-xs font-semibold text-slate-600">
             <li>
-              <button
-                onClick={() => {
-                  sounds.playPop();
-                  onOpenLegal('contact');
-                }}
+              <a
+                href="/contact"
                 className="hover:text-amber-700 hover:underline transition-colors flex items-center gap-1.5"
               >
                 <Mail className="w-3 h-3 text-amber-600" />
                 <span>{lang === 'hi' ? 'संपर्क करें (Contact Us)' : 'Contact Us'}</span>
-              </button>
+              </a>
             </li>
             <li>
               <button
