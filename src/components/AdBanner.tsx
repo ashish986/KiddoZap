@@ -28,12 +28,12 @@ export const AdBanner: React.FC<AdBannerProps> = ({
   }, []);
 
   return (
-    <div className={`w-full my-6 flex flex-col items-center justify-center select-none ${className}`}>
-      <div className="w-full max-w-4xl min-h-[90px] flex flex-col items-center justify-center overflow-hidden">
+    <div className={`w-full my-2 flex flex-col items-center justify-center select-none ${className}`}>
+      <div className="w-full max-w-4xl flex flex-col items-center justify-center overflow-hidden">
         {/* Real AdSense Unit */}
         <ins
           className="adsbygoogle"
-          style={{ display: 'block', width: '100%', minHeight: '90px' }}
+          style={{ display: 'block', width: '100%' }}
           data-ad-client="ca-pub-1249623486151192"
           data-ad-slot={slotId !== 'default-slot' ? slotId : undefined}
           data-ad-format="auto"

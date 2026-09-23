@@ -234,47 +234,49 @@ export const EducationalHub: React.FC<EducationalHubProps> = ({ lang }) => {
   };
 
   return (
-    <section className="mt-14 space-y-12 text-slate-800">
+    <section className="mt-4 sm:mt-6 space-y-8 sm:space-y-10 text-slate-800">
       
       {/* 1. Authority & Educational Mission Banner */}
-      <div className="bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden border-4 border-amber-200">
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden border-2 border-amber-400/40">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-48 h-48 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
         <div className="relative z-10 max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur rounded-full text-xs font-black uppercase tracking-wider mb-4 border border-white/30">
-            <GraduationCap className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-400/15 backdrop-blur rounded-full text-xs font-black uppercase tracking-wider mb-3.5 border border-amber-400/30 text-amber-300">
+            <GraduationCap className="w-4 h-4 text-amber-400" />
             <span>{lang === 'hi' ? 'बाल विकास व शिक्षा केंद्र' : 'Pedagogical Standards & Educational Mission'}</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black font-display tracking-tight leading-tight mb-4">
-            {lang === 'hi'
-              ? 'खेल-खेल में सीखें: दिमागी विकास, एकाग्रता और तर्कशक्ति'
-              : 'Empowering Young Minds Through Non-Violent Cognitive Play'}
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-black font-display tracking-tight leading-snug mb-3">
+            {lang === 'hi' ? (
+              <>खेल-खेल में सीखें: <span className="text-amber-300">दिमागी विकास, एकाग्रता और तर्कशक्ति</span></>
+            ) : (
+              <>Empowering Young Minds Through <span className="text-amber-300">Non-Violent Cognitive Play</span></>
+            )}
           </h2>
-          <p className="text-sm sm:text-base text-amber-50 font-medium leading-relaxed max-w-3xl mb-6">
+          <p className="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed max-w-3xl mb-5">
             {lang === 'hi'
               ? 'KiddoZap केवल मनोरंजन का साधन नहीं है, बल्कि बच्चों के मस्तिष्क के विकास (Cognitive Development), त्वरित निर्णय लेने और समस्या-निवारण (Problem Solving) के लिए वैज्ञानिक रूप से तैयार किया गया सुरक्षित डिजिटल मंच है।'
               : 'KiddoZap is engineered as an enriching, wholesome gaming platform for students from Class 1 to 12. By fusing game mechanics with cognitive psychology, we turn screen time into an active brain-training session that enhances working memory, visual tracking, arithmetic fluency, and persistence.'}
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-            <div className="bg-white/15 backdrop-blur rounded-2xl p-3 border border-white/20">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+            <div className="bg-slate-800/90 backdrop-blur rounded-2xl p-3 border border-slate-700/80 hover:border-amber-400/30 transition-colors">
               <span className="text-xl">🛡️</span>
               <p className="text-xs font-bold mt-1 text-white">100% COPPA Safe</p>
-              <p className="text-[11px] text-amber-100">Zero Data Tracking</p>
+              <p className="text-[11px] text-amber-300/80">Zero Data Tracking</p>
             </div>
-            <div className="bg-white/15 backdrop-blur rounded-2xl p-3 border border-white/20">
+            <div className="bg-slate-800/90 backdrop-blur rounded-2xl p-3 border border-slate-700/80 hover:border-amber-400/30 transition-colors">
               <span className="text-xl">🧠</span>
               <p className="text-xs font-bold mt-1 text-white">Cognitive Science</p>
-              <p className="text-[11px] text-amber-100">Logic & Arithmetic</p>
+              <p className="text-[11px] text-amber-300/80">Logic & Arithmetic</p>
             </div>
-            <div className="bg-white/15 backdrop-blur rounded-2xl p-3 border border-white/20">
+            <div className="bg-slate-800/90 backdrop-blur rounded-2xl p-3 border border-slate-700/80 hover:border-amber-400/30 transition-colors">
               <span className="text-xl">🚫</span>
               <p className="text-xs font-bold mt-1 text-white">Zero Violence</p>
-              <p className="text-[11px] text-amber-100">School Lab Safe</p>
+              <p className="text-[11px] text-amber-300/80">School Lab Safe</p>
             </div>
-            <div className="bg-white/15 backdrop-blur rounded-2xl p-3 border border-white/20">
+            <div className="bg-slate-800/90 backdrop-blur rounded-2xl p-3 border border-slate-700/80 hover:border-amber-400/30 transition-colors">
               <span className="text-xl">⚡</span>
               <p className="text-xs font-bold mt-1 text-white">Instant Web Play</p>
-              <p className="text-[11px] text-amber-100">Zero Download/Setup</p>
+              <p className="text-[11px] text-amber-300/80">Zero Download/Setup</p>
             </div>
           </div>
         </div>
