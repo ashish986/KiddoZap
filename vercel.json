@@ -24,6 +24,11 @@
     { "source": "/contact", "destination": "/contact/index.html" },
     { "source": "/parents-guide", "destination": "/parents-guide/index.html" },
     { "source": "/games", "destination": "/games/index.html" },
-    { "source": "/((?!assets|privacy|terms|about|contact|parents-guide|games|.*\\..*).*)$", "destination": "/index.html" }
+    { "source": "/games/:slug", "destination": "/games/:slug/index.html" },
+    { "source": "/articles", "destination": "/articles/index.html" },
+    { "source": "/articles/:slug", "destination": "/articles/:slug/index.html" },
+    { "source": "/categories", "destination": "/categories/index.html" },
+    { "source": "/categories/:slug", "destination": "/categories/:slug/index.html" },
+    { "source": "/((?!assets|privacy|terms|about|contact|parents-guide|games|articles|categories|.*\\..*).*)$", "destination": "/index.html" }
   ]
 }

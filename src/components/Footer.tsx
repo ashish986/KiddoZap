@@ -13,104 +13,136 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ lang, onOpenLegal, onOpenInstall }) => {
   return (
-    <footer className="mt-14 border-t-2 border-amber-200/80 bg-gradient-to-b from-amber-50/60 to-amber-100/70 text-slate-700 py-10 px-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <footer className="mt-14 border-t border-slate-800 bg-slate-950 text-slate-300 py-10 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
         
         {/* Col 1: Brand & Mission */}
-        <div className="space-y-3 md:col-span-2">
+        <div className="space-y-3 sm:col-span-2 md:col-span-1">
           <div className="flex items-center gap-3">
             <KiddoZapLogo size={42} variant="badge" />
             <div>
-              <h3 className="text-xl font-black text-amber-900 font-display tracking-tight">
+              <h3 className="text-xl font-black text-white font-display tracking-tight">
                 KiddoZap
               </h3>
-              <p className="text-xs font-semibold text-amber-700">
+              <p className="text-xs font-semibold text-cyan-400">
                 {lang === 'hi'
-                  ? 'बच्चों व किशोरों के लिए मजेदार व सुरक्षित दिमागी खेल'
-                  : 'Fun & Safe Brain Games for Kids & Teens (Below 18)'}
+                  ? 'बच्चों व किशोरों के लिए सुरक्षित दिमागी खेल'
+                  : 'Fun & Safe Brain Games for Kids & Teens'}
               </p>
             </div>
           </div>
-          <p className="text-xs text-slate-600 max-w-md leading-relaxed">
+          <p className="text-xs text-slate-400 leading-relaxed">
             {lang === 'hi'
-              ? 'KiddoZap (kiddozap.com) पर कक्षा 1 से 12 और 18 वर्ष से कम उम्र के बच्चों के लिए रोमांचक नॉन-वायलेंट पहेलियां, रिफ्लेक्स गेम्स और मेंटल मैथ एक्टिविटीज उपलब्ध हैं। 100% फ्री और सुरक्षित।'
-              : 'KiddoZap (kiddozap.com) provides non-violent, cognitive, reflex, and puzzle challenges specifically designed for students Class 1-12 and all learners under 18. 100% free to play.'}
+              ? 'KiddoZap (kiddozap.com) पर कक्षा 1 से 12 के छात्रों के लिए नॉन-वायलेंट पहेलियां, रिफ्लेक्स गेम्स और मेंटल मैथ गतिविधियां उपलब्ध हैं। 100% फ्री और सुरक्षित।'
+              : 'KiddoZap (kiddozap.com) provides 32+ non-violent, cognitive, reflex, and puzzle challenges specifically designed for students Class 1-12 and all learners under 18. 100% free browser play.'}
           </p>
-          <div className="flex items-center gap-2 pt-1">
-            <span className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-full border border-emerald-300">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>{lang === 'hi' ? 'चाइल्ड सेफ़्टी अनुपालन (COPPA)' : 'COPPA Child-Safe Platform'}</span>
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            <span className="inline-flex items-center gap-1.5 bg-emerald-500/15 text-emerald-400 text-[11px] font-bold px-2.5 py-1 rounded-full border border-emerald-500/30">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{lang === 'hi' ? 'COPPA अनुपालन' : 'COPPA Child-Safe'}</span>
             </span>
-            <span className="text-[11px] bg-amber-200/80 text-amber-900 font-bold px-2.5 py-1 rounded-full">
+            <span className="text-[11px] bg-cyan-500/15 text-cyan-300 font-bold px-2.5 py-1 rounded-full border border-cyan-500/30">
               ⚡ Think • Play • Zap!
             </span>
           </div>
         </div>
 
-        {/* Col 2: Legal & AdSense Pages */}
+        {/* Col 2: Educational Articles */}
         <div>
-          <h4 className="text-xs font-black uppercase tracking-wider text-amber-900 mb-3 flex items-center gap-1.5">
-            <Lock className="w-3.5 h-3.5 text-amber-600" />
-            <span>{lang === 'hi' ? 'नीति व नियम (Policies)' : 'Legal & Policies'}</span>
+          <h4 className="text-xs font-black uppercase tracking-wider text-cyan-400 mb-3 flex items-center gap-1.5">
+            <Info className="w-3.5 h-3.5 text-cyan-400" />
+            <span>{lang === 'hi' ? 'रिसर्च व गाइड्स' : 'Articles & Research'}</span>
           </h4>
-          <ul className="space-y-2 text-xs font-semibold text-slate-600">
+          <ul className="space-y-2 text-xs font-medium text-slate-400">
             <li>
-              <a
-                href="/privacy"
-                className="hover:text-amber-700 hover:underline transition-colors block"
-              >
-                {lang === 'hi' ? 'प्राइवेसी पॉलिसी (Privacy Policy)' : 'Privacy Policy'}
+              <a href="/articles" className="hover:text-cyan-300 transition-colors block font-bold text-slate-300">
+                {lang === 'hi' ? '📚 सभी आर्टिकल्स हब' : '📚 All Educational Articles'}
               </a>
             </li>
             <li>
-              <a
-                href="/terms"
-                className="hover:text-amber-700 hover:underline transition-colors block"
-              >
-                {lang === 'hi' ? 'नियम और शर्तें (Terms of Service)' : 'Terms of Service'}
+              <a href="/articles/benefits-of-puzzle-games-for-kids-brain-development" className="hover:text-cyan-300 transition-colors block">
+                {lang === 'hi' ? 'ब्रेन डेवलपमेंट और पहेलियां' : 'Logic Puzzles & Neuroplasticity'}
               </a>
             </li>
             <li>
-              <a
-                href="/about"
-                className="hover:text-amber-700 hover:underline transition-colors block"
-              >
-                {lang === 'hi' ? 'हमारे बारे में (About KiddoZap)' : 'About KiddoZap'}
+              <a href="/articles/how-math-games-improve-speed-and-accuracy" className="hover:text-cyan-300 transition-colors block">
+                {lang === 'hi' ? 'मेंटल मैथ स्पीड ट्रेनिंग' : 'Math Drills vs. Worksheets'}
               </a>
             </li>
             <li>
-              <a
-                href="/parents-guide"
-                className="hover:text-amber-700 hover:underline transition-colors block"
-              >
-                {lang === 'hi' ? 'अभिभावक गाइड (Parents Guide)' : 'Parents & Teachers Guide'}
+              <a href="/articles/healthy-screen-time-rules-for-school-children" className="hover:text-cyan-300 transition-colors block">
+                {lang === 'hi' ? '20-20-20 स्क्रीन टाइम गाइड' : '20-20-20 Screen Time Rules'}
               </a>
             </li>
             <li>
-              <a
-                href="/games"
-                className="hover:text-amber-700 hover:underline transition-colors block"
-              >
-                {lang === 'hi' ? 'गेम मैनुअल व गाइड (Game Guides)' : 'Game Manuals & Guides'}
+              <a href="/articles/classroom-brain-breaks-guide-for-teachers" className="hover:text-cyan-300 transition-colors block">
+                {lang === 'hi' ? 'शिक्षकों के लिए ब्रेन ब्रेक्स' : 'Classroom Brain Breaks Playbook'}
               </a>
             </li>
           </ul>
         </div>
 
-        {/* Col 3: Support & App Download */}
+        {/* Col 3: Categories & Guides */}
         <div>
-          <h4 className="text-xs font-black uppercase tracking-wider text-amber-900 mb-3 flex items-center gap-1.5">
-            <Mail className="w-3.5 h-3.5 text-amber-600" />
-            <span>{lang === 'hi' ? 'सहायता व संपर्क' : 'Support & Contact'}</span>
+          <h4 className="text-xs font-black uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-1.5">
+            <FileText className="w-3.5 h-3.5 text-amber-400" />
+            <span>{lang === 'hi' ? 'कैटेगरी व गेम्स' : 'Categories & Guides'}</span>
           </h4>
-          <ul className="space-y-2 text-xs font-semibold text-slate-600">
+          <ul className="space-y-2 text-xs font-medium text-slate-400">
             <li>
-              <a
-                href="/contact"
-                className="hover:text-amber-700 hover:underline transition-colors flex items-center gap-1.5"
-              >
-                <Mail className="w-3 h-3 text-amber-600" />
-                <span>{lang === 'hi' ? 'संपर्क करें (Contact Us)' : 'Contact Us'}</span>
+              <a href="/categories" className="hover:text-amber-300 transition-colors block font-bold text-slate-300">
+                {lang === 'hi' ? '📂 सभी 5 श्रेणियां' : '📂 All Game Categories'}
+              </a>
+            </li>
+            <li>
+              <a href="/categories/brain-puzzles" className="hover:text-amber-300 transition-colors block">
+                {lang === 'hi' ? 'दिमागी व तर्क खेल' : 'Brain & Logic Puzzles'}
+              </a>
+            </li>
+            <li>
+              <a href="/categories/action-reflex" className="hover:text-amber-300 transition-colors block">
+                {lang === 'hi' ? 'रिफ्लेक्स व एक्शन गेम्स' : 'Reflex & Action Runners'}
+              </a>
+            </li>
+            <li>
+              <a href="/games" className="hover:text-amber-300 transition-colors block">
+                {lang === 'hi' ? 'गेम मैनुअल व कंट्रोल्स' : 'Game Manuals & Controls'}
+              </a>
+            </li>
+            <li>
+              <a href="/parents-guide" className="hover:text-amber-300 transition-colors block">
+                {lang === 'hi' ? 'अभिभावक गाइड' : 'Parents & Teachers Guide'}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Col 4: Trust, Legal & Contact */}
+        <div>
+          <h4 className="text-xs font-black uppercase tracking-wider text-emerald-400 mb-3 flex items-center gap-1.5">
+            <Lock className="w-3.5 h-3.5 text-emerald-400" />
+            <span>{lang === 'hi' ? 'सुरक्षा व संपर्क' : 'Trust & Legal'}</span>
+          </h4>
+          <ul className="space-y-2 text-xs font-medium text-slate-400">
+            <li>
+              <a href="/privacy" className="hover:text-emerald-300 transition-colors block">
+                {lang === 'hi' ? 'प्राइवेसी पॉलिसी (Privacy)' : 'Privacy Policy (COPPA)'}
+              </a>
+            </li>
+            <li>
+              <a href="/terms" className="hover:text-emerald-300 transition-colors block">
+                {lang === 'hi' ? 'नियम और शर्तें (Terms)' : 'Terms of Service'}
+              </a>
+            </li>
+            <li>
+              <a href="/about" className="hover:text-emerald-300 transition-colors block">
+                {lang === 'hi' ? 'हमारे बारे में (About)' : 'About KiddoZap'}
+              </a>
+            </li>
+            <li>
+              <a href="/contact" className="hover:text-emerald-300 transition-colors flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-emerald-400" />
+                <span>{lang === 'hi' ? 'संपर्क करें (Contact)' : 'Contact Support'}</span>
               </a>
             </li>
             <li>
@@ -119,15 +151,15 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenLegal, onOpenInstall
                   sounds.playPop();
                   onOpenInstall();
                 }}
-                className="hover:text-amber-700 hover:underline transition-colors flex items-center gap-1.5 text-amber-900 font-bold"
+                className="hover:text-cyan-300 transition-colors flex items-center gap-1.5 text-cyan-400 font-bold"
               >
-                <Download className="w-3.5 h-3.5 text-orange-600" />
-                <span>{lang === 'hi' ? 'KiddoZap ऐप इंस्टॉल करें' : 'Install KiddoZap App'}</span>
+                <Download className="w-3.5 h-3.5 text-cyan-400" />
+                <span>{lang === 'hi' ? 'ऐप इंस्टॉल करें' : 'Install KiddoZap Web App'}</span>
               </button>
             </li>
-            <li className="pt-2 text-[11px] text-slate-500">
+            <li className="pt-1 text-[11px] text-slate-500">
               Email:{' '}
-              <a href="mailto:support@kiddozap.com" className="text-amber-700 font-bold hover:underline">
+              <a href="mailto:support@kiddozap.com" className="text-slate-400 hover:text-cyan-300">
                 support@kiddozap.com
               </a>
             </li>
@@ -136,14 +168,14 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenLegal, onOpenInstall
       </div>
 
       {/* Bottom Copyright Strip */}
-      <div className="max-w-6xl mx-auto pt-6 border-t border-amber-200/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+      <div className="max-w-6xl mx-auto pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
         <p>
-          © 2026 <strong>KiddoZap (kiddozap.com)</strong>. All Rights Reserved. Designed for safe, healthy kids gaming.
+          © 2026 <strong>KiddoZap (kiddozap.com)</strong>. All Rights Reserved. Built for safe, healthy kids gaming.
         </p>
         <p className="flex items-center gap-1 text-[11px]">
           <span>Made for young minds</span>
           <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
-          <span>Non-Violent & Educational</span>
+          <span>Non-Violent &amp; Educational</span>
         </p>
       </div>
     </footer>

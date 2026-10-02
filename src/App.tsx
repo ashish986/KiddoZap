@@ -168,12 +168,24 @@ export default function App() {
     }
   }, [profile]);
 
-  // Direct URL Pathname & Hash routing for Search Console, AdSense Review, and Direct Links
+  // Direct URL Pathname, Game Parameter & Hash routing for Search Console, AdSense Review, and Direct Links
   useEffect(() => {
     try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const gameParam = urlParams.get('game')?.toLowerCase();
+      const hash = (window.location.hash || '').replace('#', '').toLowerCase();
       const path = (window.location.pathname || '').toLowerCase();
-      const hash = (window.location.hash || '').toLowerCase();
       const combined = `${path} ${hash}`;
+
+      // Direct game launch handler
+      const targetGame = gameParam || (hash && GAMES.some((g) => g.id.toLowerCase() === hash) ? hash : null);
+      if (targetGame) {
+        const match = GAMES.find((g) => g.id.toLowerCase() === targetGame);
+        if (match) {
+          setCurrentView(match.id);
+          return;
+        }
+      }
 
       if (combined.includes('privacy')) {
         setActiveLegalTab('privacy');
@@ -201,7 +213,7 @@ export default function App() {
     try {
       if (isLegalModalOpen) {
         window.history.replaceState(null, '', `/${activeLegalTab}`);
-      } else if (['/privacy', '/terms', '/about', '/contact', '/coppa', '/games', '/parents-guide'].includes(window.location.pathname)) {
+      } else if (['/privacy', '/terms', '/about', '/contact', '/coppa'].includes(window.location.pathname)) {
         window.history.replaceState(null, '', '/');
       }
     } catch {

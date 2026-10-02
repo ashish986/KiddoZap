@@ -71,6 +71,26 @@ export const TopUtilityNav: React.FC<TopNavProps> = ({
           <span className="text-slate-700 hidden sm:inline">•</span>
 
           <a
+            href="/categories"
+            className="flex items-center gap-1.5 px-2 py-1 rounded-md hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap shrink-0"
+          >
+            <span>📂</span>
+            <span>{lang === 'hi' ? 'श्रेणियां' : 'Categories'}</span>
+          </a>
+
+          <span className="text-slate-700 hidden md:inline">•</span>
+
+          <a
+            href="/articles"
+            className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-md hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap shrink-0"
+          >
+            <span>📚</span>
+            <span>{lang === 'hi' ? 'आर्टिकल्स' : 'Articles'}</span>
+          </a>
+
+          <span className="text-slate-700 hidden sm:inline">•</span>
+
+          <a
             href="/about"
             className="flex items-center gap-1.5 px-2 py-1 rounded-md hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap shrink-0"
           >
@@ -87,17 +107,17 @@ export const TopUtilityNav: React.FC<TopNavProps> = ({
             title={lang === 'hi' ? 'प्राइवेसी व सुरक्षा नीतियां' : 'Privacy & Safety Policies'}
           >
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span>{lang === 'hi' ? 'पॉलिसी व सुरक्षा' : 'Policy & Legal'}</span>
+            <span>{lang === 'hi' ? 'पॉलिसी' : 'Policy & Legal'}</span>
           </a>
 
-          <span className="text-slate-700 hidden md:inline">•</span>
+          <span className="text-slate-700 hidden lg:inline">•</span>
 
           <a
             href="/contact"
-            className="hidden md:flex items-center gap-1.5 px-2 py-1 rounded-md hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap shrink-0"
+            className="hidden lg:flex items-center gap-1.5 px-2 py-1 rounded-md hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap shrink-0"
           >
             <Mail className="w-3.5 h-3.5 text-rose-400" />
-            <span>{lang === 'hi' ? 'संपर्क करें' : 'Contact Us'}</span>
+            <span>{lang === 'hi' ? 'संपर्क' : 'Contact'}</span>
           </a>
         </nav>
 
@@ -258,6 +278,22 @@ export const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
                 >
                   <Sparkles className="w-4 h-4 text-yellow-400" />
                   <span>{lang === 'hi' ? 'गेम गाइड्स (Game Guides)' : 'Game Guides & Manuals'}</span>
+                </a>
+
+                <a
+                  href="/categories"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors"
+                >
+                  <span className="text-base">📂</span>
+                  <span>{lang === 'hi' ? 'गेम श्रेणियां (Categories)' : 'Game Categories (5 Tiers)'}</span>
+                </a>
+
+                <a
+                  href="/articles"
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition-colors"
+                >
+                  <span className="text-base">📚</span>
+                  <span>{lang === 'hi' ? 'रिसर्च आर्टिकल्स (Articles)' : 'Educational Research Hub'}</span>
                 </a>
 
                 <a
