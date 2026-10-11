@@ -1,6 +1,0 @@
-{
-  "name": "KiddoZap: Kids Games & Brain Puzzles",
-  "description": "32+ fun kids mini-games, Geo Dash Rhythm Run, Color Switch Arena, Cyber Pac-Maze, Aim Reflex Sniper Pro, Rooftop Parkour Rush, 3D Slope Cyber Run, 3D Speed Tunnel Rush, Animated Nursery Rhymes, Moto X3M Stunts, Space Invaders Galaxy, Crossy Road, Brick Breaker Arcade, Jetpack Raider, and brain puzzles categorized for Class 1-12 and all ages below 18.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
