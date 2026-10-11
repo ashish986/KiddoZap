@@ -1,0 +1,134 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/ads.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/privacy",
+      "destination": "/privacy/index.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact/index.html"
+    },
+    {
+      "source": "/parents-guide",
+      "destination": "/parents-guide/index.html"
+    },
+    {
+      "source": "/games",
+      "destination": "/games/index.html"
+    },
+    {
+      "source": "/games/:slug",
+      "destination": "/games/:slug/index.html"
+    },
+    {
+      "source": "/articles",
+      "destination": "/articles/index.html"
+    },
+    {
+      "source": "/articles/:slug",
+      "destination": "/articles/:slug/index.html"
+    },
+    {
+      "source": "/categories",
+      "destination": "/categories/index.html"
+    },
+    {
+      "source": "/categories/:slug",
+      "destination": "/categories/:slug/index.html"
+    },
+    {
+      "source": "/((?!assets|privacy|terms|about|contact|parents-guide|games|articles|categories|.*\\..*).*)$",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/games/geo-dash",
+      "destination": "/games/neon-rhythm-run",
+      "permanent": true
+    },
+    {
+      "source": "/games/moto-x3m",
+      "destination": "/games/stunt-biker",
+      "permanent": true
+    },
+    {
+      "source": "/games/crossy-road",
+      "destination": "/games/hop-and-cross",
+      "permanent": true
+    },
+    {
+      "source": "/games/color-switch",
+      "destination": "/games/color-gate-arena",
+      "permanent": true
+    },
+    {
+      "source": "/games/space-invaders",
+      "destination": "/games/galaxy-defender",
+      "permanent": true
+    },
+    {
+      "source": "/games/pac-maze",
+      "destination": "/games/neon-maze-runner",
+      "permanent": true
+    },
+    {
+      "source": "/games/piano-tiles",
+      "destination": "/games/magic-piano",
+      "permanent": true
+    },
+    {
+      "source": "/games/connect-four",
+      "destination": "/games/four-in-a-line",
+      "permanent": true
+    },
+    {
+      "source": "/games/flappy-hero",
+      "destination": "/games/flap-hero",
+      "permanent": true
+    },
+    {
+      "source": "/games/tunnel-rush",
+      "destination": "/games/tunnel-dash",
+      "permanent": true
+    }
+  ]
+}

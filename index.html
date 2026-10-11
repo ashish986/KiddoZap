@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Google Search Console Site Verification -->
+    <meta name="google-site-verification" content="-CpiKpJTdSDc4cY7avaabgd_Cdjbs0TP8nvQFA8SndU" />
+
+    <!-- Google AdSense Verification & Auto-Ads Integration Tag (Top of Head) -->
+    <meta name="google-adsense-account" content="ca-pub-1249623486151192" />
+    <script>
+      // Load ads everywhere except game-only screens (?game=... and the ?embed=1 iframe), where there is no page content around the game.
+      (function () {
+        var q = window.location.search || '';
+        if (/[?&]embed=1/.test(q) || /[?&]game=/.test(q)) return;
+        var s = document.createElement('script');
+        s.async = true;
+        s.crossOrigin = 'anonymous';
+        s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1249623486151192';
+        document.head.appendChild(s);
+      })();
+    </script>
+    <script>
+      // Prevent browser extension background injection noise (e.g. MetaMask in sandboxed preview iframes)
+      window.addEventListener('unhandledrejection', function(event) {
+        try {
+          var reason = event && (event.reason || event.detail);
+          var msg = (reason && (reason.message || reason.stack || String(reason))) || '';
+          if (
+            typeof msg === 'string' &&
+            (msg.includes('MetaMask') || msg.includes('ethereum') || msg.includes('chrome-extension://') || msg.includes('moz-extension://'))
+          ) {
+            event.preventDefault();
+            if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+            return;
+          }
+        } catch (e) {
+          // ignore
+        }
+      }, true);
+
+      window.addEventListener('error', function(event) {
+        try {
+          var msg = (event && (event.message || (event.error && event.error.message))) || '';
+          var filename = (event && event.filename) || '';
+          if (
+            (typeof msg === 'string' && (msg.includes('MetaMask') || msg.includes('ethereum'))) ||
+            filename.includes('chrome-extension://') ||
+            filename.includes('moz-extension://')
+          ) {
+            event.preventDefault();
+            if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+            return true;
+          }
+        } catch (e) {
+          // ignore
+        }
+      }, true);
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KiddoZap: Kids Games &amp; Brain Puzzles</title>
+    <meta name="description" content="Free browser games and puzzles for kids and teens: math games, memory and logic puzzles, arcade runners and nursery rhymes. No sign-up needed." />
+    <meta property="og:title" content="KiddoZap: Kids Games &amp; Brain Puzzles" />
+    <meta property="og:description" content="Free browser games and puzzles for kids and teens: math games, memory and logic puzzles, arcade runners and nursery rhymes. No sign-up needed." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+    <meta property="og:image" content="/logo.svg" />
+    <meta name="theme-color" content="#f59e0b" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="KiddoZap" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://kiddozap.com/" />
+
+    <!-- Google Structured Data (Schema.org JSON-LD for Search Console & AdSense) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://kiddozap.com/#website",
+          "url": "https://kiddozap.com/",
+          "name": "KiddoZap",
+          "description": "Free browser games and puzzles for kids and teens.",
+          "inLanguage": "en-US",
+          "publisher": {
+            "@id": "https://kiddozap.com/#organization"
+          }
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://kiddozap.com/#organization",
+          "name": "KiddoZap",
+          "url": "https://kiddozap.com/",
+          "logo": "https://kiddozap.com/logo.svg",
+          "email": "support@kiddozap.com"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://kiddozap.com/#application",
+          "name": "KiddoZap: Kids Games & Brain Puzzles",
+          "operatingSystem": "All modern browsers (Chrome, Safari, Firefox, Edge, Android, iOS)",
+          "applicationCategory": "GameApplication, EducationalApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          }
+        }
+      ]
+    }
+    </script>
+  </head>
+  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500/30" style="background-color: #0b0f19; color: #f1f5f9; margin: 0;">
+    <!-- Root Container: Contains pre-rendered crawler-visible HTML matching Dark Theme so crawlers and users see zero flash on hydration -->
+    <div id="root">
+      <div style="min-height: 100vh; display: flex; flex-direction: column; font-family: 'Nunito', system-ui, -apple-system, sans-serif; background: linear-gradient(180deg, #0f172a 0%, #0d1224 50%, #0f172a 100%); color: #f1f5f9;">
+        
+        <!-- Top Horizontal Utility Bar -->
+        <div style="background: rgba(2, 6, 23, 0.95); border-bottom: 1px solid #1e293b; padding: 6px 16px; font-size: 11px; display: flex; align-items: center; justify-content: space-between; color: #94a3b8; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <span style="color: #38bdf8; font-weight: 800; display: flex; align-items: center; gap: 4px;">⚡ <span>KiddoZap Hub</span></span>
+            <span style="color: #334155;">•</span>
+            <a href="/games" style="color: #e2e8f0; text-decoration: none; font-weight: 700;">🎮 Games</a>
+            <span style="color: #334155;">•</span>
+            <a href="/categories" style="color: #e2e8f0; text-decoration: none; font-weight: 700;">📂 Categories</a>
+            <span style="color: #334155;">•</span>
+            <a href="/articles" style="color: #e2e8f0; text-decoration: none; font-weight: 700;">📚 Articles</a>
+            <span style="color: #334155;">•</span>
+            <a href="/parents-guide" style="color: #e2e8f0; text-decoration: none; font-weight: 700;">👨‍👩‍👦 Parents Guide</a>
+            <span style="color: #334155;">•</span>
+            <a href="/about" style="color: #e2e8f0; text-decoration: none; font-weight: 700;">ℹ️ About</a>
+            <span style="color: #334155;">•</span>
+            <a href="/privacy" style="color: #34d399; text-decoration: none; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3);">🛡️ Privacy</a>
+            <span style="color: #334155;">•</span>
+            <a href="/contact" style="color: #e2e8f0; text-decoration: none; font-weight: 700;">✉️ Contact</a>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 2px 8px; border-radius: 9999px; font-size: 10px; font-weight: 800;">
+              Class 1 - 12 &bull; 100% Free
+            </span>
+          </div>
+        </div>
+
+        <!-- Main Header -->
+        <header style="background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid rgba(99, 102, 241, 0.3); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, #06b6d4, #4f46e5); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);">
+              ⚡
+            </div>
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <h1 style="font-size: 22px; font-weight: 900; margin: 0; background: linear-gradient(90deg, #22d3ee, #a5b4fc, #e879f9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Fredoka', cursive, sans-serif; line-height: 1.1;">KiddoZap</h1>
+                <span style="background: linear-gradient(90deg, #06b6d4, #4f46e5); color: #ffffff; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em;">Fun &amp; Mind Games</span>
+              </div>
+              <p style="font-size: 11px; margin: 0; color: #94a3b8; font-weight: 700;">Free Kids Games &amp; Brain Puzzles (Class 1-12 &amp; All Ages Below 18)</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <span style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #f1f5f9; padding: 6px 12px; border-radius: 14px; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px;">
+              <span>🦁</span> Kiddo Champ
+            </span>
+            <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); padding: 5px 12px; border-radius: 9999px; font-size: 12px; font-weight: 800;">
+              🎮 100% Free to Play
+            </span>
+          </div>
+        </header>
+
+        <!-- Main Hero & Games Directory -->
+        <main style="max-width: 1200px; margin: 0 auto; padding: 20px 16px; flex: 1; width: 100%; box-sizing: border-box;">
+          
+          <!-- Hero Section -->
+          <section style="background: linear-gradient(135deg, #1e1b4b 0%, #3b0764 50%, #0e7490 100%); border: 2px solid rgba(6, 182, 212, 0.4); border-radius: 24px; padding: 28px 24px; text-align: center; margin-bottom: 24px; box-shadow: 0 10px 30px rgba(6, 182, 212, 0.15); position: relative; overflow: hidden;">
+            <div style="display: inline-block; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.2); color: #ffffff; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; padding: 6px 14px; border-radius: 9999px; margin-bottom: 12px;">
+              🔥 50+ Free Games &amp; Puzzles
+            </div>
+            <h2 style="font-size: 26px; font-weight: 900; color: #ffffff; margin: 0 0 10px 0; font-family: 'Fredoka', cursive, sans-serif;">
+              Play Fun Games &amp; Brain Challenges for Kids &amp; Teens
+            </h2>
+            <p style="font-size: 14px; color: rgba(241, 245, 249, 0.9); max-width: 760px; margin: 0 auto 18px auto; line-height: 1.6; font-weight: 600;">
+              Welcome to <strong>KiddoZap</strong>! Play more than 50 free browser games, from math and memory puzzles to arcade runners and nursery rhymes. No installs, no downloads and no sign-up.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;">
+              <span style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 12px;">🎮 Instant Browser Play</span>
+              <span style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 12px;">🧠 Brain &amp; Logic Booster</span>
+              <span style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 12px;">👶 Pre-Nursery to Teens</span>
+              <span style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: 12px;">📱 Mobile &amp; Desktop Ready</span>
+            </div>
+          </section>
+
+          <!-- Featured Categories and Games Catalog -->
+          <section style="margin-bottom: 28px;">
+            <h3 style="font-size: 20px; font-weight: 900; color: #f1f5f9; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+              <span>🔥</span> Popular Games Catalog (Instant Play)
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px;">
+              
+              <!-- Game Card 1 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">⚡</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Neon Rhythm Run</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Jump and fly through geometric obstacles to the beat of high-energy music. Features jump pads, jump rings, and gravity flip portals.</p>
+                <span style="display: inline-block; background: #0c4a6e; color: #38bdf8; border: 1px solid #0284c7; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Rhythm • Reflex</span>
+              </article>
+
+              <!-- Game Card 2 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🎯</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Color Gate Arena</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Tap to bounce the ball through matching colored segments of rotating circles, spinning squares, and multi-colored crosses.</p>
+                <span style="display: inline-block; background: #4a044e; color: #f472b6; border: 1px solid #86198f; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Timing • Arcade</span>
+              </article>
+
+              <!-- Game Card 3 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🟡</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Neon Maze Runner 2088</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Navigate neon labyrinth pathways, eat all energy dots, collect power energizers, and outsmart 4 chasing AI cyber ghosts.</p>
+                <span style="display: inline-block; background: #451a03; color: #fbbf24; border: 1px solid #78350f; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Classic • Strategy</span>
+              </article>
+
+              <!-- Game Card 4 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🎯</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Aim Reflex Sniper Pro</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Esports aim trainer featuring Gridshot 30s challenge, Precision target shrinking, and Reaction speed test in milliseconds.</p>
+                <span style="display: inline-block; background: #4c0519; color: #fb7185; border: 1px solid #9f1239; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Speed • Reaction</span>
+              </article>
+
+              <!-- Game Card 5 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🏃</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Rooftop Parkour Rush</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Sprint across city rooftops! Jump air ducts, slide under low neon signs, and leap across skyscraper gaps to collect golden sparks.</p>
+                <span style="display: inline-block; background: #0c4a6e; color: #38bdf8; border: 1px solid #0284c7; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Parkour • Action</span>
+              </article>
+
+              <!-- Game Card 6 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🌀</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">3D Slope Cyber Run</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Fast-paced 3D rolling ball down infinite cyber slopes, dodging red barriers and collecting glowing speed boosts.</p>
+                <span style="display: inline-block; background: #2e1065; color: #c084fc; border: 1px solid #581c87; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">3D Action • 60 FPS</span>
+              </article>
+
+              <!-- Game Card 7 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🏍️</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Stunt Biker Challenge</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Bike racing through thrilling loop-the-loops, giant saws, jump ramps, and obstacle courses with realistic 2D physics.</p>
+                <span style="display: inline-block; background: #431407; color: #fb923c; border: 1px solid #7c2d12; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Racing • Stunts</span>
+              </article>
+
+              <!-- Game Card 8 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">👾</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Galaxy Defender</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Defend Earth against advancing alien armada fleets, dodge plasma lasers, and battle giant mothership bosses.</p>
+                <span style="display: inline-block; background: #1e293b; color: #94a3b8; border: 1px solid #334155; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Arcade • Retro</span>
+              </article>
+
+              <!-- Game Card 9 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🧩</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Kiddo Sudoku &amp; Math Sprint</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Grid reasoning puzzles and timed arithmetic math drills (addition, subtraction, multiplication, division) for students.</p>
+                <span style="display: inline-block; background: #064e3b; color: #4ade80; border: 1px solid #065f46; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Educational • Logic</span>
+              </article>
+
+              <!-- Game Card 10 -->
+              <article style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);">
+                <div style="font-size: 28px; margin-bottom: 8px;">🎵</div>
+                <h4 style="margin: 0 0 6px 0; font-size: 16px; font-weight: 800; color: #ffffff;">Animated Nursery Rhymes</h4>
+                <p style="margin: 0 0 10px 0; font-size: 12px; color: #94a3b8; line-height: 1.5;">Animated sing-along songs for toddlers and early learners: Twinkle Twinkle, Old MacDonald, Wheels on the Bus, and more.</p>
+                <span style="display: inline-block; background: #500724; color: #f472b6; border: 1px solid #831843; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px;">Pre-Nursery • Music</span>
+              </article>
+            </div>
+          </section>
+
+          <!-- Mission Banner -->
+          <section style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #020617 100%); border: 2px solid rgba(251, 191, 36, 0.4); border-radius: 24px; padding: 24px; margin-bottom: 28px; box-shadow: 0 8px 24px rgba(0,0,0,0.4);">
+            <div style="display: inline-block; background: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.3); color: #fcd34d; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 12px; border-radius: 9999px; margin-bottom: 12px;">
+              🎓 Our Mission
+            </div>
+            <h3 style="font-size: 22px; font-weight: 900; color: #ffffff; margin-top: 0; margin-bottom: 10px; font-family: 'Fredoka', cursive, sans-serif;">
+              Games that are fun and <span style="color: #fcd34d;">a little bit useful</span>
+            </h3>
+            <p style="font-size: 13px; color: #cbd5e1; line-height: 1.7; margin-bottom: 16px;">
+              KiddoZap is a collection of simple, free games for children and teens. Math, memory and logic games give practice with calculation, memory and planning, and arcade games practise timing and hand-eye coordination.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+              <div style="background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(51, 65, 85, 0.8); padding: 12px; border-radius: 14px;">
+                <span style="font-size: 20px;">🚪</span>
+                <p style="margin: 4px 0 2px 0; font-size: 12px; font-weight: 800; color: #ffffff;">No Sign-up</p>
+                <p style="margin: 0; font-size: 11px; color: #fcd34d;">No accounts or chat</p>
+              </div>
+              <div style="background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(51, 65, 85, 0.8); padding: 12px; border-radius: 14px;">
+                <span style="font-size: 20px;">🧠</span>
+                <p style="margin: 4px 0 2px 0; font-size: 12px; font-weight: 800; color: #ffffff;">Brain Games</p>
+                <p style="margin: 0; font-size: 11px; color: #fcd34d;">Logic &amp; Arithmetic</p>
+              </div>
+              <div style="background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(51, 65, 85, 0.8); padding: 12px; border-radius: 14px;">
+                <span style="font-size: 20px;">🚫</span>
+                <p style="margin: 4px 0 2px 0; font-size: 12px; font-weight: 800; color: #ffffff;">No Graphic Violence</p>
+                <p style="margin: 0; font-size: 11px; color: #fcd34d;">Kid-Friendly Themes</p>
+              </div>
+              <div style="background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(51, 65, 85, 0.8); padding: 12px; border-radius: 14px;">
+                <span style="font-size: 20px;">⚡</span>
+                <p style="margin: 4px 0 2px 0; font-size: 12px; font-weight: 800; color: #ffffff;">Instant Web Play</p>
+                <p style="margin: 0; font-size: 11px; color: #fcd34d;">No Downloads</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Why families like KiddoZap -->
+          <section style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 24px; padding: 24px; margin-bottom: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+            <h3 style="font-size: 22px; font-weight: 900; color: #f1f5f9; margin-top: 0; margin-bottom: 12px; font-family: 'Fredoka', cursive, sans-serif;">Why Families Like KiddoZap</h3>
+            <p style="font-size: 13px; color: #94a3b8; line-height: 1.7; margin-bottom: 16px;">
+              KiddoZap (https://kiddozap.com/) is a small independent site. We want games that start instantly, are easy to understand and give children a little practice along the way.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
+              <div style="background: #1e293b; border-left: 4px solid #10b981; padding: 14px; border-radius: 0 12px 12px 0;">
+                <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 800; color: #ffffff;">1. Simple and private</h4>
+                <p style="margin: 0; font-size: 12px; color: #cbd5e1; line-height: 1.6;">There are no accounts, passwords or chat features. Scores and stars are saved in your own browser on your device.</p>
+              </div>
+              <div style="background: #1e293b; border-left: 4px solid #38bdf8; padding: 14px; border-radius: 0 12px 12px 0;">
+                <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 800; color: #ffffff;">2. Practice that feels like play</h4>
+                <p style="margin: 0; font-size: 12px; color: #cbd5e1; line-height: 1.6;">Math Sprint, Sudoku, Memory Match and other puzzles give short, repeatable practice with numbers, memory and logic.</p>
+              </div>
+              <div style="background: #1e293b; border-left: 4px solid #f59e0b; padding: 14px; border-radius: 0 12px 12px 0;">
+                <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 800; color: #ffffff;">3. Kid-friendly themes</h4>
+                <p style="margin: 0; font-size: 12px; color: #cbd5e1; line-height: 1.6;">Games avoid graphic violence, and there are no in-game purchases or countdown timers pushing kids to come back.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Frequently Asked Questions -->
+          <section style="background: rgba(15, 23, 42, 0.9); border: 1px solid #1e293b; border-radius: 24px; padding: 24px; margin-bottom: 28px; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+            <h3 style="font-size: 22px; font-weight: 900; color: #f1f5f9; margin-top: 0; margin-bottom: 16px; font-family: 'Fredoka', cursive, sans-serif;">Frequently Asked Questions</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 16px;">
+                <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 800; color: #38bdf8;">Is KiddoZap safe for children?</h4>
+                <p style="margin: 0; font-size: 12px; color: #cbd5e1; line-height: 1.6;">KiddoZap has no accounts, chat or in-game purchases, and it does not ask for names, addresses, phone numbers or locations. The games are non-violent, but we suggest that parents supervise younger children. The site shows ads, so please read our <a href="/privacy" style="color:#38bdf8;">Privacy Policy</a>.</p>
+              </div>
+              <div style="background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 16px;">
+                <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 800; color: #38bdf8;">Are the games free, and do I need to download anything?</h4>
+                <p style="margin: 0; font-size: 12px; color: #cbd5e1; line-height: 1.6;">All games are free and run directly in the browser on phones, tablets and computers. There is nothing to install and no sign-up.</p>
+              </div>
+              <div style="background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 16px;">
+                <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 800; color: #38bdf8;">Can puzzle and math games help with schoolwork?</h4>
+                <p style="margin: 0; font-size: 12px; color: #cbd5e1; line-height: 1.6;">They can be good practice. Sudoku encourages step-by-step reasoning, Math Sprint gives quick repeated practice with number facts and Memory Match exercises visual memory. Games are a fun extra, not a replacement for lessons and real practice.</p>
+              </div>
+              <div style="background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 16px;">
+                <h4 style="margin: 0 0 6px 0; font-size: 14px; font-weight: 800; color: #38bdf8;">Can teachers use KiddoZap in class?</h4>
+                <p style="margin: 0; font-size: 12px; color: #cbd5e1; line-height: 1.6;">Many teachers like short games for warm-ups and breaks. Every school network is different, so please check your school rules and ask your IT team if a game does not open. Our <a href="/articles/classroom-brain-breaks-guide-for-teachers" style="color:#38bdf8;">classroom guide</a> has ideas.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Loading Indicator For Interactive Applet -->
+          <div style="text-align: center; padding: 14px; color: #64748b; font-size: 12px; font-weight: 700;">
+            <span>⚡ Loading interactive game engine... Ready to play immediately!</span>
+          </div>
+        </main>
+
+        <!-- Pre-rendered Footer (AdSense Compliant in Dark Theme) -->
+        <footer style="background: #020617; border-top: 1px solid #1e293b; padding: 24px 20px; font-size: 12px; color: #94a3b8;">
+          <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
+            <div>
+              <p style="margin: 0 0 4px 0; font-weight: 800; color: #ffffff;">KiddoZap &bull; Safe Free Online Games for Kids &amp; Teens</p>
+              <p style="margin: 0; font-size: 11px; color: #64748b;">&copy; 2026 KiddoZap. All rights reserved. Built for school &amp; home entertainment.</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; font-weight: 700;">
+              <a href="/games" style="color: #38bdf8; text-decoration: none;">Game Guides</a>
+              <span style="color: #334155;">&bull;</span>
+              <a href="/categories" style="color: #38bdf8; text-decoration: none;">Categories</a>
+              <span style="color: #334155;">&bull;</span>
+              <a href="/articles" style="color: #38bdf8; text-decoration: none;">Educational Articles</a>
+              <span style="color: #334155;">&bull;</span>
+              <a href="/parents-guide" style="color: #38bdf8; text-decoration: none;">Parents Guide</a>
+              <span style="color: #334155;">&bull;</span>
+              <a href="/about" style="color: #38bdf8; text-decoration: none;">About KiddoZap</a>
+              <span style="color: #334155;">&bull;</span>
+              <a href="/privacy" style="color: #38bdf8; text-decoration: none;">Privacy Policy</a>
+              <span style="color: #334155;">&bull;</span>
+              <a href="/terms" style="color: #38bdf8; text-decoration: none;">Terms of Service</a>
+              <span style="color: #334155;">&bull;</span>
+              <a href="/contact" style="color: #38bdf8; text-decoration: none;">Contact &amp; Support</a>
+              <span style="color: #334155;">&bull;</span>
+              <a href="mailto:support@kiddozap.com" style="color: #38bdf8; text-decoration: none;">support@kiddozap.com</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Noscript Fallback for Search Engines and Non-JS Crawlers -->
+    <noscript>
+      <div style="padding: 20px; background: #0f172a; color: #f8fafc; text-align: center; font-family: sans-serif; border-bottom: 2px solid #38bdf8;">
+        <h2>KiddoZap: Free Online Games for Kids &amp; Teens</h2>
+        <p style="color: #cbd5e1;">KiddoZap offers safe, non-violent browser games including Neon Rhythm Run, Color Gate, Cyber Neon Maze Runner, Aim Sniper, Rooftop Parkour, 3D Slope Cyber Run, Galaxy Defender, Hop and Cross, and educational puzzles. Enable JavaScript in your browser to start playing immediately!</p>
+        <p><a href="/games" style="color: #38bdf8;">Game Guides</a> | <a href="/parents-guide" style="color: #38bdf8;">Parents Guide</a> | <a href="/about" style="color: #38bdf8;">About Us</a> | <a href="/privacy" style="color: #38bdf8;">Privacy Policy</a> | <a href="/terms" style="color: #38bdf8;">Terms of Service</a> | <a href="/contact" style="color: #38bdf8;">Contact</a></p>
+      </div>
+    </noscript>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
