@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <defs>
+    <linearGradient id="zapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="50%" stop-color="#a5b4fc" />
+      <stop offset="100%" stop-color="#f472b6" />
+    </linearGradient>
+  </defs>
+  <rect x="10" y="10" width="60" height="60" rx="18" fill="url(#zapGrad)" />
+  <path d="M44 20 L28 44 L41 44 L37 60 L54 36 L41 36 Z" fill="#ffffff" />
+  <text x="85" y="52" font-family="'Nunito', sans-serif" font-weight="900" font-size="36" fill="url(#textGrad)">KiddoZap</text>
+</svg>
