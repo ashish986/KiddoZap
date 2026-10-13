@@ -75,7 +75,15 @@
       "destination": "/categories/:slug/index.html"
     },
     {
-      "source": "/((?!assets|privacy|terms|about|contact|parents-guide|games|articles|categories|.*\\..*).*)$",
+      "source": "/tools",
+      "destination": "/tools/index.html"
+    },
+    {
+      "source": "/tools/:slug",
+      "destination": "/tools/:slug/index.html"
+    },
+    {
+      "source": "/((?!assets|privacy|terms|about|contact|parents-guide|games|articles|categories|tools|.*\\..*).*)$",
       "destination": "/index.html"
     }
   ],

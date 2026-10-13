@@ -22,6 +22,12 @@ Purane /games/<slug> links vercel.json me redirect hain.
 - Embed mode me header/footer/ads nahi dikhte. ?game= aur ?embed=1 URLs par AdSense script load nahi hota.
 - About/Contact/Privacy/Parents/Terms ab generator (scripts/generate-all-content.js) se bante hain. Text scripts/pages/*.html me hai.
 
+## Zyada asli value (low value content ke liye)
+- Naye free tools: /tools, /tools/times-table-practice (chalta hua quiz), /tools/math-facts-practice (jod/ghata/bhag quiz), /tools/multiplication-chart (printable chart). Nav, footer aur sitemap me add.
+- 5 category pages par asli intro text (pehle 110-200 words ke thin pages the).
+- Har game guide ke neeche "More games you might like" aur related article/tool links (andar ki linking).
+- Median page ab ~450 words ka hai.
+
 ## Design
 - Nayi shared stylesheet: public/site.css (sab static pages ke liye). Sticky header, gradient brand, naye cards, better reading width.
 
