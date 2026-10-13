@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Math Facts Practice (Addition, Subtraction, Division) • KiddoZap</title>
+  <meta name="description" content="Free mental math practice for kids: addition, subtraction and division with numbers up to 10, 20 or 100. Short rounds, instant feedback and a list of facts to review." />
+  <link rel="canonical" href="https://kiddozap.com/tools/math-facts-practice" />
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Google AdSense Verification & Auto-Ads Integration Tag -->
+  <meta name="google-adsense-account" content="ca-pub-1249623486151192" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1249623486151192" crossorigin="anonymous"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Math Facts Practice (Addition, Subtraction, Division) • KiddoZap" />
+  <meta property="og:description" content="Free mental math practice for kids: addition, subtraction and division with numbers up to 10, 20 or 100. Short rounds, instant feedback and a list of facts to review." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kiddozap.com/tools/math-facts-practice" />
+  <meta property="og:image" content="/logo.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Math Facts Practice",
+  "url": "https://kiddozap.com/tools/math-facts-practice",
+  "description": "Free mental math practice for kids: addition, subtraction and division with numbers up to 10, 20 or 100. Short rounds, instant feedback and a list of facts to review.",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any modern web browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+
+  <meta name="theme-color" content="#0a0e1a" />
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body>
+  <!-- Top Utility Strip -->
+  <div class="top-strip">
+    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span style="color:#38bdf8; font-weight:800;">⚡ KiddoZap Hub</span>
+      <span>•</span>
+      <a href="/games">🎮 All Games</a>
+      <span>•</span>
+      <a href="/categories">📂 Categories</a>
+      <span>•</span>
+      <a href="/articles">📚 Guides</a>
+      <span>•</span>
+      <a href="/parents-guide">👨‍👩‍👦 Parents Guide</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <a href="/privacy" style="color:#34d399; font-weight:800;">🛡️ Kid-Friendly</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="/" class="logo-box">
+      <div class="logo-icon">⚡</div>
+      <div>
+        <div class="logo-text">KiddoZap</div>
+        <div style="font-size:10px; color:#94a3b8; font-weight:700;">Free games for kids &amp; teens</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="">▶ Play Hub</a>
+      <a href="/games" class="">Game Guides</a>
+      <a href="/categories" class="">Categories</a>
+      <a href="/tools" class="active">Free Tools</a>
+      <a href="/articles" class="">Guides for Parents</a>
+      <a href="/parents-guide" class="">Parents Guide</a>
+      <a href="/about" class="">About</a>
+      <a href="/contact" class="">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="https://kiddozap.com/tools">Free Tools</a> <span>/</span> <span class="current">Math Facts Practice</span>
+    </nav>
+
+    
+      <div class="card">
+        <span class="badge">➕ Free tool &bull; No sign-up</span>
+        <h1>Math Facts Practice</h1>
+        <p>Practise addition, subtraction and division in short rounds. Choose the kind of questions and how big the numbers should be, then see which facts need another try. Nothing is saved or sent anywhere.</p>
+
+        <div class="tool-panel">
+          <div id="mf-setup">
+            <div class="tool-row">
+              <label for="mf-op">Type of questions</label>
+              <select id="mf-op" class="tool-select">
+                <option value="add">Addition</option>
+                <option value="sub">Subtraction</option>
+                <option value="div">Division</option>
+                <option value="mixed">Mixed</option>
+              </select>
+            </div>
+            <div class="tool-row">
+              <label for="mf-max">Size of numbers</label>
+              <select id="mf-max" class="tool-select">
+                <option value="10">Up to 10</option>
+                <option value="20">Up to 20</option>
+                <option value="100">Up to 100</option>
+              </select>
+            </div>
+            <div class="tool-row">
+              <label for="mf-count">Number of questions</label>
+              <select id="mf-count" class="tool-select">
+                <option value="10">10 questions</option>
+                <option value="20">20 questions</option>
+              </select>
+            </div>
+            <button type="button" id="mf-start" class="btn-submit">Start practice</button>
+          </div>
+
+          <div id="mf-play" hidden>
+            <p id="mf-progress" class="tool-progress"></p>
+            <p id="mf-question" class="tool-question" aria-live="polite"></p>
+            <div class="tool-row">
+              <input id="mf-answer" class="tool-input" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" aria-label="Your answer" />
+              <button type="button" id="mf-check" class="btn-submit">Check</button>
+            </div>
+            <p id="mf-feedback" class="tool-feedback" aria-live="polite"></p>
+          </div>
+
+          <div id="mf-done" hidden>
+            <h2 style="margin-top:0;">Round finished</h2>
+            <p id="mf-result" class="tool-question"></p>
+            <div id="mf-review"></div>
+            <button type="button" id="mf-again" class="btn-submit">Practise again</button>
+          </div>
+        </div>
+
+        <h2>How to use it</h2>
+        <ol>
+          <li>Start small: numbers up to 10 for early learners, up to 20 once those feel easy, and up to 100 for older children.</li>
+          <li>Pick one type of question at a time until it feels comfortable, then try Mixed.</li>
+          <li>Type each answer and press Enter or tap Check.</li>
+          <li>Look at the facts you missed at the end and practise those again tomorrow.</li>
+        </ol>
+
+        <h2>Mental math tricks worth teaching</h2>
+        <ul>
+          <li><strong>Make 10.</strong> To add 8 + 5, take 2 from the 5 to make 8 + 2 = 10, then add the remaining 3 to get 13.</li>
+          <li><strong>Use doubles.</strong> If 6 + 6 = 12, then 6 + 7 is just one more, which is 13.</li>
+          <li><strong>Count up for subtraction.</strong> To work out 15 &minus; 9, start at 9 and count up to 15: that is 6 steps.</li>
+          <li><strong>Think of division as sharing.</strong> 24 &divide; 6 asks &quot;how many sixes fit in 24?&quot; and the times tables give the answer: 4.</li>
+          <li><strong>Check with the opposite operation.</strong> If 13 &minus; 5 = 8, then 8 + 5 should give 13 again.</li>
+        </ul>
+
+        <h2>A gentle practice routine</h2>
+        <p>Five minutes a day is plenty. Try one type of question for a few days, and celebrate a personal best (more correct answers or a faster round) rather than comparing with anyone else. If your child is getting frustrated, drop back to smaller numbers: confidence matters more than speed.</p>
+
+        <h2>Questions</h2>
+        <div class="faq-item"><h4>Does it keep track of my score?</h4><p>No. Results disappear when you close or reload the page, and nothing is sent to a server.</p></div>
+        <div class="faq-item"><h4>Why does division only use whole numbers?</h4><p>The questions are built from the times tables, so every division question has a whole-number answer. This keeps the practice focused on number facts.</p></div>
+        <p>For times tables, try the <a href="/tools/times-table-practice">times table practice</a> and the printable <a href="/tools/multiplication-chart">multiplication chart</a>. For a game version, play <a href="/games/math-sprint">Balloon Math Hero</a>.</p>
+      </div>
+      <script>
+      (function () {
+        var $ = function (id) { return document.getElementById(id); };
+        var state = null, timer = null;
+        var SYM = { add: '+', sub: '−', div: '÷' };
+        function rnd(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+        function show(id, on) { $(id).hidden = !on; }
+        function makeOne(op, max) {
+          var a, b, ans;
+          if (op === 'add') { a = rnd(0, max); b = rnd(0, max); ans = a + b; }
+          else if (op === 'sub') { a = rnd(0, max); b = rnd(0, a); ans = a - b; }
+          else {
+            b = rnd(2, Math.min(12, Math.max(2, Math.floor(max / 2))));
+            ans = rnd(1, Math.max(1, Math.floor(max / b)));
+            a = ans * b;
+          }
+          return { op: op, a: a, b: b, ans: ans };
+        }
+        function makeQuestions(op, max, count) {
+          var qs = [], i, o;
+          for (i = 0; i < count; i++) {
+            o = op === 'mixed' ? ['add', 'sub', 'div'][rnd(0, 2)] : op;
+            qs.push(makeOne(o, max));
+          }
+          return qs;
+        }
+        function text(q) { return q.a + ' ' + SYM[q.op] + ' ' + q.b; }
+        function showQuestion() {
+          var q = state.qs[state.i];
+          $('mf-question').textContent = text(q) + ' = ?';
+          $('mf-progress').textContent = 'Question ' + (state.i + 1) + ' of ' + state.qs.length;
+          $('mf-answer').value = '';
+          $('mf-answer').disabled = false;
+          $('mf-check').disabled = false;
+          $('mf-answer').focus();
+        }
+        function finish() {
+          var secs = Math.round((Date.now() - state.start) / 1000);
+          show('mf-play', false); show('mf-done', true);
+          $('mf-result').textContent = 'You got ' + state.score + ' out of ' + state.qs.length + ' right in ' + secs + ' seconds.';
+          var box = $('mf-review');
+          if (state.wrong.length === 0) {
+            box.innerHTML = '<p>Perfect round! Try bigger numbers or the Mixed option.</p>';
+          } else {
+            var seen = {}, items = [];
+            state.wrong.forEach(function (w) { if (!seen[w]) { seen[w] = 1; items.push('<li>' + w + '</li>'); } });
+            box.innerHTML = '<p>Facts to practise again:</p><ul>' + items.join('') + '</ul>';
+          }
+        }
+        function submit() {
+          if (!state) return;
+          var q = state.qs[state.i];
+          var v = parseInt($('mf-answer').value, 10);
+          if (isNaN(v)) return;
+          $('mf-answer').disabled = true; $('mf-check').disabled = true;
+          if (v === q.ans) { state.score++; $('mf-feedback').textContent = 'Correct!'; }
+          else { state.wrong.push(text(q) + ' = ' + q.ans); $('mf-feedback').textContent = 'Not quite: ' + text(q) + ' = ' + q.ans; }
+          state.i++;
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            $('mf-feedback').textContent = '';
+            if (state.i >= state.qs.length) finish(); else showQuestion();
+          }, 900);
+        }
+        $('mf-start').addEventListener('click', function () {
+          state = { qs: makeQuestions($('mf-op').value, parseInt($('mf-max').value, 10), parseInt($('mf-count').value, 10)), i: 0, score: 0, wrong: [], start: Date.now() };
+          show('mf-setup', false); show('mf-done', false); show('mf-play', true);
+          showQuestion();
+        });
+        $('mf-check').addEventListener('click', submit);
+        $('mf-answer').addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
+        $('mf-again').addEventListener('click', function () { show('mf-done', false); show('mf-setup', true); });
+      })();
+      </script>
+  
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h5>KiddoZap Portal</h5>
+          <p style="font-size:12px; color:#94a3b8; margin:0 0 10px 0;">KiddoZap is a small independent website with free browser games and puzzles for kids and teens. Games are free to play, and the site is supported by ads.</p>
+          <span style="display:inline-block; background:rgba(16,185,129,0.15); color:#34d399; border:1px solid rgba(16,185,129,0.3); padding:3px 10px; border-radius:9999px; font-size:11px; font-weight:800;">🛡️ Family-Friendly Games</span>
+        </div>
+        <div class="footer-col">
+          <h5>Game Categories</h5>
+          <ul>
+            <li><a href="/categories/brain-puzzles">Brain &amp; Logic Puzzles</a></li>
+            <li><a href="/tools">Free Learning Tools</a></li>
+            <li><a href="/categories/action-reflex">Action &amp; Reflex Runners</a></li>
+            <li><a href="/categories/arcade-retro">Classic Retro &amp; Arcade</a></li>
+            <li><a href="/categories/math-learning">Mental Math &amp; Arithmetic</a></li>
+            <li><a href="/categories/early-learning">Early Learning &amp; Rhymes</a></li>
+            <li><a href="/categories">All Game Categories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Guides</h5>
+          <ul>
+            <li><a href="/articles/benefits-of-puzzle-games-for-kids-brain-development">Benefits of Logic Puzzles</a></li>
+            <li><a href="/articles/how-math-games-improve-speed-and-accuracy">Math Practice with Games</a></li>
+            <li><a href="/articles/healthy-screen-time-rules-for-school-children">Healthy Screen Time Habits</a></li>
+            <li><a href="/articles/hand-eye-coordination-and-reflex-training-in-teens">Reflex &amp; Hand-Eye Coordination</a></li>
+            <li><a href="/articles/classroom-brain-breaks-guide-for-teachers">Classroom Brain Breaks</a></li>
+            <li><a href="/articles/coppa-and-child-online-privacy-guide-for-parents">Children's Privacy Guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Trust &amp; Legal</h5>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/parents-guide">Parents &amp; Teachers Guide</a></li>
+            <li><a href="/contact">Contact Support</a></li>
+            <li><a href="mailto:support@kiddozap.com">support@kiddozap.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 KiddoZap. All rights reserved. Built with love for curious young minds.</div>
+        <div style="display:flex; gap:14px;">
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/contact">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

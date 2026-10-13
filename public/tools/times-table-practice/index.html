@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Times Table Practice (Free Quiz) • KiddoZap</title>
+  <meta name="description" content="Free times table practice for kids: choose a table from 1 to 12 or mixed, answer 10 or 20 questions, and review the ones you missed. No sign-up." />
+  <link rel="canonical" href="https://kiddozap.com/tools/times-table-practice" />
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Google AdSense Verification & Auto-Ads Integration Tag -->
+  <meta name="google-adsense-account" content="ca-pub-1249623486151192" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1249623486151192" crossorigin="anonymous"></script>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Times Table Practice (Free Quiz) • KiddoZap" />
+  <meta property="og:description" content="Free times table practice for kids: choose a table from 1 to 12 or mixed, answer 10 or 20 questions, and review the ones you missed. No sign-up." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kiddozap.com/tools/times-table-practice" />
+  <meta property="og:image" content="/logo.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Times Table Practice",
+  "url": "https://kiddozap.com/tools/times-table-practice",
+  "description": "Free times table practice for kids: choose a table from 1 to 12 or mixed, answer 10 or 20 questions, and review the ones you missed. No sign-up.",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any modern web browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+
+  <meta name="theme-color" content="#0a0e1a" />
+  <link rel="stylesheet" href="/site.css" />
+</head>
+<body>
+  <!-- Top Utility Strip -->
+  <div class="top-strip">
+    <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+      <span style="color:#38bdf8; font-weight:800;">⚡ KiddoZap Hub</span>
+      <span>•</span>
+      <a href="/games">🎮 All Games</a>
+      <span>•</span>
+      <a href="/categories">📂 Categories</a>
+      <span>•</span>
+      <a href="/articles">📚 Guides</a>
+      <span>•</span>
+      <a href="/parents-guide">👨‍👩‍👦 Parents Guide</a>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <a href="/privacy" style="color:#34d399; font-weight:800;">🛡️ Kid-Friendly</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="/" class="logo-box">
+      <div class="logo-icon">⚡</div>
+      <div>
+        <div class="logo-text">KiddoZap</div>
+        <div style="font-size:10px; color:#94a3b8; font-weight:700;">Free games for kids &amp; teens</div>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="">▶ Play Hub</a>
+      <a href="/games" class="">Game Guides</a>
+      <a href="/categories" class="">Categories</a>
+      <a href="/tools" class="active">Free Tools</a>
+      <a href="/articles" class="">Guides for Parents</a>
+      <a href="/parents-guide" class="">Parents Guide</a>
+      <a href="/about" class="">About</a>
+      <a href="/contact" class="">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/tools">Free Tools</a> <span>/</span> <span class="current">Times Table Practice</span>
+    </nav>
+
+    
+      <div class="card">
+        <span class="badge">🧮 Free tool &bull; No sign-up</span>
+        <h1>Times Table Practice</h1>
+        <p>Pick a times table, answer a short round of questions and see which facts need more practice. Nothing is saved or sent anywhere: the quiz runs entirely in your browser.</p>
+
+        <div class="tool-panel" id="tt-app">
+          <div id="tt-setup">
+            <div class="tool-row">
+              <label for="tt-table">Times table</label>
+              <select id="tt-table" class="tool-select">
+                <option value="mixed">Mixed (2 to 12)</option>
+                <option value="2">2 times table</option><option value="3">3 times table</option><option value="4">4 times table</option>
+                <option value="5">5 times table</option><option value="6">6 times table</option><option value="7">7 times table</option>
+                <option value="8">8 times table</option><option value="9">9 times table</option><option value="10">10 times table</option>
+                <option value="11">11 times table</option><option value="12">12 times table</option>
+              </select>
+            </div>
+            <div class="tool-row">
+              <label for="tt-count">Number of questions</label>
+              <select id="tt-count" class="tool-select">
+                <option value="10">10 questions</option>
+                <option value="20">20 questions</option>
+              </select>
+            </div>
+            <button type="button" id="tt-start" class="btn-submit">Start practice</button>
+          </div>
+
+          <div id="tt-play" hidden>
+            <p id="tt-progress" class="tool-progress"></p>
+            <p id="tt-question" class="tool-question" aria-live="polite"></p>
+            <div class="tool-row">
+              <input id="tt-answer" class="tool-input" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" aria-label="Your answer" />
+              <button type="button" id="tt-check" class="btn-submit">Check</button>
+            </div>
+            <p id="tt-feedback" class="tool-feedback" aria-live="polite"></p>
+          </div>
+
+          <div id="tt-done" hidden>
+            <h2 style="margin-top:0;">Round finished</h2>
+            <p id="tt-result" class="tool-question"></p>
+            <div id="tt-review"></div>
+            <button type="button" id="tt-again" class="btn-submit">Practise again</button>
+          </div>
+        </div>
+
+        <h2>How to use this practice tool</h2>
+        <ol>
+          <li>Choose one times table to focus on, or choose Mixed for a general check.</li>
+          <li>Pick 10 questions for a quick round or 20 for a longer one.</li>
+          <li>Type each answer and press Enter or tap Check.</li>
+          <li>At the end, look at the facts you missed and practise those again.</li>
+        </ol>
+
+        <h2>Tips for learning the times tables</h2>
+        <ul>
+          <li><strong>Start with the easy ones.</strong> The 2s are doubles, the 10s just add a zero, and the 5s always end in 0 or 5.</li>
+          <li><strong>Use the swap trick.</strong> 3 &times; 7 and 7 &times; 3 give the same answer, so every fact you learn is really two facts.</li>
+          <li><strong>Check the 9s with the digit trick.</strong> The digits of any 9 times answer add up to 9 (for example 9 &times; 7 = 63, and 6 + 3 = 9).</li>
+          <li><strong>Notice patterns in the 11s.</strong> From 11 &times; 2 to 11 &times; 9 the answer repeats the digit: 22, 33, 44 and so on.</li>
+          <li><strong>Save the tricky ones for last.</strong> Most children find 6 &times; 7, 6 &times; 8, 7 &times; 8 and 7 &times; 9 the hardest, so give those extra short rounds.</li>
+          <li><strong>Skip count out loud.</strong> Counting 4, 8, 12, 16 helps the pattern stick.</li>
+        </ul>
+
+        <h2>A simple practice plan</h2>
+        <p>Five minutes a day is enough for most children, and it works better than one long session each week. One easy plan is to cover the 2, 5 and 10 tables in the first week, the 3 and 4 tables in the second, the 6 and 9 tables in the third, and the 7, 8, 11 and 12 tables in the fourth. After that, use the Mixed option to keep everything fresh. Stop while it is still fun.</p>
+
+        <h2>Questions</h2>
+        <div class="faq-item"><h4>Does the tool save my results?</h4><p>No. Nothing is stored or sent to a server. When you close or reload the page, the results are gone.</p></div>
+        <div class="faq-item"><h4>Which ages is it for?</h4><p>Children usually learn the times tables between about ages 7 and 11, but anyone can use it for a quick refresher.</p></div>
+        <div class="faq-item"><h4>Can teachers use it in class?</h4><p>Yes. It works on any phone, tablet or computer with a browser, so it can be used as a short warm-up. A printable <a href="/tools/multiplication-chart">multiplication chart</a> is also available.</p></div>
+
+        <p>Want a more playful way to practise? Try <a href="/games/math-sprint">Balloon Math Hero</a>.</p>
+      </div>
+      <script>
+      (function () {
+        var $ = function (id) { return document.getElementById(id); };
+        var state = null, timer = null;
+        function rnd(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+        function show(id, on) { $(id).hidden = !on; }
+        function makeQuestions(table, count) {
+          var qs = [], i, a, b;
+          for (i = 0; i < count; i++) {
+            a = table === 'mixed' ? rnd(2, 12) : parseInt(table, 10);
+            b = rnd(1, 12);
+            qs.push({ a: a, b: b });
+          }
+          return qs;
+        }
+        function showQuestion() {
+          var q = state.qs[state.i];
+          $('tt-question').textContent = q.a + ' × ' + q.b + ' = ?';
+          $('tt-progress').textContent = 'Question ' + (state.i + 1) + ' of ' + state.qs.length;
+          $('tt-answer').value = '';
+          $('tt-answer').disabled = false;
+          $('tt-check').disabled = false;
+          $('tt-answer').focus();
+        }
+        function finish() {
+          var secs = Math.round((Date.now() - state.start) / 1000);
+          show('tt-play', false); show('tt-done', true);
+          $('tt-result').textContent = 'You got ' + state.score + ' out of ' + state.qs.length + ' right in ' + secs + ' seconds.';
+          var box = $('tt-review');
+          if (state.wrong.length === 0) {
+            box.innerHTML = '<p>Perfect round! Try a harder table or the Mixed option.</p>';
+          } else {
+            var seen = {}, items = [];
+            state.wrong.forEach(function (w) { if (!seen[w]) { seen[w] = 1; items.push('<li>' + w + '</li>'); } });
+            box.innerHTML = '<p>Facts to practise again:</p><ul>' + items.join('') + '</ul>';
+          }
+        }
+        function submit() {
+          if (!state) return;
+          var q = state.qs[state.i];
+          var v = parseInt($('tt-answer').value, 10);
+          if (isNaN(v)) return;
+          var right = q.a * q.b;
+          $('tt-answer').disabled = true; $('tt-check').disabled = true;
+          if (v === right) { state.score++; $('tt-feedback').textContent = 'Correct!'; }
+          else { state.wrong.push(q.a + ' × ' + q.b + ' = ' + right); $('tt-feedback').textContent = 'Not quite: ' + q.a + ' × ' + q.b + ' = ' + right; }
+          state.i++;
+          clearTimeout(timer);
+          timer = setTimeout(function () {
+            $('tt-feedback').textContent = '';
+            if (state.i >= state.qs.length) finish(); else showQuestion();
+          }, 900);
+        }
+        $('tt-start').addEventListener('click', function () {
+          state = { qs: makeQuestions($('tt-table').value, parseInt($('tt-count').value, 10)), i: 0, score: 0, wrong: [], start: Date.now() };
+          show('tt-setup', false); show('tt-done', false); show('tt-play', true);
+          showQuestion();
+        });
+        $('tt-check').addEventListener('click', submit);
+        $('tt-answer').addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
+        $('tt-again').addEventListener('click', function () { show('tt-done', false); show('tt-setup', true); });
+      })();
+      </script>
+  
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h5>KiddoZap Portal</h5>
+          <p style="font-size:12px; color:#94a3b8; margin:0 0 10px 0;">KiddoZap is a small independent website with free browser games and puzzles for kids and teens. Games are free to play, and the site is supported by ads.</p>
+          <span style="display:inline-block; background:rgba(16,185,129,0.15); color:#34d399; border:1px solid rgba(16,185,129,0.3); padding:3px 10px; border-radius:9999px; font-size:11px; font-weight:800;">🛡️ Family-Friendly Games</span>
+        </div>
+        <div class="footer-col">
+          <h5>Game Categories</h5>
+          <ul>
+            <li><a href="/categories/brain-puzzles">Brain &amp; Logic Puzzles</a></li>
+            <li><a href="/tools">Free Learning Tools</a></li>
+            <li><a href="/categories/action-reflex">Action &amp; Reflex Runners</a></li>
+            <li><a href="/categories/arcade-retro">Classic Retro &amp; Arcade</a></li>
+            <li><a href="/categories/math-learning">Mental Math &amp; Arithmetic</a></li>
+            <li><a href="/categories/early-learning">Early Learning &amp; Rhymes</a></li>
+            <li><a href="/categories">All Game Categories</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Guides</h5>
+          <ul>
+            <li><a href="/articles/benefits-of-puzzle-games-for-kids-brain-development">Benefits of Logic Puzzles</a></li>
+            <li><a href="/articles/how-math-games-improve-speed-and-accuracy">Math Practice with Games</a></li>
+            <li><a href="/articles/healthy-screen-time-rules-for-school-children">Healthy Screen Time Habits</a></li>
+            <li><a href="/articles/hand-eye-coordination-and-reflex-training-in-teens">Reflex &amp; Hand-Eye Coordination</a></li>
+            <li><a href="/articles/classroom-brain-breaks-guide-for-teachers">Classroom Brain Breaks</a></li>
+            <li><a href="/articles/coppa-and-child-online-privacy-guide-for-parents">Children's Privacy Guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Trust &amp; Legal</h5>
+          <ul>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/parents-guide">Parents &amp; Teachers Guide</a></li>
+            <li><a href="/contact">Contact Support</a></li>
+            <li><a href="mailto:support@kiddozap.com">support@kiddozap.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 KiddoZap. All rights reserved. Built with love for curious young minds.</div>
+        <div style="display:flex; gap:14px;">
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+          <a href="/contact">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

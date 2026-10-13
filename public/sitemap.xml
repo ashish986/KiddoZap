@@ -3,179 +3,149 @@
   <url>
     <loc>https://kiddozap.com/</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://kiddozap.com/games</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kiddozap.com/categories</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kiddozap.com/articles</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kiddozap.com/parents-guide</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kiddozap.com/about</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kiddozap.com/privacy</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://kiddozap.com/terms</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kiddozap.com/contact</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/tools</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/geo-dash</loc>
+    <loc>https://kiddozap.com/tools/times-table-practice</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/tools/multiplication-chart</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/tools/math-facts-practice</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/categories/brain-puzzles</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/snake</loc>
+    <loc>https://kiddozap.com/categories/action-reflex</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/math-sprint</loc>
+    <loc>https://kiddozap.com/categories/arcade-retro</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/memory-match</loc>
+    <loc>https://kiddozap.com/categories/math-learning</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/sudoku</loc>
+    <loc>https://kiddozap.com/categories/early-learning</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/tic-tac-toe</loc>
+    <loc>https://kiddozap.com/articles/benefits-of-puzzle-games-for-kids-brain-development</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/flappy-hero</loc>
+    <loc>https://kiddozap.com/articles/how-math-games-improve-speed-and-accuracy</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/brick-breaker</loc>
+    <loc>https://kiddozap.com/articles/healthy-screen-time-rules-for-school-children</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/bubble-shooter</loc>
+    <loc>https://kiddozap.com/articles/hand-eye-coordination-and-reflex-training-in-teens</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/piano-tiles</loc>
+    <loc>https://kiddozap.com/articles/classroom-brain-breaks-guide-for-teachers</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/color-switch</loc>
+    <loc>https://kiddozap.com/articles/coppa-and-child-online-privacy-guide-for-parents</loc>
     <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/whack-a-mole</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/fruit-slice</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/connect-four</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/space-invaders</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/pac-maze</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/aim-trainer</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/crossy-road</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/nursery-rhymes</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/rooftop-parkour</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://kiddozap.com/games/jetpack-raider</loc>
+    <loc>https://kiddozap.com/games/neon-rhythm-run</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -187,49 +157,133 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/tunnel-rush</loc>
+    <loc>https://kiddozap.com/games/tunnel-dash</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/games/moto-x3m</loc>
+    <loc>https://kiddozap.com/games/neon-maze-runner</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/articles/benefits-of-puzzle-games-for-kids-brain-development</loc>
+    <loc>https://kiddozap.com/games/color-gate-arena</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/articles/how-math-games-improve-arithmetic-speed-and-accuracy</loc>
+    <loc>https://kiddozap.com/games/aim-trainer</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/articles/healthy-screen-time-rules-for-kids-and-teens</loc>
+    <loc>https://kiddozap.com/games/rooftop-parkour</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/articles/classroom-brain-breaks-guide-for-teachers</loc>
+    <loc>https://kiddozap.com/games/stunt-biker</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/articles/hand-eye-coordination-and-reflex-training-in-teens</loc>
+    <loc>https://kiddozap.com/games/galaxy-defender</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://kiddozap.com/articles/safe-gaming-without-chat-or-purchases</loc>
+    <loc>https://kiddozap.com/games/hop-and-cross</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/brick-breaker</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/jetpack-raider</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/sudoku</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/math-sprint</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/flap-hero</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/fruit-slice</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/snake</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/whack-a-mole</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/magic-piano</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/four-in-a-line</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/bubble-shooter</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/tic-tac-toe</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/nursery-rhymes</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kiddozap.com/games/memory-match</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
