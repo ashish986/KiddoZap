@@ -22,7 +22,7 @@ export const AppPrivacyPolicyPage: React.FC = () => {
         <p className="text-[#64748b] text-sm mb-6">Last Updated: October 24, 2026</p>
 
         <p className="mb-4">
-          KiddoZap (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting the
+          KiddoZap is committed to protecting the
           privacy of children and families. This Privacy Policy explains
           how information may be handled when you use our website,
           mobile applications, and educational games.
