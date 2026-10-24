@@ -187,7 +187,7 @@ export const GenericArcadeGame: React.FC<GenericArcadeGameProps> = ({ game, onGa
               <>
                 <div className="text-4xl mb-2">{game.icon}</div>
                 <h3 className="text-2xl font-black text-cyan-400 mb-1">{game.title}</h3>
-                <p className="text-slate-400 text-xs mb-4">{game.controls}</p>
+                <p className="text-slate-400 text-xs mb-4">{game.controlsDesktop}</p>
               </>
             )}
 

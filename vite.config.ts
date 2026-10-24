@@ -12,9 +12,10 @@ export default defineConfig(() => {
         name: 'static-pages-rewrite',
         configureServer(server) {
           server.middlewares.use((req, _res, next) => {
-            const staticPages = ['/privacy', '/terms', '/about', '/contact', '/parents-guide', '/games'];
-            if (req.url && staticPages.includes(req.url.split('?')[0])) {
-              req.url = `${req.url.split('?')[0]}/index.html`;
+            const staticPages = ['/privacy', '/privacypolicy', '/terms', '/about', '/contact', '/parents-guide', '/games', '/categories', '/articles'];
+            const urlPath = req.url ? req.url.split('?')[0] : '';
+            if (urlPath && staticPages.includes(urlPath)) {
+              req.url = `${urlPath}/index.html`;
             }
             next();
           });

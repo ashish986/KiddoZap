@@ -1,6 +1,6 @@
 {
   "name": "KiddoZap: Kids Games & Brain Puzzles",
-  "description": "50+ free browser games and puzzles for kids and teens: math games, memory and logic puzzles, arcade games and nursery rhymes.",
+  "description": "20 free browser games and puzzles for kids and teens: math sprints, memory match, logic puzzles, and classic arcades. Founded by Ashish Pal. Zero chat, zero microtransactions.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
