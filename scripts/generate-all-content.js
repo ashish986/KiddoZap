@@ -905,14 +905,12 @@ fs.writeFileSync(
   })
 );
 
-// 8. Privacy Policy Page (Comprehensive COPPA, Google AdSense & Family Privacy)
-ensureDir(path.join(PUBLIC_DIR, 'privacy'));
-fs.writeFileSync(
-  path.join(PUBLIC_DIR, 'privacy', 'index.html'),
-  renderHtmlPage({
+// 8. Website Privacy Policy Page (Comprehensive COPPA, Google AdSense & Family Privacy)
+ensureDir(path.join(PUBLIC_DIR, 'privacypolicy'));
+const websitePrivacyHtml = renderHtmlPage({
     title: 'Privacy Policy & Family Safety Guarantees | KiddoZap',
     description: 'Read the comprehensive KiddoZap Privacy Policy: strict COPPA compliance, zero personal data harvesting, family-safe Google AdSense policies, and local cache controls.',
-    canonicalUrl: 'https://kiddozap.com/privacy',
+    canonicalUrl: 'https://kiddozap.com/privacypolicy',
     content: `
       <nav class="breadcrumb">
         <a href="/">KiddoZap Hub</a>
@@ -992,8 +990,10 @@ fs.writeFileSync(
         </div>
       </div>
     `
-  })
-);
+});
+fs.writeFileSync(path.join(PUBLIC_DIR, 'privacypolicy', 'index.html'), websitePrivacyHtml);
+fs.writeFileSync(path.join(PUBLIC_DIR, 'privacypolicy.html'), websitePrivacyHtml);
+
 
 // 9. Terms of Service Page (Comprehensive User Agreement & Educational Licensing)
 ensureDir(path.join(PUBLIC_DIR, 'terms'));

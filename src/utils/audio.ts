@@ -4,6 +4,27 @@ class SoundManager {
   private ctx: AudioContext | null = null;
   public enabled: boolean = true;
 
+  isMuted(): boolean {
+    return !this.enabled;
+  }
+
+  toggleMute(): boolean {
+    this.enabled = !this.enabled;
+    return !this.enabled;
+  }
+
+  playScore(pitchModifier = 1) {
+    this.playChime(pitchModifier);
+  }
+
+  playCrash() {
+    this.playError();
+  }
+
+  playWin() {
+    this.playFanfare();
+  }
+
   private getContext(): AudioContext | null {
     if (!this.enabled) return null;
     if (typeof window === 'undefined') return null;
@@ -569,3 +590,5 @@ class SoundManager {
 }
 
 export const sounds = new SoundManager();
+export const soundManager = sounds;
+export default sounds;

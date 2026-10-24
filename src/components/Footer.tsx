@@ -104,8 +104,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <ul className="space-y-2 text-xs">
             <li>
               <a
-                href="/privacy"
-                onClick={(e) => handleLink(e, '/privacy')}
+                href="/privacypolicy"
+                onClick={(e) => handleLink(e, '/privacypolicy')}
                 className="hover:text-emerald-400 font-bold block"
               >
                 🛡️ Privacy Policy (COPPA)

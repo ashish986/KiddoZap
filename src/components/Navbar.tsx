@@ -76,9 +76,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
           <span className="text-slate-700">•</span>
           <a
-            href="/privacy"
-            onClick={(e) => handleLink(e, '/privacy')}
-            className="text-emerald-400 hover:text-emerald-300 font-bold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30"
+            href="/privacypolicy"
+            onClick={(e) => handleLink(e, '/privacypolicy')}
+            className={`text-emerald-400 hover:text-emerald-300 font-bold px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 ${currentRoute === '/privacypolicy' ? 'ring-1 ring-emerald-400' : ''}`}
           >
             🛡️ Privacy Policy
           </a>

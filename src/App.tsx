@@ -131,14 +131,14 @@ export const App: React.FC = () => {
     return <GameContainer game={selectedGame} onBack={handleBackToHub} embed={true} />;
   }
 
-  // Standalone App Privacy Policy (Zero website menu/footer, only accessible via direct URL)
-  if (route === '/privacypolicy' || route === '/privacypolicy.html') {
+  // Standalone App Privacy Policy for Google Play Store (Zero website menu/footer, accessible via direct URL /privacy)
+  if (route === '/privacy' || route === '/privacy.html') {
     return <AppPrivacyPolicyPage />;
   }
 
   // Render standalone dedicated pages (Zero Dialog / Modal Popups)
   const renderCurrentPage = () => {
-    if (route === '/privacy') {
+    if (route === '/privacypolicy' || route === '/privacypolicy.html') {
       return <PrivacyPage onGoHome={handleBackToHub} />;
     }
     if (route === '/terms') {
@@ -448,3 +448,5 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
+export default App;
