@@ -11,6 +11,8 @@ import { GeoDashGame } from './games/GeoDashGame';
 import { WhackAMoleGame } from './games/WhackAMoleGame';
 import { AimTrainerGame } from './games/AimTrainerGame';
 import { BrickBreakerGame } from './games/BrickBreakerGame';
+import { FruitSliceGame } from './FruitSliceGame';
+import { LittleBuilderWorld } from './LittleBuilderWorld';
 import { GenericArcadeGame } from './games/GenericArcadeGame';
 
 interface GameContainerProps {
@@ -68,6 +70,10 @@ export const GameContainer: React.FC<GameContainerProps> = ({
         return <AimTrainerGame />;
       case 'brick-breaker':
         return <BrickBreakerGame />;
+      case 'fruit-slice':
+        return <FruitSliceGame lang="en" onBack={onBack} onGameComplete={() => {}} />;
+      case 'builder':
+        return <LittleBuilderWorld />;
       default:
         return <GenericArcadeGame game={game} />;
     }
