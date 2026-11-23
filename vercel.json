@@ -44,10 +44,6 @@
   ],
   "rewrites": [
     {
-      "source": "/play",
-      "destination": "/"
-    },
-    {
       "source": "/privacy",
       "destination": "/privacy/index.html"
     },
@@ -106,53 +102,63 @@
   ],
   "redirects": [
     {
-      "source": "/games/geo-dash",
-      "destination": "/games/neon-rhythm-run",
+      "source": "/play",
+      "destination": "/games",
       "permanent": true
     },
     {
-      "source": "/games/moto-x3m",
-      "destination": "/games/stunt-biker",
-      "permanent": true
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "game",
+          "value": "(?:piano|piano-tiles|magic-piano)"
+        }
+      ],
+      "destination": "/piano",
+      "permanent": false
     },
     {
-      "source": "/games/crossy-road",
-      "destination": "/games/hop-and-cross",
-      "permanent": true
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "game",
+          "value": "rhymes"
+        }
+      ],
+      "destination": "/rhymes",
+      "permanent": false
     },
     {
-      "source": "/games/color-switch",
-      "destination": "/games/color-gate-arena",
-      "permanent": true
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "game"
+        }
+      ],
+      "destination": "/games",
+      "permanent": false
     },
     {
-      "source": "/games/space-invaders",
-      "destination": "/games/galaxy-defender",
-      "permanent": true
-    },
-    {
-      "source": "/games/pac-maze",
-      "destination": "/games/neon-maze-runner",
+      "source": "/games/magic-piano",
+      "destination": "/piano",
       "permanent": true
     },
     {
       "source": "/games/piano-tiles",
-      "destination": "/games/magic-piano",
+      "destination": "/piano",
       "permanent": true
     },
     {
-      "source": "/games/connect-four",
-      "destination": "/games/four-in-a-line",
+      "source": "/games/:legacy(aim-trainer|brick-breaker|bubble-shooter|builder-world|color-gate-arena|color-switch|connect-four|crossy-road|flap-hero|flappy-hero|four-in-a-line|fruit-slice|galaxy-defender|geo-dash|hop-and-cross|jetpack-raider|math-sprint|memory-match|moto-x3m|neon-maze-runner|neon-rhythm-run|pac-maze|rooftop-parkour|snake|space-invaders|stunt-biker|sudoku|tic-tac-toe|tunnel-dash|tunnel-rush|whack-a-mole)",
+      "destination": "/games",
       "permanent": true
     },
     {
-      "source": "/games/flappy-hero",
-      "destination": "/games/flap-hero",
-      "permanent": true
-    },
-    {
-      "source": "/games/tunnel-rush",
-      "destination": "/games/tunnel-dash",
+      "source": "/categories/:category*",
+      "destination": "/games",
       "permanent": true
     }
   ]

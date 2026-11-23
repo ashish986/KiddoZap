@@ -1,0 +1,21 @@
+.kiddo-loader {
+  background: radial-gradient(ellipse at 23% 18%,#f9dbfd,transparent 48%), radial-gradient(ellipse at 76% 69%,#d7eaff,transparent 50%), #efe6ff;
+  color:#422470; display:grid; place-items:center; position:fixed; overflow:hidden; inset:0; z-index:99;
+  animation:kiddo-reveal 14s step-end forwards;
+}
+.kiddo-loader-content {
+  display:grid; place-items:center; gap:14px; z-index:1; width:min(86%,320px); padding:28px;
+  background:#ffffffa8; border:1px solid #fff; border-radius:32px; box-shadow:0 10px 0 #cfb3ee69;
+}
+.kiddo-loader-content img { width:min(100%,220px); height:auto; animation:kiddo-bob 1.6s ease-in-out infinite alternate }
+.kiddo-loader-content p { margin:0; font:850 1rem Nunito,system-ui,sans-serif }
+.kiddo-loader-art { position:absolute; inset:-20px; background:radial-gradient(circle,#7856be2f 0 2px,transparent 3px) 0 0 / 44px 44px; animation:kiddo-dots 7s linear infinite }
+.kiddo-loader-art span { position:absolute; left:20%; top:24%; font-size:clamp(2rem,6vw,5rem); color:#9370e7; animation:kiddo-bob 2.5s ease-in-out infinite alternate }
+.kiddo-loader-art span:nth-child(2) { left:73%; top:32%; color:#c85da5; animation-delay:-1s }
+.kiddo-loader-art span:nth-child(3) { left:62%; top:76%; color:#6b58c4; animation-delay:-2s }
+.kiddo-loading-fallback { margin:auto; max-width:740px; padding:32px 20px; font:1rem/1.6 Nunito,system-ui,sans-serif; color:#241744; background:#f9f3ff }
+.kiddo-loading-fallback a { display:inline-block; color:#5130ad; margin:6px 10px 6px 0; text-decoration:underline }
+@keyframes kiddo-bob { to { transform:translateY(-8px) rotate(-3deg) } }
+@keyframes kiddo-dots { to { background-position:44px -44px } }
+@keyframes kiddo-reveal { to { visibility:hidden } }
+@media(prefers-reduced-motion:reduce) { .kiddo-loader-art,.kiddo-loader-art span,.kiddo-loader-content img { animation:none } }
