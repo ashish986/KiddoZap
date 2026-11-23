@@ -62,12 +62,12 @@ export const GAMES: GameInfo[] = [
     howToPlay: [
       'Read the arithmetic problem displayed at the top.',
       'Tap the correct answer from the 4 multiple choice cards before time runs out.',
-      'Build consecutive correct answer streaks for 2x, 3x, and 4x bonus points.',
-      'Collect gold stars and beat your personal best score!'
+      'Answer correctly in a row to earn more points.',
+      'Solve as many questions as you can before the 30-second timer runs out.'
     ],
-    controlsDesktop: 'Click correct option with mouse or press 1, 2, 3, 4 keys.',
+    controlsDesktop: 'Click the correct answer or use Tab and Enter.',
     controlsMobile: 'Tap the correct number card directly on screen.',
-    scoringGuide: '100 points per correct answer plus 50 points per streak level.',
+    scoringGuide: 'Each correct answer earns 10 points plus 2 per previous answer in the streak. Correct answers add one second, up to 45 seconds. Incorrect answers cost two seconds and reset the streak.',
     proStrategies: [
       'Look at the last digit for quick estimation.',
       'Keep your streak alive for massive multiplier bonuses.',
@@ -93,25 +93,25 @@ export const GAMES: GameInfo[] = [
   {
     id: 'sudoku',
     slug: 'sudoku',
-    title: 'Kiddo Sudoku 4x4 & 6x6',
+    title: 'Kiddo Sudoku 4×4',
     titleHi: 'दिमागी सुडोकू (तार्किक पहेली)',
     category: 'brain-puzzles',
     categoryLabel: 'Brain & Logic',
     icon: '🧩',
     age: 'Age 6+',
     grades: 'Grades 1-12',
-    shortDesc: 'Deductive logic grid puzzle with numbers and cute animal tiles. No math, pure brainpower!',
-    shortDescHi: 'बिना दोहराए हर पंक्ति और खाने में सही नंबर या जानवर के चित्र भरें!',
-    overview: 'Kiddo Sudoku is a gentle, frustration-free introduction to logical reasoning. Designed specifically for kids, players fill 4x4 or 6x6 grids so that each row, column, and block contains unique numbers or cute animals without any duplicates.',
+    shortDesc: 'Fill a 4×4 grid with the numbers 1–4 using the clues.',
+    shortDescHi: 'हर पंक्ति, कॉलम और 2×2 खाने में 1 से 4 तक की संख्याएँ भरें।',
+    overview: 'Fill the empty squares so every row, column and 2×2 box contains each number from 1 to 4 once.',
     howToPlay: [
       'Select an empty cell on the grid.',
-      'Tap a number or animal icon to place it in the cell.',
+      'Choose a number from the keypad to place it in the cell.',
       'Ensure every horizontal row, vertical column, and sub-box has each symbol only once.',
-      'Use the hint button if you ever get stuck!'
+      'Check the row, column and 2×2 box if you get stuck.'
     ],
-    controlsDesktop: 'Click cell, then click digit or press numbers 1-4 / 1-6 on keyboard.',
+    controlsDesktop: 'Click a cell, then click a digit on the keypad.',
     controlsMobile: 'Tap grid cell, then tap input piece at the bottom.',
-    scoringGuide: '1000 base points minus 5 points per elapsed second. Zero penalty for using hints.',
+    scoringGuide: 'The game counts incorrect entries and celebrates when the puzzle is solved.',
     proStrategies: [
       'Scan rows that already have 3 out of 4 symbols filled.',
       'The missing symbol is guaranteed by process of elimination.',
@@ -124,7 +124,7 @@ export const GAMES: GameInfo[] = [
     ],
     classroomApplication: 'Recommended by STEM teachers for developing algorithmic thinking and structured problem decomposition.',
     faqs: [
-      { question: 'Can kids play with animal icons instead of numbers?', answer: 'Yes, Kiddo Sudoku features an Animal Mode with lions, pandas, foxes, and bunnies!' }
+      { question: 'Is there a time limit?', answer: 'There is no timer. Work through the clues at your own pace.' }
     ],
     color: 'from-blue-500 to-indigo-600',
     badge: 'Brain Booster',
