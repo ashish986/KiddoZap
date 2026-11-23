@@ -114,3 +114,12 @@ p { line-height:1.6; color:var(--sub); margin:.65rem 0 0 }
   .info-hero,.grownup { background:none; border-color:#777; padding:12px; break-inside:avoid }
   .info-hero h1 { font-size:24pt }
 }
+
+.play-store-link { display:inline-flex; align-items:center; gap:7px }
+.play-store-link > img { width:18px; height:18px; flex:none }
+.legal-page { max-width:850px; margin-inline:auto }
+.legal-page .grownup { max-width:none; margin-top:18px }
+.legal-page .info-hero p { max-width:75ch }
+.legal-page .legal-meta { font-size:.95rem; font-weight:800 }
+.legal-page li { margin-block:7px; line-height:1.55; color:var(--sub) }
+.legal-page a { overflow-wrap:anywhere }

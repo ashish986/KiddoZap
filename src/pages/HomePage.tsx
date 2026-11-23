@@ -1,9 +1,9 @@
 import { Blocks, Gamepad2, HeartHandshake, Music2, Play, Smartphone } from 'lucide-react';
+import { PlayStoreLink } from '../components/PlayStoreLink';
 import preschool from '../data/preschool.json';
 import './HomePage.css';
 
 
-const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.kiddozap.app';
 const ART = '/assets/home';
 const featuredGames = preschool.filter(game => game.group === 'Learn');
 
@@ -19,7 +19,7 @@ export function HomePage() {
             <a href="#music">Music</a>
             <a href="#parents">Parents</a>
           </nav>
-          <a className="kz-button kz-header-app" href="#app">Get the app</a>
+          <PlayStoreLink className="kz-button kz-header-app">Get the app</PlayStoreLink>
         </div>
       </header>
 
@@ -101,7 +101,7 @@ export function HomePage() {
               <p className="kz-kicker"><Smartphone size={18} /> KIDDOZAP ON ANDROID</p>
               <h2 id="kz-app-title">Take playtime with you</h2>
               <p>Explore the English alphabet, Hindi वर्णमाला, counting, colors, shapes and animals. Then try puzzles and mini-games at your own pace.</p>
-              <a className="kz-button" href={PLAY_STORE}>Get it on Google Play</a>
+              <PlayStoreLink className="kz-button">Get it on Google Play</PlayStoreLink>
             </div>
           </div>
         </section>

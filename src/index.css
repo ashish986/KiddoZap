@@ -32,3 +32,6 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.play-store-link { display: inline-flex; align-items: center; gap: 7px; }
+.play-store-link > img { width: 18px; height: 18px; flex: none; }
