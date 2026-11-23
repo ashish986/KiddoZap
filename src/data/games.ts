@@ -36,7 +36,7 @@ export interface GameInfo {
 }
 
 export const CATEGORIES = [
-  { id: 'all', name: 'All 10 Games', icon: '🌟' },
+  { id: 'all', name: 'All games', icon: '🌟' },
   { id: 'math', name: 'Math & Numbers', icon: '🔢' },
   { id: 'brain-puzzles', name: 'Brain & Logic', icon: '🧩' },
   { id: 'action-reflex', name: 'Action & Reflex', icon: '🚀' },

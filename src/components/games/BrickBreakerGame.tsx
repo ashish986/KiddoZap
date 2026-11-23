@@ -54,18 +54,20 @@ export const BrickBreakerGame: React.FC<{ onGameOver?: (score: number) => void }
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
+    const x = (e.clientX - rect.left) * 320 / rect.width;
     stateRef.current.paddleX = Math.max(0, Math.min(320 - stateRef.current.paddleW, x - stateRef.current.paddleW / 2));
   };
 
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.touches[0].clientX - rect.left;
+    const x = (e.touches[0].clientX - rect.left) * 320 / rect.width;
     stateRef.current.paddleX = Math.max(0, Math.min(320 - stateRef.current.paddleW, x - stateRef.current.paddleW / 2));
   };
 
   useEffect(() => {
     let animId: number;
+    const sparks: { x: number; y: number; dx: number; dy: number; color: string; life: number }[] = [];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const loop = () => {
       const canvas = canvasRef.current;
@@ -114,6 +116,12 @@ export const BrickBreakerGame: React.FC<{ onGameOver?: (score: number) => void }
               state.ballY < b.y + b.h
             ) {
               b.alive = false;
+              if (!reducedMotion) {
+                for (let index = 0; index < 8; index++) {
+                  const angle = index * Math.PI / 4;
+                  sparks.push({ x: state.ballX, y: state.ballY, dx: Math.cos(angle) * 2.4, dy: Math.sin(angle) * 2.4, color: b.color, life: 1 });
+                }
+              }
               state.ballDY = -state.ballDY;
               state.score += 15;
               soundManager.playScore();
@@ -132,7 +140,10 @@ export const BrickBreakerGame: React.FC<{ onGameOver?: (score: number) => void }
       }
 
       // Draw
-      ctx.fillStyle = '#090d16';
+      const backdrop = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      backdrop.addColorStop(0, '#211347');
+      backdrop.addColorStop(1, '#0f1537');
+      ctx.fillStyle = backdrop;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Bricks
@@ -141,10 +152,30 @@ export const BrickBreakerGame: React.FC<{ onGameOver?: (score: number) => void }
           ctx.fillStyle = b.color;
           ctx.shadowColor = b.color;
           ctx.shadowBlur = 6;
-          ctx.fillRect(b.x, b.y, b.w, b.h);
+          ctx.beginPath();
+          ctx.roundRect(b.x, b.y, b.w, b.h, 4);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = '#ffffff60';
+          ctx.fillRect(b.x + 4, b.y + 3, b.w - 8, 2);
           ctx.shadowBlur = 0;
         }
       }
+
+      for (let index = sparks.length - 1; index >= 0; index--) {
+        const spark = sparks[index];
+        spark.x += spark.dx;
+        spark.y += spark.dy;
+        spark.life -= .065;
+        if (spark.life <= 0) {
+          sparks.splice(index, 1);
+          continue;
+        }
+        ctx.globalAlpha = spark.life;
+        ctx.fillStyle = spark.color;
+        ctx.fillRect(spark.x, spark.y, 4, 4);
+      }
+      ctx.globalAlpha = 1;
 
       // Paddle
       const paddleY = canvas.height - 24;
@@ -184,7 +215,7 @@ export const BrickBreakerGame: React.FC<{ onGameOver?: (score: number) => void }
       <div
         onMouseMove={handleMouseMove}
         onTouchMove={handleTouchMove}
-        className="relative w-[320px] h-[340px] bg-slate-950 border-2 border-cyan-500/50 rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
+        className="relative w-[320px] max-w-full aspect-[16/17] touch-none bg-slate-950 border-2 border-cyan-500/50 rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
       >
         <canvas ref={canvasRef} width={320} height={340} className="w-full h-full block" />
 

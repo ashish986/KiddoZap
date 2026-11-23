@@ -3,6 +3,7 @@ import { HomePage } from './pages/HomePage';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Top10GamesHub } from './components/Top10GamesHub';
+import { findOlderGame, OlderGamePlayer } from './components/LegacyGames';
 import { GameContainer } from './components/GameContainer';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
@@ -12,6 +13,21 @@ import { ParentsGuidePage } from './pages/ParentsGuidePage';
 import { AppPrivacyPolicyPage } from './pages/AppPrivacyPolicyPage';
 import { GAMES, GameInfo } from './data/games';
 import { soundManager } from './utils/audio';
+
+const gameAliases: Record<string, string> = {
+  'neon-rhythm-run': 'geodash',
+  math: 'math-sprint',
+  memory: 'memory-match',
+  whack: 'whack-a-mole',
+  tictactoe: 'tic-tac-toe',
+  brickbreaker: 'brick-breaker',
+  fruitslice: 'fruit-slice',
+};
+
+function findGame(key: string | null) {
+  const id = key ? gameAliases[key] ?? key : null;
+  return GAMES.find(game => game.id === id || game.slug === id) ?? null;
+}
 
 function normalizePath(pathname: string): string {
   const clean = pathname.replace(/\/$/, '') || '/';
@@ -31,12 +47,12 @@ export const App: React.FC = () => {
       const path = normalizePath(window.location.pathname);
       const match = path.match(/^\/games\/([a-zA-Z0-9_-]+)/);
       if (match) {
-        return GAMES.find(g => g.slug === match[1] || g.id === match[1]) || null;
+        return findGame(match[1]);
       }
       const params = new URLSearchParams(window.location.search);
       const gameParam = params.get('game');
       if (gameParam) {
-        return GAMES.find(g => g.id === gameParam || g.slug === gameParam) || null;
+        return findGame(gameParam);
       }
     }
     return null;
@@ -50,13 +66,13 @@ export const App: React.FC = () => {
 
       const match = currentPath.match(/^\/games\/([a-zA-Z0-9_-]+)/);
       if (match) {
-        const found = GAMES.find(g => g.slug === match[1] || g.id === match[1]);
+        const found = findGame(match[1]);
         setActiveGame(found || null);
       } else {
         const params = new URLSearchParams(window.location.search);
         const gameParam = params.get('game');
         if (gameParam) {
-          const found = GAMES.find(g => g.id === gameParam || g.slug === gameParam);
+          const found = findGame(gameParam);
           setActiveGame(found || null);
         } else {
           setActiveGame(null);
@@ -103,6 +119,14 @@ export const App: React.FC = () => {
   if (route === '/privacy' || route === '/privacy.html') {
     return <AppPrivacyPolicyPage />;
   }
+
+  const params = new URLSearchParams(window.location.search);
+  const embed = params.get('embed') === '1';
+  if (activeGame && embed) {
+    return <GameContainer game={activeGame} embed onBack={() => (window.top ?? window).location.assign('/play')} />;
+  }
+  const olderGame = findOlderGame(params.get('game'));
+  if (!activeGame && olderGame) return <OlderGamePlayer game={olderGame} embed={embed} />;
 
   // Render standalone dedicated pages (Zero Dialog / Modal Popups)
   if (route === '/' && !activeGame) {
@@ -151,16 +175,14 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-500/30">
+    <div className="kz-interior min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-500/30">
       <Navbar
         currentRoute={route}
-        onNavigate={handleNavigate}
-        onGoHome={handleBackToHub}
       />
 
       {renderCurrentPage()}
 
-      <Footer onNavigate={handleNavigate} />
+      <Footer />
     </div>
   );
 };

@@ -141,11 +141,24 @@ export const GeoDashGame: React.FC<{ onGameOver?: (score: number) => void }> = (
       }
 
       // Render
-      ctx.fillStyle = '#090d16';
+      const sky = ctx.createLinearGradient(0, 0, 0, floorY);
+      sky.addColorStop(0, '#19133d');
+      sky.addColorStop(1, '#5534a1');
+      ctx.fillStyle = sky;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Faraway lights move more slowly than the obstacles.
+      for (let i = 0; i < 24; i++) {
+        const x = ((i * 67 - state.frame * .3) % canvas.width + canvas.width) % canvas.width;
+        const y = 13 + (i * 43) % (floorY - 26);
+        ctx.globalAlpha = .28 + .28 * (1 + Math.sin(i + state.frame * .05));
+        ctx.fillStyle = i % 3 === 0 ? '#f9a8d4' : '#c4b5fd';
+        ctx.fillRect(x, y, 2 + i % 3, 2 + i % 3);
+      }
+      ctx.globalAlpha = 1;
+
       // Cyber Grid Background
-      ctx.strokeStyle = '#1e293b';
+      ctx.strokeStyle = '#b8a1ff28';
       ctx.lineWidth = 1;
       const gridOffset = (state.frame * 2) % 40;
       for (let x = -gridOffset; x < canvas.width; x += 40) {
@@ -194,7 +207,9 @@ export const GeoDashGame: React.FC<{ onGameOver?: (score: number) => void }> = (
       ctx.fillStyle = '#f59e0b';
       ctx.shadowColor = '#f59e0b';
       ctx.shadowBlur = 14;
-      ctx.fillRect(-playerSize / 2, -playerSize / 2, playerSize, playerSize);
+      ctx.beginPath();
+      ctx.roundRect(-playerSize / 2, -playerSize / 2, playerSize, playerSize, 7);
+      ctx.fill();
       ctx.shadowBlur = 0;
 
       // Inner Eye / Face
@@ -221,7 +236,7 @@ export const GeoDashGame: React.FC<{ onGameOver?: (score: number) => void }> = (
 
       <div
         onClick={jump}
-        className="relative w-[340px] h-[340px] sm:w-[420px] bg-slate-950 border-2 border-amber-500/50 rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
+        className="relative w-[420px] max-w-full aspect-[21/17] bg-slate-950 border-2 border-amber-500/50 rounded-2xl overflow-hidden shadow-2xl cursor-pointer"
       >
         <canvas ref={canvasRef} width={420} height={340} className="w-full h-full block" />
 

@@ -67,23 +67,24 @@ export const WhackAMoleGame: React.FC<{ onGameOver?: (score: number) => void }> 
 
   return (
     <div className="flex flex-col items-center justify-center p-4 select-none">
-      <div className="w-full max-w-xs flex justify-between items-center mb-3 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm font-bold">
+      <div className="w-full max-w-xs flex justify-between items-center mb-3 border border-emerald-800 rounded-xl px-4 py-2 text-sm font-bold">
         <span className="text-amber-400">Time: <strong className="text-white">{timeLeft}s</strong></span>
         <span className="text-cyan-400">Score: <strong className="text-white">{score}</strong></span>
       </div>
 
-      <div className="w-72 h-72 bg-slate-950 border-2 border-amber-600/50 rounded-2xl p-3 shadow-2xl relative grid grid-cols-3 gap-3">
+      <div className="w-72 aspect-square kz-round-board kz-mole-board border-2 border-amber-600/50 rounded-2xl p-3 shadow-2xl relative grid grid-cols-3 gap-3">
         {moles.map((isUp, idx) => (
           <button
             key={idx}
             onClick={() => whack(idx)}
-            className={`rounded-2xl flex items-center justify-center text-4xl transition-all cursor-pointer ${
+            aria-label={`Hole ${idx + 1}${isUp ? `, mole up` : ''}`}
+            className={`kz-mole-hole overflow-hidden rounded-2xl flex items-center justify-center text-4xl transition-all cursor-pointer ${
               isUp
-                ? 'bg-amber-600 border-2 border-yellow-400 shadow-lg shadow-amber-500/50 scale-105 active:scale-90 animate-bounce'
+                ? 'border-2 border-yellow-300 shadow-lg shadow-amber-500/40 active:scale-90'
                 : 'bg-slate-900 border border-slate-800'
             }`}
           >
-            {isUp ? '🦔' : '🕳️'}
+            {isUp && <span className="kz-mole" aria-hidden="true">🐹</span>}
           </button>
         ))}
 

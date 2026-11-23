@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { soundManager } from '../../utils/audio';
 
 interface MathSprintProps {
@@ -13,6 +13,7 @@ interface Question {
 }
 
 export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
+  const [feedback, setFeedback] = useState<{ correct: boolean; count: number } | null>(null);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
   const [timeLeft, setTimeLeft] = useState(30);
@@ -20,7 +21,7 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [question, setQuestion] = useState<Question | null>(null);
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('easy');
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
 
   const generateQuestion = useCallback((diff: 'easy' | 'medium' | 'hard'): Question => {
     let a = 0;
@@ -95,6 +96,7 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
 
   const startGame = () => {
     soundManager.playPop();
+    setFeedback(null);
     setScore(0);
     setStreak(0);
     setTimeLeft(30);
@@ -106,7 +108,9 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
   const handleAnswer = (val: number) => {
     if (!isPlaying || isGameOver || !question) return;
 
-    if (val === question.answer) {
+    const correct = val === question.answer;
+    setFeedback(previous => ({ correct, count: (previous?.count ?? 0) + 1 }));
+    if (correct) {
       soundManager.playScore();
       setScore(s => s + 10 + streak * 2);
       setStreak(st => st + 1);
@@ -123,25 +127,17 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
 
   useEffect(() => {
     if (!isPlaying || isGameOver) return;
+    const timer = window.setInterval(() => setTimeLeft(time => Math.max(0, time - 1)), 1000);
+    return () => window.clearInterval(timer);
+  }, [isPlaying, isGameOver]);
 
-    timerRef.current = setInterval(() => {
-      setTimeLeft(t => {
-        if (t <= 1) {
-          clearInterval(timerRef.current as NodeJS.Timeout);
-          soundManager.playWin();
-          setIsGameOver(true);
-          setIsPlaying(false);
-          if (onGameOver) onGameOver(score);
-          return 0;
-        }
-        return t - 1;
-      });
-    }, 1000);
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isPlaying, isGameOver, score, onGameOver]);
+  useEffect(() => {
+    if (!isPlaying || isGameOver || timeLeft > 0) return;
+    soundManager.playWin();
+    setIsGameOver(true);
+    setIsPlaying(false);
+    onGameOver?.(score);
+  }, [isPlaying, isGameOver, timeLeft, score, onGameOver]);
 
   return (
     <div className="flex flex-col items-center justify-center p-4 max-w-lg mx-auto select-none">
@@ -161,7 +157,7 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
       </div>
 
       <div className="w-full bg-slate-950 border-2 border-indigo-500/40 rounded-2xl p-6 shadow-2xl relative min-h-[320px] flex flex-col justify-center items-center">
-        {!isPlaying ? (
+        {!isPlaying && !isGameOver ? (
           <div className="text-center py-4">
             <div className="text-5xl mb-3">🔢</div>
             <h3 className="text-2xl font-black text-indigo-400 mb-2">Math Sprint Blitz</h3>
@@ -212,7 +208,7 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
             <div className="w-full text-center">
               <div className="text-slate-400 text-xs uppercase font-extrabold tracking-wider mb-2">Solve this:</div>
               <div className="text-5xl font-black text-white mb-8 tracking-wide font-mono bg-slate-900/60 py-4 rounded-xl border border-slate-800">
-                {question.text} = ?
+                <span key={feedback?.count ?? 0} className="kz-equation">{question.text} = ?</span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 max-w-sm mx-auto">
@@ -226,6 +222,9 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
                   </button>
                 ))}
               </div>
+              <p className="kz-math-feedback" role="status">
+                {feedback && <span key={feedback.count} className={feedback.correct ? "text-emerald-300" : "text-amber-200"}>{feedback.correct ? "Nice work!" : "Keep going!"}</span>}
+              </p>
             </div>
           )
         )}

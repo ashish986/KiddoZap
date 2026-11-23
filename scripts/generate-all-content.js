@@ -34,6 +34,7 @@ function renderHtmlPage({ title, description, canonicalUrl, content, schemaJson 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/site.css">
+    ${new URL(canonicalUrl).pathname.startsWith('/privacy') ? '' : '<link rel="stylesheet" href="/play-theme.css" />'}
     <meta name="google-adsense-account" content="ca-pub-1249623486151192" />
     ${schemaScript}
   </head>

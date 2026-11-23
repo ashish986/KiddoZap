@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GameStage } from './GameStage';
 import { GameInfo, GAMES } from '../data/games';
 import { soundManager } from '../utils/audio';
 import { SnakeGame } from './games/SnakeGame';
@@ -6,10 +7,8 @@ import { MathSprintGame } from './games/MathSprintGame';
 import { MemoryMatchGame } from './games/MemoryMatchGame';
 import { TicTacToeGame } from './games/TicTacToeGame';
 import { SudokuGame } from './games/SudokuGame';
-import { FlappyHeroGame } from './games/FlappyHeroGame';
 import { GeoDashGame } from './games/GeoDashGame';
 import { WhackAMoleGame } from './games/WhackAMoleGame';
-import { AimTrainerGame } from './games/AimTrainerGame';
 import { BrickBreakerGame } from './games/BrickBreakerGame';
 import { FruitSliceGame } from './FruitSliceGame';
 import { LittleBuilderWorld } from './LittleBuilderWorld';
@@ -37,10 +36,11 @@ export const GameContainer: React.FC<GameContainerProps> = ({
     setIsMuted(muted);
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
     try {
-      const shareUrl = `${window.location.origin}/games/${game.slug}`;
-      navigator.clipboard.writeText(shareUrl);
+      const shareUrl = new URL('/', window.location.origin);
+      shareUrl.searchParams.set('game', game.id);
+      await navigator.clipboard.writeText(shareUrl.href);
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
     } catch {
@@ -60,14 +60,10 @@ export const GameContainer: React.FC<GameContainerProps> = ({
         return <TicTacToeGame />;
       case 'sudoku':
         return <SudokuGame />;
-      case 'flappy-hero':
-        return <FlappyHeroGame />;
       case 'geodash':
         return <GeoDashGame />;
       case 'whack-a-mole':
         return <WhackAMoleGame />;
-      case 'aim-trainer':
-        return <AimTrainerGame />;
       case 'brick-breaker':
         return <BrickBreakerGame />;
       case 'fruit-slice':
@@ -82,7 +78,7 @@ export const GameContainer: React.FC<GameContainerProps> = ({
   // If embed mode (e.g. ?game=sudoku&embed=1 in an iframe)
   if (embed) {
     return (
-      <div className="w-full min-h-screen bg-slate-950 flex flex-col items-center justify-center p-2 text-white font-sans">
+      <div className="w-full min-h-screen bg-[#241844] flex flex-col items-center justify-center p-2 text-white font-sans">
         <div className="w-full max-w-lg flex items-center justify-between mb-2 px-3">
           <div className="flex items-center gap-2">
             <span className="text-xl">{game.icon}</span>
@@ -95,7 +91,7 @@ export const GameContainer: React.FC<GameContainerProps> = ({
             {isMuted ? '🔇' : '🔊'}
           </button>
         </div>
-        {renderGameContent()}
+        <GameStage key={game.id} id={game.id}>{renderGameContent()}</GameStage>
       </div>
     );
   }
@@ -162,8 +158,8 @@ export const GameContainer: React.FC<GameContainerProps> = ({
       </div>
 
       {/* Main Game Stage */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-2xl flex flex-col items-center justify-center min-h-[460px] relative mb-8">
-        {renderGameContent()}
+      <div className="min-w-0 mb-8">
+        <GameStage key={game.id} id={game.id}>{renderGameContent()}</GameStage>
       </div>
 
       {/* Quick Spec Pills */}

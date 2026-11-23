@@ -157,6 +157,10 @@ export function HomePage({ onSelectGame }: HomePageProps) {
         <div className="kz-wrap kz-footer-inner">
           <a href="/" aria-label="KiddoZap home"><img className="kz-logo" src={ART + '/logo.webp'} alt="KiddoZap" width="154" height="57" loading="lazy" /></a>
           <nav aria-label="Footer navigation">
+            <a href="/games">Game guides</a>
+            <a href="/categories">Categories</a>
+            <a href="/articles">Articles</a>
+            <a href="/tools">Tools</a>
             <a href="/about">About</a>
             <a href="/privacypolicy">Website privacy</a>
             <a href="/privacy">App privacy</a>
