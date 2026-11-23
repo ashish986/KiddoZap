@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Music2, Volume2 } from 'lucide-react';
+import { PlayStoreLink } from '../components/PlayStoreLink';
 import './MusicPage.css';
 
 const songs = [
@@ -185,7 +186,7 @@ export function MusicPage({ kind }: { kind: 'piano' | 'rhymes' }) {
       <header className="music-header">
         <div className="music-wrap music-nav">
           <a href="/" aria-label="KiddoZap home"><img src="/assets/home/logo.webp" alt="KiddoZap" width="145" height="54" /></a>
-          <nav aria-label="Music navigation"><a href="/games">Games</a><a href={piano ? '/rhymes' : '/piano'}>{piano ? 'Rhymes' : 'Piano'}</a><a href="/#app">Get the app</a></nav>
+          <nav aria-label="Music navigation"><a href="/games">Games</a><a href={piano ? '/rhymes' : '/piano'}>{piano ? 'Rhymes' : 'Piano'}</a><PlayStoreLink>Get the app</PlayStoreLink></nav>
         </div>
       </header>
       <main className="music-wrap">

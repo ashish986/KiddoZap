@@ -2,6 +2,13 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const games = JSON.parse(readFileSync('src/data/preschool.json', 'utf8'));
+const storeUrl = 'https://play.google.com/store/apps/details?id=com.kiddozap.app';
+
+function storeLink(label, style = '') {
+  const classes = style ? 'play-store-link ' + style : 'play-store-link';
+  return `<a class="${classes}" href="${storeUrl}"><img src="/assets/home/google-play.svg" width="18" height="18" alt="">${label}</a>`;
+}
+
 const publisher = 'ca-pub-1249623486151192';
 
 function page(title, description, route, content, script = '') {
@@ -26,7 +33,7 @@ ${script ? "  " + script + "\n" : ""}</head>
   <header class="site-nav"><div class="wrap nav-row">
     <a href="/" aria-label="KiddoZap home"><img src="/assets/home/logo.webp" alt="KiddoZap" width="148" height="55"></a>
     <nav aria-label="Main navigation">
-      <a href="/games">Games</a><a href="/rhymes">Rhymes</a><a href="/piano">Piano</a><a href="/#app">Get the app</a>
+      <a href="/games">Games</a><a href="/rhymes">Rhymes</a><a href="/piano">Piano</a>${storeLink('Get the app')}
     </nav>
   </div></header>
   <main class="wrap" id="main">${content}</main>
@@ -53,7 +60,7 @@ writeFileSync('public/games/index.html', page('Pre-nursery games', 'Play ABC Gar
   </section>
   <section class="games-section"><h2>Learn through play</h2>${tiles(games.filter(game => game.group === 'Learn'))}</section>
   <section class="games-section"><h2>Just for fun</h2>${tiles(games.filter(game => game.group === 'Fun'))}</section>
-  <section class="grownup"><h2>More to explore in the KiddoZap app</h2><p>The Android app includes English letters, Hindi वर्णमाला, counting, animals and mini-games.</p><a class="primary" href="/#app">Explore the Android app</a></section>
+  <section class="grownup"><h2>More to explore in the KiddoZap app</h2><p>The Android app includes English letters, Hindi वर्णमाला, counting, animals and mini-games.</p>${storeLink('Get it on Google Play', 'primary')}</section>
 `));
 
 for (const game of games) {
@@ -70,7 +77,7 @@ for (const game of games) {
     <section class="grownup" aria-labelledby="grownup"><h2 id="grownup">For grown-ups</h2>
       <p>${game.skill}</p><h3>Try it together, away from the screen</h3><p>${game.parent}</p><p>${game.example}</p>
     </section>
-    <section class="game-more"><h2>Keep playing</h2><a class="secondary" href="/games/${next.id}">Play ${next.title}</a><a class="secondary" href="/#app">Explore the Android app</a></section>
+    <section class="game-more"><h2>Keep playing</h2><a class="secondary" href="/games/${next.id}">Play ${next.title}</a>${storeLink('Get the app', 'secondary')}</section>
   `, '<script type="module" src="/preschool.js"></script>'));
 }
 
@@ -96,7 +103,7 @@ publishInfo('about', 'About KiddoZap', 'KiddoZap is an Android learning app with
   </section>
   <section class="grownup"><h2>What’s in the Android app</h2>
     <p>The app includes English letters, Hindi वर्णमाला, numbers, colors, shapes and animals, plus learning activities and mini-games.</p>
-    <a class="primary" href="https://play.google.com/store/apps/details?id=com.kiddozap.app">See KiddoZap on Google Play</a>
+    ${storeLink('Get it on Google Play', 'primary')}
   </section>
   <section class="grownup"><h2>Music and sing-along</h2>
     <p>Play a tune on <a href="/piano">Rainbow Piano</a> or listen to recorded singing in the <a href="/rhymes">Nursery Sing-Along</a>.</p>
