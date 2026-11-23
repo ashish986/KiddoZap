@@ -50,7 +50,7 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
         ans = a + b;
       } else if (op === '-') {
         a = Math.floor(Math.random() * 80) + 20;
-        b = Math.floor(Math.random() * a) + 5;
+        b = Math.floor(Math.random() * a) + 1;
         ans = a - b;
       } else {
         a = Math.floor(Math.random() * 10) + 2;
@@ -74,7 +74,7 @@ export const MathSprintGame: React.FC<MathSprintProps> = ({ onGameOver }) => {
         ans = a + b;
       } else {
         a = Math.floor(Math.random() * 150) + 50;
-        b = Math.floor(Math.random() * a) + 10;
+        b = Math.floor(Math.random() * a) + 1;
         ans = a - b;
       }
     }
