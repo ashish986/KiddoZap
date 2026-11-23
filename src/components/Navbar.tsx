@@ -28,13 +28,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={(e) => handleLink(e, '/')}
             className="text-amber-400 font-extrabold flex items-center gap-1 hover:underline"
           >
-            ⚡ KiddoZap: 10 Games
+            ⚡ KiddoZap
           </a>
           <span className="text-slate-700">•</span>
           <a
-            href="/"
-            onClick={(e) => handleLink(e, '/')}
-            className={`font-bold transition-colors ${currentRoute === '/' ? 'text-amber-300 underline' : 'text-slate-300 hover:text-white'}`}
+            href="/play"
+            onClick={(e) => handleLink(e, '/play')}
+            className={`font-bold transition-colors ${currentRoute === '/play' ? 'text-amber-300 underline' : 'text-slate-300 hover:text-white'}`}
           >
             🎮 10 Fun &amp; Learning Games
           </a>

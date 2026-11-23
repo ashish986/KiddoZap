@@ -8,7 +8,7 @@ import confetti from 'canvas-confetti';
 interface PianoProps {
   lang: Language;
   onBack: () => void;
-  onGameComplete: (stars: number, score: number) => void;
+  onGameComplete?: (stars: number, score: number) => void;
 }
 
 interface KeyNote {
@@ -42,7 +42,7 @@ export const PianoGame: React.FC<PianoProps> = ({ lang, onBack, onGameComplete }
       const next = n + 1;
       if (next === 20) {
         confetti({ particleCount: 30, spread: 60 });
-        onGameComplete(3, next);
+        onGameComplete?.(3, next);
       }
       return next;
     });
@@ -75,13 +75,17 @@ export const PianoGame: React.FC<PianoProps> = ({ lang, onBack, onGameComplete }
       const keyMap: { [k: string]: number } = {
         '1': 0, '2': 1, '3': 2, '4': 3, '5': 4, '6': 5, '7': 6, '8': 7,
       };
-      if (keyMap[e.key] !== undefined) {
+      if (!e.repeat && !(e.target instanceof HTMLSelectElement) && keyMap[e.key] !== undefined) {
         const idx = keyMap[e.key];
         playTone(PIANO_KEYS[idx].freq, idx);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [audioCtx]);
+
+  useEffect(() => () => {
+    if (audioCtx) void audioCtx.close().catch(() => {});
   }, [audioCtx]);
 
   return (

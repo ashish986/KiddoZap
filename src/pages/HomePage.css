@@ -1,0 +1,155 @@
+.kz-home {
+  --ink: #21174c;
+  --violet: #502bd3;
+  --muted: #514a68;
+  background: #fcfbff;
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 1rem;
+}
+.kz-wrap { width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
+.kz-home [id] { scroll-margin-top: 95px; }
+.kz-home :focus-visible { outline: 3px solid #6740de; outline-offset: 4px; }
+.kz-skip { position: fixed; z-index: 50; left: 16px; top: 12px; background: white; padding: 12px; transform: translateY(-170%); }
+.kz-skip:focus { transform: none; }
+.kz-header { background: #fcfbff; border-bottom: 1px solid #eee8fa; position: sticky; top: 0; z-index: 10; }
+.kz-header-inner, .kz-footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 79px; }
+.kz-logo { width: 154px; height: auto; }
+.kz-header nav, .kz-footer nav { display: flex; align-items: center; gap: clamp(14px, 3vw, 35px); font-weight: 800; }
+.kz-header nav a:hover, .kz-footer nav a:hover { color: var(--violet); text-decoration: underline; }
+.kz-button {
+  display: inline-flex; justify-content: center; align-items: center; gap: 9px;
+  background: var(--violet); color: white; border: 1px solid transparent;
+  border-radius: 12px; min-height: 48px; padding: 10px 19px;
+  font-weight: 850; cursor: pointer; white-space: nowrap;
+}
+.kz-button:hover { background: #3c1fb2; }
+.kz-secondary { background: #fff; color: var(--violet); border-color: #d8cbfb; }
+.kz-secondary:hover { background: #f3edff; }
+.kz-hero {
+  min-height: 475px; margin-top: 29px; border-radius: 32px; overflow: hidden;
+  display: grid; grid-template-columns: 1.12fr 1fr;
+  background: #eee7ff; border: 1px solid #e9dfff;
+}
+.kz-hero-copy { padding: clamp(28px, 5vw, 66px); align-self: center; position: relative; z-index: 1; }
+.kz-kicker {
+  display: flex; gap: 8px; align-items: center; color: #5033a1;
+  font-size: .875rem; letter-spacing: .105em; font-weight: 900;
+}
+.kz-hero h1 {
+  margin-block: 15px 17px; font-size: clamp(3rem, 6.05vw, 5.35rem);
+  line-height: .98; letter-spacing: -.045em; font-weight: 700;
+}
+.kz-hero h1 em { color: var(--violet); font-style: normal; }
+.kz-hero-copy > p:not(.kz-kicker) { max-width: 410px; font-size: 1.15rem; line-height: 1.55; color: var(--muted); }
+.kz-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+.kz-hero-art { position: relative; min-height: 365px; overflow: hidden; isolation: isolate; }
+.kz-orbit {
+  position: absolute; width: min(90%, 465px); aspect-ratio: 1; border-radius: 48% 52% 52% 48%;
+  background: radial-gradient(circle at 35% 20%, #ded0ff, #ae8efa); top: 50%; left: 48%; transform: translate(-50%, -50%) rotate(-16deg);
+  box-shadow: 0 0 0 14px #e6d9fc;
+}
+.kz-phone {
+  position: absolute; left: 49%; top: 51%; width: clamp(175px, 20.5vw, 257px);
+  border: 7px solid #2a1957; border-radius: 29px; overflow: hidden;
+  transform: translate(-50%, -50%) rotate(8deg);
+  box-shadow: 12px 21px 0 #44217c34, 2px 13px 28px #36157d42;
+}
+.kz-phone img { width: 100%; height: auto; }
+.kz-sticker {
+  position: absolute; display: block; width: 25%; max-width: 111px; border: 4px solid white;
+  border-radius: 19px; overflow: hidden; box-shadow: 0 8px 18px #452b6f35;
+}
+.kz-sticker-math { top: 19%; left: 6%; transform: rotate(-13deg); }
+.kz-sticker-piano { bottom: 15%; right: 9%; transform: rotate(14deg); width: 21%; }
+.kz-sticker img { width: 100%; }
+.kz-sparkle { color: #fff3a0; position: absolute; top: 17%; right: 15%; font-size: 3.7rem; line-height: 1; text-shadow: 0 2px #7553c77d; }
+.kz-sparkle-small { top: auto; bottom: 16%; right: auto; left: 15%; font-size: 2.5rem; color: white; }
+.kz-section { padding-block: 55px; }
+.kz-section-top { display: flex; justify-content: space-between; align-items: end; gap: 15px; margin-bottom: 22px; }
+.kz-home h2 { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.06; letter-spacing: -.02em; font-weight: 650; }
+.kz-kicker + h2 { margin-top: 7px; }
+.kz-game-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 17px; }
+.kz-game-card {
+  display: flex; flex-direction: column; background: white; border: 1px solid #e9e2f1;
+  border-radius: 21px; overflow: hidden; box-shadow: 0 4px 0 #eae2f4;
+  transition: transform .18s, box-shadow .18s;
+}
+.kz-game-card:hover { transform: translateY(-4px); box-shadow: 0 8px 0 #eae2f4; }
+.kz-game-picture { display: grid; place-items: center; aspect-ratio: 2 / 1; overflow: hidden; }
+.kz-game-picture img { height: 100%; width: 100%; object-fit: cover; }
+.kz-peach .kz-game-copy { background: #fff5e9; }
+.kz-lilac .kz-game-copy { background: #f8f3ff; }
+.kz-mint .kz-game-copy { background: #effaf2; }
+.kz-sky .kz-game-copy { background: #eff8ff; }
+.kz-game-card.kz-sky img { object-position: 50% 39%; }
+.kz-game-copy { display: flex; flex: 1; flex-direction: column; padding: 16px; }
+.kz-game-copy h3, .kz-music-card h3 { font-size: clamp(1.25rem, 2.15vw, 1.7rem); line-height: 1.05; font-weight: 650; margin-block: 7px 8px; }
+.kz-game-copy p, .kz-music-card p, .kz-app p:not(.kz-kicker), .kz-parents p { color: var(--muted); line-height: 1.55; }
+.kz-game-copy .kz-skill { color: #5535ab; font-size: .875rem; font-weight: 850; }
+.kz-play-label { display: inline-flex; align-items: center; gap: 7px; color: var(--violet); font-weight: 900; padding-top: 15px; margin-top: auto; }
+.kz-music { background: #f4efff; border-block: 1px solid #eee5fb; }
+.kz-music-grid { margin-top: 23px; display: grid; grid-template-columns: 1fr 1fr; gap: 17px; }
+.kz-music-card { display: flex; justify-content: space-between; align-items: center; gap: 15px; border-radius: 24px; padding: clamp(18px, 3vw, 32px); }
+.kz-piano-card { background: #ffdfec; }
+.kz-rhyme-card { background: #dcd7ff; }
+.kz-music-card img { width: min(27%, 130px); height: auto; border-radius: 22%; transform: rotate(7deg); box-shadow: 4px 7px #632d802a; }
+.kz-music-card .kz-button, .kz-app .kz-button { margin-top: 15px; }
+.kz-moon { color: #603bcc; font-size: clamp(3rem, 10vw, 8rem); line-height: 1; padding-right: 6px; }
+.kz-app {
+  display: grid; grid-template-columns: minmax(165px, 1fr) 1.6fr; align-items: center;
+  gap: clamp(24px, 5vw, 70px); background: #e4f7e8; border: 1px solid #d1edda;
+  border-radius: 26px; padding: clamp(20px, 5vw, 51px);
+}
+.kz-app-logo { justify-self: center; width: min(100%, 320px); }
+.kz-app p:not(.kz-kicker) { margin-top: 11px; max-width: 535px; }
+.kz-parents { display: flex; align-items: center; gap: 18px; padding-bottom: 50px; }
+.kz-parents > svg { color: var(--violet); flex: none; }
+.kz-parents h2 { font-size: clamp(1.55rem, 3vw, 2.1rem); margin-bottom: 5px; }
+.kz-parents .kz-button { margin-left: auto; }
+.kz-footer { background: #f2ecff; border-top: 1px solid #ebe2fa; }
+.kz-footer-inner { min-height: 100px; padding-block: 15px; }
+.kz-footer nav { flex-wrap: wrap; justify-content: center; }
+.kz-dialog {
+  position: fixed; inset: 0; margin: auto; width: min(900px, calc(100% - 24px));
+  max-height: 90dvh; overflow: auto; padding: 18px; background: #f9f5ff; color: var(--ink);
+  border: 1px solid #dbcbfb; border-radius: 23px; box-shadow: 0 20px 60px #11072844;
+}
+.kz-dialog::backdrop { background: #160e34bb; }
+.kz-dialog-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+.kz-dialog-bar h2 { font-size: clamp(1.3rem, 3vw, 2rem); margin-right: auto; }
+.kz-dialog-bar button, .kz-language select { background: white; border: 1px solid #d8cbfb; border-radius: 10px; padding: 8px; min-height: 44px; cursor: pointer; }
+.kz-language select { appearance: none; padding-right: 29px; }
+.kz-language { position: relative; }
+.kz-language::after { content: ''; position: absolute; right: 12px; top: 17px; width: 7px; height: 7px; border-bottom: 2px solid; border-right: 2px solid; transform: rotate(45deg); pointer-events: none; }
+@media (max-width: 920px) {
+  .kz-wrap { width: calc(100% - 40px); }
+  .kz-hero { grid-template-columns: 1.12fr .88fr; min-height: 390px; }
+  .kz-game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .kz-wrap { width: calc(100% - 28px); }
+  .kz-logo { width: 119px; }
+  .kz-header-inner { gap: 8px 14px; min-height: 0; flex-wrap: wrap; padding-block: 8px; }
+  .kz-header nav { order: 3; width: 100%; justify-content: space-evenly; padding-block: 4px; }
+  .kz-header-app { min-height: 42px; }
+  .kz-hero { display: block; margin-top: 14px; border-radius: 22px; }
+  .kz-hero-copy { padding: 26px 20px 4px; }
+  .kz-hero h1 { font-size: clamp(2.52rem, 10vw, 4rem); }
+  .kz-hero-art { min-height: 330px; }
+  .kz-orbit { width: min(79%, 273px); }
+  .kz-phone { width: 160px; border-width: 5px; border-radius: 21px; }
+  .kz-sticker-math { left: 12%; width: 20%; }
+  .kz-sticker-piano { right: 12%; width: 17%; }
+  .kz-section { padding-block: 36px; }
+  .kz-section-top { align-items: center; }
+  .kz-game-grid { gap: 12px; }
+  .kz-game-copy { padding: 11px; }
+  .kz-music-grid { grid-template-columns: 1fr; }
+  .kz-app { grid-template-columns: 1fr; gap: 17px; }
+  .kz-app-logo { width: 173px; justify-self: start; }
+  .kz-parents { flex-wrap: wrap; padding-bottom: 32px; }
+  .kz-parents .kz-button { margin-left: 0; }
+  .kz-footer-inner { flex-direction: column; align-items: center; }
+}
+@media (prefers-reduced-motion: reduce) { .kz-game-card { transition: none; } }

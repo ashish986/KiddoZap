@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { HomePage } from './pages/HomePage';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Top10GamesHub } from './components/Top10GamesHub';
@@ -69,6 +70,7 @@ export const App: React.FC = () => {
 
   const handleNavigate = (newRoute: string) => {
     soundManager.playPop();
+    setActiveGame(null);
     setRoute(newRoute);
     window.history.pushState({}, '', newRoute);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -87,8 +89,9 @@ export const App: React.FC = () => {
   const handleSelectGame = (game: GameInfo) => {
     soundManager.playPop();
     setActiveGame(game);
-    const gameRoute = `/games/${game.slug}`;
-    setRoute(gameRoute);
+    const gamePath = game.id === 'builder' ? '/' : `/games/${game.slug}`;
+    const gameRoute = game.id === 'builder' ? '/?game=builder' : gamePath;
+    setRoute(gamePath);
     try {
       window.history.pushState({}, '', gameRoute);
     } catch {}
@@ -102,6 +105,10 @@ export const App: React.FC = () => {
   }
 
   // Render standalone dedicated pages (Zero Dialog / Modal Popups)
+  if (route === '/' && !activeGame) {
+    return <HomePage onSelectGame={handleSelectGame} />;
+  }
+
   const renderCurrentPage = () => {
     if (route === '/privacypolicy' || route === '/privacypolicy.html') {
       return <PrivacyPage onGoHome={handleBackToHub} />;
