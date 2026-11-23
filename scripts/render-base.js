@@ -55,6 +55,7 @@ function renderPage({
 
   <meta name="theme-color" content="#0a0e1a" />
   <link rel="stylesheet" href="/site.css" />
+  ${new URL(canonicalUrl).pathname.startsWith('/privacy') ? '' : '<link rel="stylesheet" href="/play-theme.css" />'}
 </head>
 <body>
   <!-- Top Utility Strip -->

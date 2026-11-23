@@ -118,18 +118,21 @@ export const MemoryMatchGame: React.FC<{ onGameOver?: (score: number) => void }>
 
       <div className="relative w-full max-w-sm bg-slate-950 border-2 border-purple-500/40 rounded-2xl p-4 shadow-2xl">
         <div className="grid grid-cols-4 gap-3">
-          {cards.map(card => (
+          {cards.map((card, index) => (
             <button
               key={card.id}
               onClick={() => handleCardClick(card.id)}
               disabled={card.isMatched || card.isFlipped}
+              aria-label={card.isMatched || card.isFlipped ? card.icon : `Turn over card ${index + 1}`}
               className={`h-18 sm:h-20 rounded-xl flex items-center justify-center text-3xl font-black transition-all duration-300 transform cursor-pointer ${
                 card.isFlipped || card.isMatched
                   ? 'bg-slate-800 border-2 border-purple-400 text-white rotate-0 shadow-lg shadow-purple-500/20'
                   : 'bg-gradient-to-br from-purple-600 to-indigo-800 hover:brightness-110 active:scale-95 text-transparent border border-purple-400/30'
               } ${card.isMatched ? 'opacity-60 scale-95 border-emerald-400 text-emerald-300' : ''}`}
             >
-              {(card.isFlipped || card.isMatched) ? card.icon : '❓'}
+              {card.isFlipped || card.isMatched
+                ? <span className="kz-card-face">{card.icon}</span>
+                : <span className="kz-card-back" aria-hidden="true">✦</span>}
             </button>
           ))}
         </div>

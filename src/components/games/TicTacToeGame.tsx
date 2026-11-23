@@ -133,13 +133,14 @@ export const TicTacToeGame: React.FC<{ onGameOver?: (score: number) => void }> =
         </button>
       </div>
 
-      <div className="w-72 h-72 bg-slate-950 border-2 border-slate-800 rounded-2xl p-3 shadow-2xl grid grid-cols-3 gap-2.5">
+      <div className="w-72 aspect-square kz-round-board bg-slate-950 border-2 border-slate-800 rounded-2xl p-3 shadow-2xl grid grid-cols-3 gap-2.5">
         {board.map((val, idx) => {
           const isWinningSquare = winningLine?.includes(idx);
           return (
             <button
               key={idx}
               onClick={() => handleClick(idx)}
+              aria-label={`Square ${idx + 1}${val ? `, ${val}` : ''}`}
               className={`rounded-xl flex items-center justify-center text-4xl font-black transition-all cursor-pointer ${
                 val === 'X'
                   ? 'text-cyan-400 bg-slate-900'
@@ -148,14 +149,14 @@ export const TicTacToeGame: React.FC<{ onGameOver?: (score: number) => void }> =
                   : 'bg-slate-900/60 hover:bg-slate-800'
               } ${isWinningSquare ? 'ring-4 ring-emerald-400 bg-emerald-950/60 animate-pulse' : ''}`}
             >
-              {val}
+              {val && <span className="kz-board-mark">{val}</span>}
             </button>
           );
         })}
       </div>
 
       <div className="mt-4 flex items-center gap-3">
-        <div className="text-sm font-bold">
+        <div className="text-sm font-bold" role="status">
           {winner ? (
             <span className="text-emerald-400">Winner: <strong>{winner}</strong>! 🎉</span>
           ) : isDraw ? (

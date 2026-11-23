@@ -1,0 +1,58 @@
+body {
+  background: #19132d;
+  color: #f2ebff;
+}
+.header, .site-header {
+  background: #251944;
+  border-color: #49346e;
+}
+.top-strip { display: none; }
+.header, .header-inner { gap: 16px; }
+.logo-icon, .brand-icon {
+  display: inline-grid;
+  place-items: center;
+  background: #f3d458;
+  border-radius: 12px;
+  width: 39px;
+  height: 39px;
+  font-size: 22px;
+}
+.logo-text, .brand-name {
+  background: none;
+  color: #f6eeff;
+  -webkit-text-fill-color: currentColor;
+}
+.nav-links { column-gap: 16px; row-gap: 5px; }
+.nav-links a { color: #eee2ff; font-size: .9rem; padding-block: 5px; }
+.nav-links a:hover, .nav-links .active { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.container, .main-content { padding-block: clamp(20px, 4vw, 42px); }
+.card, .game-card-static, .section-block, .category-card, .article-card {
+  background: #282045;
+  border-color: #483760;
+  border-radius: 22px;
+  box-shadow: 0 4px 0 #130c20;
+}
+main h1 { font: 700 clamp(2rem, 5vw, 3rem)/1.1 'Fredoka', 'Nunito', sans-serif; }
+main h2 { font: 650 clamp(1.35rem, 3vw, 1.8rem)/1.2 'Fredoka', 'Nunito', sans-serif; }
+main p, main li { font-size: 1rem; line-height: 1.65; color: #e5dcfa; }
+main .info-box, .controls-grid > *, .faq-item, .rule-card, .pro-tip, .cognitive-card, .spec-card {
+  background: #211938;
+  border-color: #483760;
+}
+main a:not([style]) { color: #c8b8ff; text-underline-offset: 3px; }
+main a:focus-visible, header a:focus-visible, footer a:focus-visible, main button:focus-visible {
+  outline: 3px solid #efce62;
+  outline-offset: 4px;
+}
+.iframe-container { background: #241844; border-color: #8065b3; box-shadow: 0 5px 0 #160d28; }
+main iframe[src*="embed=1"] { max-width: 100%; }
+.footer, .site-footer { background: #201734; border-color: #49346e; color: #d9cceb; }
+.footer-links a, .footer-col a { color: #dcccff; }
+@media (max-width: 640px) {
+  .header, .site-header { position: static; }
+  .header, .header-inner { justify-content: flex-start; }
+  .nav-links { width: 100%; }
+  .container, .main-content { padding-inline: 12px; }
+  .card, .game-card-static, .section-block { padding: 16px; }
+  .iframe-container { height: 575px; }
+}

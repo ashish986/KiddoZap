@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GAMES, CATEGORIES, GameInfo } from '../data/games';
+import { OlderGameLinks, searchOlderGames } from './LegacyGames';
 import { soundManager } from '../utils/audio';
 
 interface Top10GamesHubProps {
@@ -13,12 +14,15 @@ export const Top10GamesHub: React.FC<Top10GamesHubProps> = ({ onSelectGame, onNa
 
   const filteredGames = GAMES.filter(game => {
     const matchesCat = selectedCategory === 'all' || game.category === selectedCategory;
+    const term = searchQuery.trim().toLowerCase();
     const matchesSearch =
-      game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      game.titleHi.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      game.shortDesc.toLowerCase().includes(searchQuery.toLowerCase());
+      game.title.toLowerCase().includes(term) ||
+      game.titleHi.toLowerCase().includes(term) ||
+      game.shortDesc.toLowerCase().includes(term);
     return matchesCat && matchesSearch;
   });
+
+  const olderMatches = selectedCategory === 'all' ? searchOlderGames(searchQuery) : [];
 
   const handleCardClick = (game: GameInfo) => {
     soundManager.playPop();
@@ -26,42 +30,10 @@ export const Top10GamesHub: React.FC<Top10GamesHubProps> = ({ onSelectGame, onNa
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8 font-sans">
-      {/* Hero Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-950 via-slate-900 to-amber-950/60 border border-slate-800 rounded-3xl p-6 sm:p-10 mb-10 shadow-2xl">
-        <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-amber-500/15 border border-amber-500/30 text-amber-300 rounded-full text-xs font-black mb-4">
-            <span>⭐</span> KiddoZap Top 10 Curated Collection
-          </div>
-
-          <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight mb-3">
-            10 Best Fun &amp; Learning Games
-          </h1>
-          <p className="text-base sm:text-lg text-amber-300 font-bold mb-4">
-            मज़ेदार खेल • दिमागी कसरत • 100% फ्री, सुरक्षित और शिक्षाप्रद!
-          </p>
-          <p className="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed mb-6">
-            बच्चे खेलते-खेलते सीखें! गणित की फुर्ती, दिमागी सुडोकू, याददाश्त कार्ड, चमकीला सांप, ताल और जंप, गार्डन मोल और रचनात्मक निर्माण — 10 सबसे लोकप्रिय, मजेदार और ज्ञानवर्धक खेल एक ही जगह।
-          </p>
-
-          <div className="flex flex-wrap gap-3 text-xs font-bold text-slate-300 pt-3 border-t border-slate-800/80">
-            <span className="flex items-center gap-1.5 bg-slate-950/60 px-3 py-1 rounded-full border border-slate-800">
-              <span className="text-emerald-400">✅</span> 100% Free Forever
-            </span>
-            <span className="flex items-center gap-1.5 bg-slate-950/60 px-3 py-1 rounded-full border border-slate-800">
-              <span className="text-emerald-400">✅</span> Zero Chat / Child-Safe
-            </span>
-            <span className="flex items-center gap-1.5 bg-slate-950/60 px-3 py-1 rounded-full border border-slate-800">
-              <span className="text-emerald-400">✅</span> Ages 4–14 &bull; Chromebook Ready
-            </span>
-            <span className="flex items-center gap-1.5 bg-slate-950/60 px-3 py-1 rounded-full border border-slate-800">
-              <span className="text-emerald-400">✅</span> COPPA Compliant
-            </span>
-          </div>
-        </div>
+    <div className="kz-arcade w-full max-w-6xl mx-auto px-4 py-8 font-sans">
+      <section className="kz-catalog-intro">
+        <h1>Find your next game</h1>
+        <p>Build a village, match cards or jump into the arcade.</p>
       </section>
 
       {/* Filter and Search Bar */}
@@ -71,6 +43,7 @@ export const Top10GamesHub: React.FC<Top10GamesHubProps> = ({ onSelectGame, onNa
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
+              aria-pressed={selectedCategory === cat.id}
               onClick={() => {
                 soundManager.playPop();
                 setSelectedCategory(cat.id);
@@ -93,11 +66,13 @@ export const Top10GamesHub: React.FC<Top10GamesHubProps> = ({ onSelectGame, onNa
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search 10 games... (खोजें)"
+            placeholder="Search games…"
+            aria-label="Search games"
             className="w-full px-4 py-2 bg-slate-900 border border-slate-800 rounded-2xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400/60 transition-colors"
           />
           {searchQuery && (
             <button
+              aria-label="Clear search"
               onClick={() => setSearchQuery('')}
               className="absolute right-3 top-2 text-slate-500 hover:text-white text-xs font-bold"
             >
@@ -110,20 +85,24 @@ export const Top10GamesHub: React.FC<Top10GamesHubProps> = ({ onSelectGame, onNa
       {/* 10 Games Grid */}
       <section className="mb-14">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredGames.map((game, index) => (
-            <div
+          {filteredGames.map(game => (
+            <a
               key={game.id}
-              onClick={() => handleCardClick(game)}
+              href={`/?game=${game.id}`}
+              onClick={event => {
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                event.preventDefault();
+                handleCardClick(game);
+              }}
               className="group relative bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-amber-400/50 rounded-3xl p-6 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 hover:-translate-y-1.5 flex flex-col justify-between cursor-pointer"
             >
               <div>
-                {/* Header Row: Icon, Number Rank, and Badge */}
+                {/* Game icon and badge */}
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${game.color} flex items-center justify-center text-3xl shadow-lg shadow-black/40 group-hover:scale-110 transition-transform duration-300`}>
                     {game.icon}
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono font-bold text-slate-500">#{index + 1}</span>
                     {game.badge && (
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase bg-amber-500/15 border border-amber-500/30 text-amber-300">
                         {game.badge}
@@ -163,22 +142,13 @@ export const Top10GamesHub: React.FC<Top10GamesHubProps> = ({ onSelectGame, onNa
                   </span>
                 </div>
 
-                {/* Play Button */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCardClick(game);
-                  }}
-                  className="w-full py-3 bg-gradient-to-r from-amber-400 to-orange-500 group-hover:from-amber-300 group-hover:to-orange-400 text-slate-950 font-black rounded-2xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-400/20 cursor-pointer"
-                >
-                  <span>▶</span> Play Now (अभी खेलें)
-                </button>
+                <span className="kz-catalog-play">▶ Play now</span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
-        {filteredGames.length === 0 && (
+        {filteredGames.length === 0 && olderMatches.length === 0 && (
           <div className="text-center py-12 bg-slate-900 border border-slate-800 rounded-3xl p-6">
             <span className="text-4xl block mb-2">🔍</span>
             <p className="text-slate-300 text-sm font-bold">No games found matching your search.</p>
@@ -194,6 +164,8 @@ export const Top10GamesHub: React.FC<Top10GamesHubProps> = ({ onSelectGame, onNa
           </div>
         )}
       </section>
+
+      <OlderGameLinks matches={olderMatches} />
 
       {/* 4 Cognitive & Learning Pillars */}
       <section className="mb-14 bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-xl">

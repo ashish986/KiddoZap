@@ -82,7 +82,7 @@ export const SudokuGame: React.FC<{ onGameOver?: (score: number) => void }> = ()
         </button>
       </div>
 
-      <div className="w-72 h-72 bg-slate-950 border-2 border-indigo-500/50 rounded-2xl p-3 shadow-2xl relative grid grid-cols-4 gap-2">
+      <div className="w-72 aspect-square kz-round-board bg-slate-950 border-2 border-indigo-500/50 rounded-2xl p-3 shadow-2xl relative grid grid-cols-4 gap-1.5">
         {board.map((row, r) =>
           row.map((val, c) => {
             const isInitial = INITIAL_4X4[r][c] !== 0;
@@ -93,6 +93,9 @@ export const SudokuGame: React.FC<{ onGameOver?: (score: number) => void }> = ()
               <button
                 key={`${r}-${c}`}
                 onClick={() => handleCellClick(r, c)}
+                disabled={isInitial}
+                aria-pressed={isInitial ? undefined : isSelected}
+                aria-label={`Row ${r + 1}, column ${c + 1}${val ? `, ${val}` : `, empty`}`}
                 className={`rounded-xl flex items-center justify-center text-3xl font-black transition-all cursor-pointer ${
                   isInitial
                     ? 'bg-slate-900 text-slate-300 font-extrabold cursor-not-allowed'
@@ -103,7 +106,7 @@ export const SudokuGame: React.FC<{ onGameOver?: (score: number) => void }> = ()
                     : 'bg-slate-900/50 hover:bg-slate-800 text-transparent'
                 } ${isSelected ? 'ring-3 ring-cyan-400 scale-105' : ''}`}
               >
-                {val !== 0 ? val : ''}
+                {val !== 0 && <span key={val} className={isInitial ? undefined : "kz-number-tile"}>{val}</span>}
               </button>
             );
           })

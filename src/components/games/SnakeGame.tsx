@@ -142,7 +142,7 @@ export const SnakeGame: React.FC<SnakeGameProps> = ({ onGameOver }) => {
         <span className="text-emerald-400">High: <strong className="text-white text-base">{highScore}</strong></span>
       </div>
 
-      <div className="relative w-[320px] h-[320px] sm:w-[380px] sm:h-[380px] bg-slate-950 border-2 border-cyan-500/50 rounded-2xl overflow-hidden shadow-2xl shadow-cyan-950/40">
+      <div className="relative w-[320px] sm:w-[380px] aspect-square kz-round-board kz-snake-board border-2 border-cyan-500/50 rounded-2xl overflow-hidden shadow-2xl shadow-cyan-950/40">
         {/* Grid cells */}
         <div 
           className="w-full h-full grid"
@@ -161,14 +161,14 @@ export const SnakeGame: React.FC<SnakeGameProps> = ({ onGameOver }) => {
             return (
               <div
                 key={index}
-                className={`transition-all duration-75 ${
+                className={`kz-snake-cell transition-colors duration-75 ${
                   isHead
-                    ? 'bg-cyan-400 rounded-sm shadow-md shadow-cyan-400/50'
+                    ? 'kz-snake-head bg-lime-300 rounded-md shadow-md shadow-cyan-400/50'
                     : isSnake
-                    ? 'bg-teal-500 rounded-xs'
+                    ? 'bg-emerald-500 rounded-md'
                     : isFood
-                    ? 'bg-rose-500 rounded-full animate-pulse shadow-md shadow-rose-500/80'
-                    : 'border-[0.5px] border-slate-900/40'
+                    ? 'kz-snake-food rounded-full shadow-md shadow-rose-500/80'
+                    : ''
                 }`}
               />
             );
@@ -188,7 +188,7 @@ export const SnakeGame: React.FC<SnakeGameProps> = ({ onGameOver }) => {
               <>
                 <div className="text-4xl mb-2">🐍</div>
                 <h3 className="text-2xl font-black text-cyan-400 mb-1">Snake Neon</h3>
-                <p className="text-slate-400 text-xs mb-4">Use Arrow Keys or WASD to turn. Eat glowing pellets to grow!</p>
+                <p className="text-slate-400 text-xs mb-4">Use Arrow Keys or WASD to turn. Collect berries to grow!</p>
               </>
             )}
 
@@ -203,7 +203,7 @@ export const SnakeGame: React.FC<SnakeGameProps> = ({ onGameOver }) => {
       </div>
 
       {/* Touch D-Pad for Mobile */}
-      <div className="mt-4 grid grid-cols-3 gap-2 w-48 sm:hidden">
+      <div className="mt-4 grid grid-cols-3 gap-2 w-48 ">
         <div />
         <button
           onClick={() => directionRef.current !== 'DOWN' && setDirection('UP')}

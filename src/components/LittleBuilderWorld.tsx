@@ -198,6 +198,18 @@ export const LittleBuilderWorld: React.FC = () => {
       pushHistory(next);
       soundManager.playPop(1.2);
     }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (let index = 0; index < 8; index++) {
+        const angle = index * Math.PI / 4;
+        particlesRef.current.push({
+          x: (gridX + .5) * CELL_SIZE, y: (gridY + .5) * CELL_SIZE,
+          vx: Math.cos(angle) * 1.7, vy: Math.sin(angle) * 1.7 - .4,
+          life: 0, maxLife: 16, alpha: 1, size: 2.6,
+          color: index % 2 ? '#fff2a8' : '#fff',
+        });
+      }
+    }
   };
 
   // Check objective completion
@@ -894,7 +906,7 @@ export const LittleBuilderWorld: React.FC = () => {
       });
 
       // 6. Draw Smoke / Sparkle Particles
-      particlesRef.current.forEach((p, idx) => {
+      particlesRef.current = particlesRef.current.filter(p => {
         p.x += p.vx;
         p.y += p.vy;
         p.life += 1;
@@ -907,9 +919,7 @@ export const LittleBuilderWorld: React.FC = () => {
         ctx.fill();
         ctx.globalAlpha = 1.0;
 
-        if (p.life >= p.maxLife) {
-          particlesRef.current.splice(idx, 1);
-        }
+        return p.life < p.maxLife;
       });
 
       animFrameRef.current = requestAnimationFrame(render);

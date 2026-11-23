@@ -221,21 +221,28 @@ export const FruitSliceGame: React.FC<FruitSliceProps> = ({ lang, onBack, onGame
     const state = stateRef.current;
 
     const render = () => {
-      // 1. Background (Vibrant Wooden Board)
-      const grad = ctx.createLinearGradient(0, 0, 0, state.height);
-      grad.addColorStop(0, '#78350F');
-      grad.addColorStop(1, '#451A03');
-      ctx.fillStyle = grad;
+      const sky = ctx.createLinearGradient(0, 0, 0, state.height);
+      sky.addColorStop(0, '#512748');
+      sky.addColorStop(.52, '#cc6558');
+      sky.addColorStop(1, '#f5ab64');
+      ctx.fillStyle = sky;
       ctx.fillRect(0, 0, state.width, state.height);
 
-      // Wood Grain subtle lines
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
-      ctx.lineWidth = 2;
-      for (let y = 30; y < state.height; y += 45) {
+      ctx.fillStyle = '#ffe6a0';
+      ctx.beginPath();
+      ctx.arc(state.width * .76, state.height * .29, state.width * .09, 0, Math.PI * 2);
+      ctx.fill();
+
+      for (let row = 0; row < 2; row++) {
+        const baseline = state.height * (.76 + row * .13);
+        ctx.fillStyle = row === 0 ? '#37685a' : '#204f4a';
         ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(state.width, y);
-        ctx.stroke();
+        ctx.moveTo(0, baseline);
+        ctx.bezierCurveTo(state.width * .27, baseline - 65, state.width * .62, baseline + 45, state.width, baseline - 25);
+        ctx.lineTo(state.width, state.height);
+        ctx.lineTo(0, state.height);
+        ctx.closePath();
+        ctx.fill();
       }
 
       // 2. Spawn Fruits if playing
