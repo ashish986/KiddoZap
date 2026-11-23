@@ -196,7 +196,7 @@ export function MusicPage({ kind }: { kind: 'piano' | 'rhymes' }) {
         </div>
         {piano ? <RainbowPiano /> : <RhymePlayer />}
       </main>
-      <footer className="music-wrap music-footer"><a href="/parents-guide">Parents’ guide</a><a href="/privacy">App privacy</a><a href="/contact">Contact</a></footer>
+      <footer className="music-wrap music-footer"><a href="/parents-guide">Parents’ guide</a><a href="/privacypolicy">Privacy</a><a href="/contact">Contact</a></footer>
     </div>
   );
 }

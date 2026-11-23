@@ -31,7 +31,7 @@ ${script ? "  " + script + "\n" : ""}</head>
   </div></header>
   <main class="wrap" id="main">${content}</main>
   <footer class="site-footer"><div class="wrap nav-row"><strong>KiddoZap</strong><nav aria-label="Footer">
-    <a href="/parents-guide">Parents</a><a href="/contact">Contact</a><a href="/privacypolicy">Website privacy</a><a href="/privacy">App privacy</a>
+    <a href="/parents-guide">Parents</a><a href="/contact">Contact</a><a href="/privacypolicy">Privacy</a>
   </nav></div></footer>
 </body>
 </html>
@@ -79,3 +79,75 @@ let sitemap = readFileSync(sitemapPath, 'utf8').replace(/\s*<url>\s*<loc>https:\
 sitemap = sitemap.replace('</urlset>', [...games.map(game => '/games/' + game.id), '/piano', '/rhymes'].map(route =>
   `  <url><loc>https://kiddozap.com${route}</loc></url>`).join('\n') + '\n</urlset>');
 writeFileSync(sitemapPath, sitemap);
+
+function publishInfo(slug, title, description, sections) {
+  const dir = join('public', slug);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, 'index.html'), page(title, description, '/' + slug, `
+    <header class="info-hero"><h1>${title}</h1><p>${description}</p></header>
+    ${sections}
+  `, slug === 'tools' ? '<script type="module">document.querySelector(".print-action").addEventListener("click", () => window.print());</script>' : ''));
+}
+
+publishInfo('about', 'About KiddoZap', 'KiddoZap is an Android learning app with a browser play corner for young children and their grown-ups.', `
+  <section class="grownup"><h2>What families can try here</h2>
+    <p>Start with familiar pictures in ABC Garden, group fruit in Counting Basket, or compare shapes and patterns. Picture Pairs and Firefly Meadow offer a short play break. Each browser game has a simple activity for grown-ups to try with children away from the screen.</p>
+    <p><a href="/games">Explore the browser games</a></p>
+  </section>
+  <section class="grownup"><h2>What’s in the Android app</h2>
+    <p>The app includes English letters, Hindi वर्णमाला, numbers, colors, shapes and animals, plus learning activities and mini-games.</p>
+    <a class="primary" href="https://play.google.com/store/apps/details?id=com.kiddozap.app">See KiddoZap on Google Play</a>
+  </section>
+  <section class="grownup"><h2>Music and sing-along</h2>
+    <p>Play a tune on <a href="/piano">Rainbow Piano</a> or listen to recorded singing in the <a href="/rhymes">Nursery Sing-Along</a>.</p>
+  </section>
+`);
+
+publishInfo('parents-guide', 'A grown-up’s guide to KiddoZap', 'Pick a short activity, play a round together, and follow it with something you can do away from the screen.', `
+  <section class="grownup"><h2>Start with something familiar</h2>
+    <p>Ask your child to name the picture in <a href="/games/abc-garden">ABC Garden</a>. Say the first sound slowly together. If the choice is tricky, point to two letters and say each one aloud.</p>
+    <p>In <a href="/games/counting-basket">Counting Basket</a>, help them touch one fruit for each number they say. Ask “How many altogether?” after you reach the last fruit.</p>
+  </section>
+  <section class="grownup"><h2>Notice how they figured it out</h2>
+    <p>In <a href="/games/shape-picnic">Shape Picnic</a>, notice the long edges and corners. In <a href="/games/pattern-picnic">Pattern Picnic</a>, clap once for each picture and say the repeating part together. Give your child time to make a second choice.</p>
+  </section>
+  <section class="grownup"><h2>Choose a stopping point together</h2>
+    <p>Play one round or listen to one <a href="/rhymes">rhyme</a>, then use the <a href="/tools">off-screen activities</a> to keep the idea going. Let your child point to what they want to try next time.</p>
+  </section>
+`);
+
+publishInfo('contact', 'Contact KiddoZap', 'For help with the website or Android app, email the KiddoZap support team.', `
+  <section class="grownup"><h2>Support email</h2>
+    <a class="primary" href="mailto:support@kiddozap.com">Email support@kiddozap.com</a>
+    <h3>Reporting a website issue</h3><p>Include the game or page name, the device and browser you used, and what happened. For piano or rhyme audio, say whether other audio on your device plays normally.</p>
+    <h3>Reporting an Android app issue</h3><p>Include the app version, Android version and the activity you were using. Leave out a child’s name and other personal details.</p>
+  </section>
+`);
+
+publishInfo('articles', 'Learning ideas for families', 'Three ways to bring the skills from KiddoZap’s games and music into ordinary play.', `
+  <section class="grownup" id="first-sounds"><h2>A tiny first-sound hunt</h2>
+    <p>Pick a sound your child knows and find two objects that begin with it. Try a sock and a spoon for S. Say each word slowly. Let your child add a third object or draw one if it is hard to find.</p>
+    <p>Next, try a word with a different first sound and ask your child to sort it into its own group. Try a round of <a href="/games/abc-garden">ABC Garden</a> together when they are ready.</p>
+  </section>
+  <section class="grownup" id="counting"><h2>Same count, different arrangement</h2>
+    <p>Start with four cups in a row. Ask your child to touch each cup as they count. Move the cups into a circle and ask whether there are still four. Count again together to check.</p>
+    <p>On another day, let your child move the cups while you guess the total. <a href="/games/counting-basket">Counting Basket</a> uses the same one-touch-per-object idea.</p>
+  </section>
+  <section class="grownup" id="music"><h2>Answer a tune with a clap</h2>
+    <p>Listen to one line of a <a href="/rhymes">rhyme</a>. Pause the recording and clap its rhythm together, then replay the line to compare. On <a href="/piano">Rainbow Piano</a>, play C twice and let your child reply with any two notes.</p>
+  </section>
+`);
+
+publishInfo('tools', 'Off-screen activity cards', 'Use these short activities after a KiddoZap game. Print the page for use away from the screen.', `
+  <button type="button" class="primary print-action">Print activity cards</button>
+  <div class="activity-sheets">
+    <section class="grownup"><h2>Count the dots</h2><p>Point to each dot once as you count. Write or say the total for each line.</p>
+      <p class="worksheet-dots">● ● ●</p><p class="worksheet-dots">● ● ● ● ●</p><p class="worksheet-dots">● ● ● ● ● ● ●</p>
+      <p>Grown-ups: answers are 3, 5 and 7. Try the same idea with <a href="/games/counting-basket">Counting Basket</a>.</p>
+    </section>
+    <section class="grownup"><h2>Finish the pattern</h2><p>Say the shapes in order, then draw what you think comes next.</p>
+      <p class="worksheet-dots">● ▲ ● ▲ ● ___</p><p class="worksheet-dots">■ ■ ● ■ ■ ___</p>
+      <p>Grown-ups: answers are triangle and circle. Make another pattern together or try <a href="/games/pattern-picnic">Pattern Picnic</a>.</p>
+    </section>
+  </div>
+`);

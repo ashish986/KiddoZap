@@ -52,7 +52,7 @@ function renderHtmlPage({ title, description, canonicalUrl, content, schemaJson 
           <a href="/articles">📚 Real Experience Articles</a>
           <a href="/parents-guide">👨‍👩‍👦 Parents Guide</a>
           <a href="/about">ℹ️ About Us</a>
-          <a href="/privacy" class="privacy-badge">🛡️ Family Privacy</a>
+          <a href="/privacypolicy" class="privacy-badge">Privacy</a>
           <a href="/contact">✉️ Contact</a>
         </nav>
       </div>
@@ -76,7 +76,7 @@ function renderHtmlPage({ title, description, canonicalUrl, content, schemaJson 
           <a href="/articles">Classroom Blog</a>
           <a href="/parents-guide">Parents Guide</a>
           <a href="/about">About Us</a>
-          <a href="/privacy">Privacy Policy</a>
+          <a href="/privacypolicy">Privacy</a>
           <a href="/terms">Terms of Service</a>
           <a href="/contact">Contact &amp; Support</a>
         </div>
