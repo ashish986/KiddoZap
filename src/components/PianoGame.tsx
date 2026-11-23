@@ -81,11 +81,11 @@ export const PianoGame: React.FC<PianoProps> = ({ lang, onBack, onGameComplete }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
-    useEffect(() => () => {
-    if (audioCtx) void audioCtx.close().catch(() => {});
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [audioCtx]);
 
-  return () => window.removeEventListener('keydown', handleKeyDown);
+  useEffect(() => () => {
+    if (audioCtx) void audioCtx.close().catch(() => {});
   }, [audioCtx]);
 
   return (
