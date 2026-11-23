@@ -14,7 +14,9 @@ export default defineConfig(() => {
           server.middlewares.use((req, _res, next) => {
             const staticPages = ['/privacy', '/privacypolicy', '/terms', '/about', '/contact', '/parents-guide', '/games', '/categories', '/articles'];
             const urlPath = req.url ? req.url.split('?')[0] : '';
-            if (urlPath && staticPages.includes(urlPath)) {
+            if (urlPath === '/piano' || urlPath === '/rhymes') {
+              req.url = `${urlPath}.html`;
+            } else if (urlPath && (staticPages.includes(urlPath) || /^\/games\/[a-z0-9-]+$/.test(urlPath))) {
               req.url = `${urlPath}/index.html`;
             }
             next();
@@ -22,6 +24,15 @@ export default defineConfig(() => {
         },
       },
     ],
+    build: {
+      rollupOptions: {
+        input: {
+          home: path.resolve(__dirname, 'index.html'),
+          piano: path.resolve(__dirname, 'piano.html'),
+          rhymes: path.resolve(__dirname, 'rhymes.html'),
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

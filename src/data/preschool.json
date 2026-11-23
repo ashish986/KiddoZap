@@ -1,0 +1,62 @@
+[
+  {
+    "id": "abc-garden", "title": "ABC Garden", "category": "Letters", "group": "Learn", "color": "lilac", "icon": "A",
+    "art": "/assets/preschool/letters.webp",
+    "description": "See a picture, say its name and find the letter it starts with.",
+    "instruction": "Say the picture name. Pick its first letter.",
+    "skill": "This game connects familiar picture names to English capital letters. Say “apple” together, then repeat the first sound slowly before looking for A. Each visit offers a new set of words from A to Z.",
+    "parent": "Start with three familiar items, such as a cup, a ball and a book. Name each item together. Ask which two begin alike, then write B beside the ball and book. If your child is unsure, say the words for them and try one more time together.",
+    "example": "For X, the game uses “xylophone.” Its first sound in English is usually like Z, even though it starts with the written letter X.",
+    "next": "counting-basket"
+  },
+  {
+    "id": "counting-basket", "title": "Counting Basket", "category": "Numbers 1–10", "group": "Learn", "color": "peach", "icon": "123",
+    "art": "/assets/home/math.webp",
+    "description": "Tap fruit to keep your place, then choose how many you counted.",
+    "instruction": "Tap each fruit once. How many are there?",
+    "skill": "Each round has one to ten pieces of fruit. A check appears when you tap a piece, so it is easier to keep track. The last number said tells you how many pieces are in the whole group.",
+    "parent": "Put three spoons on a table and move each spoon to a second pile as you count. Ask “How many altogether?” Then spread the same spoons farther apart and count again. The answer stays three because the group has the same objects.",
+    "example": "For a child just getting started, cover a larger group with your hand and count only the items you uncover together.",
+    "next": "shape-picnic"
+  },
+  {
+    "id": "shape-picnic", "title": "Shape Picnic", "category": "Shape puzzle", "group": "Learn", "color": "mint", "icon": "▲",
+    "art": "/assets/preschool/shapes.webp",
+    "description": "Find the piece that fits each picnic mat outline.",
+    "instruction": "Pick the shape that fits the outline.",
+    "skill": "Compare the silhouette on the mat with three solid pieces. Children can use a corner or a curved edge as a clue. Color changes between pieces, so the outline tells you what fits.",
+    "parent": "Trace around a cup and a small box on paper. Set the cup and box beside the outlines and let your child match them. Turn the box and ask them to compare the corners again. Try finding a circle, square or rectangle elsewhere in the room.",
+    "example": "To tell a square from a rectangle in this game, compare the sides. The square has four equal sides and the rectangle shown here has two longer sides.",
+    "next": "pattern-picnic"
+  },
+  {
+    "id": "pattern-picnic", "title": "Pattern Picnic", "category": "What comes next?", "group": "Learn", "color": "sky", "icon": "✦",
+    "art": "/assets/home/puzzle.webp",
+    "description": "Spot what repeats and pick the picture that comes next.",
+    "instruction": "Say the pictures in order. What comes next?",
+    "skill": "Listen to the same small group of pictures repeat. Some rounds alternate two pictures, while others repeat a group of three. Saying the pictures out loud can make the repeating part easier to notice.",
+    "parent": "Line up two kinds of safe household objects, such as sock, spoon, sock, spoon. Ask your child to add the next item. Switch roles and let them make a pattern for you to finish. If your child is ready, try sock, sock, spoon as the part that repeats.",
+    "example": "When you see apple, leaf, apple, leaf, the repeating group is apple–leaf. Start that group again with an apple.",
+    "next": "picture-pairs"
+  },
+  {
+    "id": "picture-pairs", "title": "Picture Pairs", "category": "Memory game", "group": "Fun", "color": "lilac", "icon": "🐻",
+    "art": "/assets/home/memory.webp",
+    "description": "Flip two cards at a time and find four matching animals.",
+    "instruction": "Turn over two cards. Find the matching animals.",
+    "skill": "Each board hides four pairs of animals. Say each animal name when you turn a card over. Remember its place with clues such as “top corner” or “beside the cat.”",
+    "parent": "Draw two simple stars, two circles and two hearts on separate scraps of paper. Mix them, then lay them face down. Start with two pairs if four feels like too much. Let your child pick one card for you and describe where it was.",
+    "example": "If two cards differ, they turn back over. You can use what you saw to make the next choice.",
+    "next": "firefly-meadow"
+  },
+  {
+    "id": "firefly-meadow", "title": "Firefly Meadow", "category": "Tap & play", "group": "Fun", "color": "mint", "icon": "✧",
+    "art": "/assets/preschool/meadow.webp",
+    "description": "Find a glowing firefly in the meadow and light up six lanterns.",
+    "instruction": "Tap the glowing firefly to light a lantern.",
+    "skill": "One firefly appears at a time and stays until you find it. Look across the meadow, then tap its spot. Each new firefly lights another lantern.",
+    "parent": "Try a gentle follow-the-light activity indoors. Point to one picture in a book, wait for your child to find it, then let them choose a picture for you to spot. Take turns following a point from left to right and top to bottom.",
+    "example": "You can take a break between fireflies. The meadow has no timer.",
+    "next": "abc-garden"
+  }
+]
