@@ -124,8 +124,7 @@ export function HomePage() {
             <a href="/articles">Articles</a>
             <a href="/tools">Tools</a>
             <a href="/about">About</a>
-            <a href="/privacypolicy">Website privacy</a>
-            <a href="/privacy">App privacy</a>
+            <a href="/privacypolicy">Privacy</a>
             <a href="/terms">Terms</a>
             <a href="/contact">Contact</a>
           </nav>
